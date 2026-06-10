@@ -24,43 +24,148 @@ const services = [
     tags: ['E-SYS Coding', 'ISTA Diagnóstico', 'Retrofits', 'Hidden Features'],
   },
 ];
+
+const navItems = [
+  { code: '000-00', label: 'INICIO', href: '#hero' },
+  { code: '001-00', label: 'SERVICIOS', href: '#servicios' },
+  { code: '001A-00', label: 'GRUPO VAG', href: '#servicios', sub: true },
+  { code: '001B-00', label: 'BMW', href: '#servicios', sub: true },
+  { code: '002-00', label: 'POR QUÉ DANI CODING', href: '#diferenciadores' },
+  { code: '003-00', label: 'CONTACTO', href: '#contacto' },
+];
+
+const indexItems = [
+  { code: '000-00', label: 'INICIO', section: 'hero' },
+  { code: '001-00', label: 'SERVICIOS', section: 'servicios' },
+  { code: '002-00', label: 'POR QUÉ', section: 'diferenciadores' },
+  { code: '003-00', label: 'CONTACTO', section: 'contacto' },
+];
 ---
 
 <Layout>
+
+  <!-- OVERLAY MENÚ -->
+  <div
+    id="nav-overlay"
+    class="fixed inset-0 z-40 flex flex-col justify-between px-6 py-8 pointer-events-none"
+    style="background-color: var(--color-surface); opacity: 0; transition: opacity 0.3s ease;"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between">
+      <span class="font-display font-bold text-lg tracking-tight">
+        Dani<span style="color: var(--color-brand)">Coding</span>
+      </span>
+      <button
+        id="menu-close"
+        class="label-editorial flex items-center gap-2 text-white"
+        aria-label="Cerrar menú"
+      >
+        <span style="font-size: 1.2rem; line-height: 1;">×</span>
+        CERRAR
+      </button>
+    </div>
+
+    <nav class="flex flex-col gap-1 mt-12">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="overlay-link flex items-baseline gap-5 py-3 group transition-colors duration-150"
+          style={`border-bottom: 1px solid var(--color-border); padding-left: ${item.sub ? '2rem' : '0'};`}
+        >
+          <span
+            class="font-mono shrink-0"
+            style="font-size: 0.6rem; letter-spacing: 0.15em; color: var(--color-muted); min-width: 4.5rem;"
+          >
+            {item.sub ? '└ ' : ''}{item.code}
+          </span>
+          <span
+            class="font-display font-bold transition-colors duration-150 group-hover:text-[var(--color-brand)]"
+            style={`font-size: ${item.sub ? '1.1rem' : '1.6rem'}; letter-spacing: -0.02em;`}
+          >
+            {item.label}
+          </span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="mt-auto pt-8">
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="overlay-link inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 transition-opacity hover:opacity-80"
+        style="background-color: var(--color-brand); color: #000;"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Cotizar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- ÍNDICE LATERAL (desktop) -->
+  <aside
+    id="section-index"
+    class="fixed right-6 top-1/2 z-30 -translate-y-1/2 flex-col gap-4 hidden lg:flex"
+    aria-label="Navegación de secciones"
+  >
+    {indexItems.map((item) => (
+      <a
+        href={`#${item.section}`}
+        data-section={item.section}
+        class="index-item flex items-center gap-3 group"
+        aria-label={item.label}
+      >
+        <span
+          class="index-label label-editorial text-right transition-all duration-200 opacity-0 group-hover:opacity-100 whitespace-nowrap"
+          style="color: var(--color-muted-light); transform: translateX(4px); transition: opacity 0.2s, transform 0.2s;"
+        >
+          {item.code}
+        </span>
+        <span
+          class="index-dot block w-px transition-all duration-200"
+          style="height: 20px; background-color: var(--color-muted);"
+        ></span>
+      </a>
+    ))}
+  </aside>
+
   <!-- NAV -->
   <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5">
     <span class="font-display font-bold text-lg tracking-tight">
       Dani<span style="color: var(--color-brand)">Coding</span>
     </span>
-    <div class="flex items-center gap-6">
-      <nav class="hidden md:flex items-center gap-8">
-        <a href="#servicios" class="label-editorial hover:text-white transition-colors">Servicios</a>
-        <a href="#contacto" class="label-editorial hover:text-white transition-colors">Contacto</a>
-      </nav>
+    <div class="flex items-center gap-4">
       <a
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        class="label-editorial text-white border px-4 py-2 hover:border-white/60 transition-colors duration-200"
+        class="label-editorial text-white border px-4 py-2 hover:border-white/60 transition-colors duration-200 hidden sm:inline-flex"
         style="border-color: var(--color-border-light);"
       >
         + Cotizar
       </a>
+      <button
+        id="menu-open"
+        class="label-editorial flex items-center gap-2 text-white border px-4 py-2 transition-colors duration-200 hover:border-white/60"
+        style="border-color: var(--color-border-light);"
+        aria-label="Abrir menú"
+      >
+        <span class="hidden sm:inline">MENÚ</span>
+        <span style="font-size: 1rem; line-height: 1;">≡</span>
+      </button>
     </div>
   </header>
 
   <main>
     <!-- HERO -->
-    <section class="min-h-screen flex flex-col justify-end px-6 pb-24 pt-32 relative overflow-hidden" style="background-color: var(--color-surface);">
-
-      <!-- Número de fondo decorativo -->
+    <section id="hero" class="min-h-screen flex flex-col justify-end px-6 pb-24 pt-32 relative overflow-hidden" style="background-color: var(--color-surface);">
       <span
         class="absolute right-6 top-1/2 -translate-y-1/2 font-display font-bold select-none pointer-events-none hidden lg:block"
         style="font-size: clamp(12rem, 22vw, 20rem); color: var(--color-border); line-height: 1; letter-spacing: -0.05em;"
         aria-hidden="true"
-      >
-        DC
-      </span>
+      >DC</span>
 
       <div class="max-w-5xl mx-auto w-full relative z-10">
         <div class="flex items-center gap-4 mb-10">
@@ -68,13 +173,11 @@ const services = [
           <span style="color: var(--color-border-light);">/</span>
           <span class="label-editorial">Nivel concesionario</span>
         </div>
-
         <h1 class="font-display font-bold leading-none tracking-tighter mb-10" style="font-size: clamp(3rem, 9vw, 7.5rem);">
           Diagnóstico<br />
           <span style="color: var(--color-brand);">&amp; codificación</span><br />
           de élite.
         </h1>
-
         <div class="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
           <a
             href={WHATSAPP_URL}
@@ -114,35 +217,23 @@ const services = [
           <span class="label-editorial" style="color: var(--color-brand);">+</span>
           <span class="label-editorial">S E R V I C I O S</span>
         </div>
-
         <div class="grid md:grid-cols-2 gap-px" style="background-color: var(--color-border);">
           {services.map((s) => (
             <div class="p-10 flex flex-col gap-6 relative" style="background-color: var(--color-surface);">
-              <!-- Corner markers -->
               <div class="corner-mark corner-mark-tl"></div>
               <div class="corner-mark corner-mark-br"></div>
-
               <div class="flex items-start justify-between">
-                <span class="font-mono text-xs tracking-widest" style="color: var(--color-muted); font-size: 0.6rem; letter-spacing: 0.2em;">
-                  {s.code}
-                </span>
-                <span class="label-editorial px-3 py-1 border" style="border-color: var(--color-border-light);">
-                  {s.software}
-                </span>
+                <span class="font-mono" style="font-size: 0.6rem; letter-spacing: 0.2em; color: var(--color-muted);">{s.code}</span>
+                <span class="label-editorial px-3 py-1 border" style="border-color: var(--color-border-light);">{s.software}</span>
               </div>
-
               <div>
                 <h2 class="font-display font-bold text-3xl mb-1">{s.brand}</h2>
                 <p class="label-editorial" style="color: var(--color-muted-light);">{s.models}</p>
               </div>
-
               <p class="text-sm leading-relaxed" style="color: #999999;">{s.description}</p>
-
               <div class="flex flex-wrap gap-2 mt-auto pt-5" style="border-top: 1px solid var(--color-border);">
                 {s.tags.map((tag) => (
-                  <span class="label-editorial px-3 py-1" style="background-color: var(--color-surface-2); color: var(--color-muted-light);">
-                    + {tag}
-                  </span>
+                  <span class="label-editorial px-3 py-1" style="background-color: var(--color-surface-2); color: var(--color-muted-light);">+ {tag}</span>
                 ))}
               </div>
             </div>
@@ -166,7 +257,7 @@ const services = [
     </div>
 
     <!-- POR QUÉ -->
-    <section class="px-6 py-24" style="background-color: var(--color-surface-1);">
+    <section id="diferenciadores" class="px-6 py-24" style="background-color: var(--color-surface-1);">
       <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
         <div>
           <div class="flex items-center gap-4 mb-8">
@@ -181,7 +272,6 @@ const services = [
             Los concesionarios cobran horas de mano de obra por servicios que con el software correcto toman minutos. Usamos exactamente las mismas herramientas que la red oficial, sin intermediarios y sin costos inflados.
           </p>
         </div>
-
         <div style="border: 1px solid var(--color-border);">
           {[
             ['01', 'Software oficial de fábrica', 'ODIS, ISTA-D y E-SYS — no herramientas genéricas'],
@@ -189,9 +279,9 @@ const services = [
             ['03', 'Activación de funciones', 'Features bloqueados de fábrica habilitados vía software'],
             ['04', 'Más marcas próximamente', 'Expansión continua a otras marcas premium'],
           ].map(([num, title, desc]) => (
-            <div class="px-6 py-5 relative group" style="border-bottom: 1px solid var(--color-border);">
+            <div class="px-6 py-5" style="border-bottom: 1px solid var(--color-border);">
               <div class="flex items-start gap-4">
-                <span class="font-mono text-xs mt-0.5 shrink-0" style="color: var(--color-muted); font-size: 0.6rem; letter-spacing: 0.15em;">{num}</span>
+                <span class="font-mono shrink-0 mt-0.5" style="font-size: 0.6rem; letter-spacing: 0.15em; color: var(--color-muted);">{num}</span>
                 <div>
                   <p class="text-sm font-medium mb-1">{title}</p>
                   <p class="label-editorial" style="color: var(--color-muted);">{desc}</p>
@@ -219,26 +309,20 @@ const services = [
 
     <!-- CONTACTO -->
     <section id="contacto" class="px-6 py-32 relative overflow-hidden" style="background-color: var(--color-surface);">
-
-      <!-- Línea vertical decorativa -->
       <div class="absolute left-1/2 top-0 bottom-0 w-px hidden lg:block" style="background: linear-gradient(to bottom, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);"></div>
-
       <div class="max-w-2xl mx-auto text-center relative z-10">
         <div class="flex items-center justify-center gap-4 mb-10">
           <span class="label-editorial" style="color: var(--color-brand);">+</span>
           <span class="label-editorial">C O N T A C T O</span>
           <span class="label-editorial" style="color: var(--color-brand);">+</span>
         </div>
-
         <h2 class="font-display font-bold leading-none tracking-tighter mb-4" style="font-size: clamp(2.5rem, 7vw, 5rem);">
           ¿Tu auto necesita<br />
           <span style="color: var(--color-brand);">programación?</span>
         </h2>
-
         <p class="text-sm mb-10" style="color: var(--color-muted-light);">
           Escríbenos directamente.<br/>Respondemos en menos de 1 hora.
         </p>
-
         <a
           href={WHATSAPP_URL}
           target="_blank"
@@ -276,4 +360,69 @@ const services = [
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
   </a>
+
 </Layout>
+
+<script>
+  // Overlay menu
+  const overlay = document.getElementById('nav-overlay')!;
+  const openBtn = document.getElementById('menu-open')!;
+  const closeBtn = document.getElementById('menu-close')!;
+
+  function openMenu() {
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'auto';
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  openBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+
+  // Cerrar al hacer click en un link del overlay
+  overlay.querySelectorAll('.overlay-link').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Cerrar con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Índice lateral — IntersectionObserver
+  const sections = ['hero', 'servicios', 'diferenciadores', 'contacto'];
+  const indexLinks = document.querySelectorAll<HTMLElement>('.index-item');
+
+  function setActive(sectionId: string) {
+    indexLinks.forEach((link) => {
+      const dot = link.querySelector<HTMLElement>('.index-dot')!;
+      const label = link.querySelector<HTMLElement>('.index-label')!;
+      const isActive = link.dataset.section === sectionId;
+
+      dot.style.backgroundColor = isActive ? 'var(--color-brand)' : 'var(--color-muted)';
+      dot.style.height = isActive ? '32px' : '20px';
+      label.style.color = isActive ? 'var(--color-brand)' : 'var(--color-muted-light)';
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  sections.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>

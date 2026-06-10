@@ -364,6 +364,20 @@ const indexItems = [
 </Layout>
 
 <script>
+  // Header background on scroll
+  const headerEl = document.querySelector('header')!;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      headerEl.style.backgroundColor = 'rgba(10,10,10,0.92)';
+      headerEl.style.backdropFilter = 'blur(12px)';
+      headerEl.style.borderBottom = '1px solid var(--color-border)';
+    } else {
+      headerEl.style.backgroundColor = 'transparent';
+      headerEl.style.backdropFilter = 'none';
+      headerEl.style.borderBottom = 'none';
+    }
+  }, { passive: true });
+
   // Overlay menu
   const overlay = document.getElementById('nav-overlay')!;
   const header = document.querySelector('header')!;

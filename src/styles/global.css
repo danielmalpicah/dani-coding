@@ -3,13 +3,16 @@
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   --color-brand: #e8ff47;
   --color-surface: #0a0a0a;
   --color-surface-1: #111111;
   --color-surface-2: #1a1a1a;
-  --color-muted: #6b6b6b;
-  --color-border: #222222;
+  --color-muted: #5a5a5a;
+  --color-muted-light: #888888;
+  --color-border: #1e1e1e;
+  --color-border-light: #2a2a2a;
 }
 
 html {
@@ -25,4 +28,32 @@ body {
 ::selection {
   background-color: var(--color-brand);
   color: #000000;
+}
+
+/* Label editorial — caps + tracking extremo */
+.label-editorial {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Corner marker — bracket de esquina */
+.corner-mark {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--color-muted);
+  border-style: solid;
+}
+.corner-mark-tl {
+  top: 14px;
+  left: 14px;
+  border-width: 1px 0 0 1px;
+}
+.corner-mark-br {
+  bottom: 14px;
+  right: 14px;
+  border-width: 0 1px 1px 0;
 }

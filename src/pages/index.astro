@@ -79,8 +79,8 @@ const indexItems = [
             {item.sub ? '└ ' : ''}{item.code}
           </span>
           <span
-            class="font-display font-bold transition-colors duration-150 group-hover:text-[var(--color-brand)]"
-            style={`font-size: ${item.sub ? '1.1rem' : '1.6rem'}; letter-spacing: -0.02em;`}
+            class="font-mono font-bold text-white transition-colors duration-150 group-hover:text-[#e8ff47]"
+            style={`font-size: ${item.sub ? '1rem' : '1.5rem'}; letter-spacing: 0.02em;`}
           >
             {item.label}
           </span>
@@ -366,6 +366,7 @@ const indexItems = [
 <script>
   // Overlay menu
   const overlay = document.getElementById('nav-overlay')!;
+  const header = document.querySelector('header')!;
   const openBtn = document.getElementById('menu-open')!;
   const closeBtn = document.getElementById('menu-close')!;
 
@@ -373,6 +374,8 @@ const indexItems = [
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'auto';
     overlay.setAttribute('aria-hidden', 'false');
+    header.style.opacity = '0';
+    header.style.pointerEvents = 'none';
     document.body.style.overflow = 'hidden';
   }
 
@@ -380,6 +383,8 @@ const indexItems = [
     overlay.style.opacity = '0';
     overlay.style.pointerEvents = 'none';
     overlay.setAttribute('aria-hidden', 'true');
+    header.style.opacity = '1';
+    header.style.pointerEvents = 'auto';
     document.body.style.overflow = '';
   }
 

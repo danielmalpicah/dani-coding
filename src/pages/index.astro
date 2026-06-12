@@ -175,6 +175,20 @@ const gallery = [
           </a>
           <span class="label-editorial" style="color: var(--color-muted);">Respuesta en menos de 1 hora</span>
         </div>
+
+        <!-- Stats -->
+        <div class="flex flex-wrap gap-px mt-16 w-full" style="border-top: 1px solid var(--color-border);">
+          {[
+            ['50+', 'Vehículos programados'],
+            ['2',   'Marcas · VAG · BMW'],
+            ['7',   'Días a la semana'],
+          ].map(([num, label], i) => (
+            <div class="fade-up flex flex-col gap-1 pt-6 pr-10" data-delay={String(i + 1)}>
+              <span class="font-display font-bold" style="font-size: 2.5rem; line-height: 1; color: var(--color-brand);">{num}</span>
+              <span class="label-editorial" style="color: var(--color-muted);">{label}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -191,13 +205,13 @@ const gallery = [
     <!-- SERVICIOS -->
     <section id="servicios" class="px-6 py-24" style="background-color: var(--color-surface);">
       <div class="max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-14">
+        <div class="fade-up flex items-center gap-4 mb-14">
           <span class="label-editorial" style="color: var(--color-brand);">+</span>
           <span class="label-editorial">S E R V I C I O S</span>
         </div>
         <div class="grid md:grid-cols-2 gap-px" style="background-color: var(--color-border);">
-          {services.map((s) => (
-            <div class="p-10 flex flex-col gap-6 relative" style="background-color: var(--color-surface);">
+          {services.map((s, i) => (
+            <div class="fade-up p-10 flex flex-col gap-6 relative" data-delay={String(i + 1)} style="background-color: var(--color-surface);">
               <div class="corner-mark corner-mark-tl"></div>
               <div class="corner-mark corner-mark-br"></div>
               <div class="flex items-start justify-between">
@@ -223,13 +237,13 @@ const gallery = [
     <!-- GALERÍA -->
     <section id="galeria" class="px-6 py-24" style="background-color: var(--color-surface-1);">
       <div class="max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-14">
+        <div class="fade-up flex items-center gap-4 mb-14">
           <span class="label-editorial" style="color: var(--color-brand);">+</span>
           <span class="label-editorial">G A L E R Í A</span>
         </div>
         <div class="grid md:grid-cols-3 gap-px" style="background-color: var(--color-border);">
           {gallery.map((img, i) => (
-            <div class="relative overflow-hidden group" style="background-color: var(--color-surface-2); aspect-ratio: 3/4;">
+            <div class="fade-up relative overflow-hidden group" data-delay={String(i + 1)} style="background-color: var(--color-surface-2); aspect-ratio: 3/4;">
               <img
                 src={img.src}
                 alt={img.caption}
@@ -260,14 +274,14 @@ const gallery = [
     <!-- PROCESO -->
     <section id="proceso" class="px-6 py-24" style="background-color: var(--color-surface);">
       <div class="max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-14">
+        <div class="fade-up flex items-center gap-4 mb-14">
           <span class="label-editorial" style="color: var(--color-brand);">+</span>
           <span class="label-editorial">C Ó M O   F U N C I O N A</span>
         </div>
 
         <div class="grid md:grid-cols-2 gap-px mb-px" style="background-color: var(--color-border);">
           <!-- Particulares -->
-          <div class="p-10 relative" style="background-color: var(--color-surface);">
+          <div class="fade-up p-10 relative" data-delay="1" style="background-color: var(--color-surface);">
             <div class="corner-mark corner-mark-tl"></div>
             <div class="flex items-center gap-3 mb-6">
               <span class="font-mono" style="font-size: 0.6rem; letter-spacing: 0.15em; color: var(--color-muted);">003-A</span>
@@ -288,7 +302,7 @@ const gallery = [
           </div>
 
           <!-- Talleres -->
-          <div class="p-10 relative" style="background-color: var(--color-surface);">
+          <div class="fade-up p-10 relative" data-delay="2" style="background-color: var(--color-surface);">
             <div class="corner-mark corner-mark-tl"></div>
             <div class="flex items-center gap-3 mb-6">
               <span class="font-mono" style="font-size: 0.6rem; letter-spacing: 0.15em; color: var(--color-muted);">003-B</span>
@@ -366,7 +380,7 @@ const gallery = [
           <span class="label-editorial">C O B E R T U R A   &amp;   H O R A R I O</span>
         </div>
         <div class="grid md:grid-cols-3 gap-px" style="background-color: var(--color-border);">
-          <div class="px-8 py-10 relative" style="background-color: var(--color-surface);">
+          <div class="fade-up px-8 py-10 relative" data-delay="1" style="background-color: var(--color-surface);">
             <div class="corner-mark corner-mark-tl"></div>
             <p class="font-mono mb-2" style="font-size: 0.55rem; letter-spacing: 0.15em; color: var(--color-muted);">005-A · UBICACIÓN</p>
             <p class="font-display font-bold text-xl mb-3">Taller</p>
@@ -375,7 +389,7 @@ const gallery = [
               Texcoco, Estado de México
             </p>
           </div>
-          <div class="px-8 py-10 relative" style="background-color: var(--color-surface);">
+          <div class="fade-up px-8 py-10 relative" data-delay="2" style="background-color: var(--color-surface);">
             <div class="corner-mark corner-mark-tl"></div>
             <p class="font-mono mb-2" style="font-size: 0.55rem; letter-spacing: 0.15em; color: var(--color-muted);">005-B · COBERTURA</p>
             <p class="font-display font-bold text-xl mb-3">Zona de servicio</p>
@@ -384,7 +398,7 @@ const gallery = [
               <span style="color: var(--color-muted);">Servicio a domicilio para talleres</span>
             </p>
           </div>
-          <div class="px-8 py-10 relative" style="background-color: var(--color-surface);">
+          <div class="fade-up px-8 py-10 relative" data-delay="3" style="background-color: var(--color-surface);">
             <div class="corner-mark corner-mark-tl"></div>
             <p class="font-mono mb-2" style="font-size: 0.55rem; letter-spacing: 0.15em; color: var(--color-muted);">005-C · HORARIO</p>
             <p class="font-display font-bold text-xl mb-3">Disponibilidad</p>
@@ -500,6 +514,21 @@ const gallery = [
   closeBtn.addEventListener('click', closeMenu);
   overlay.querySelectorAll('.overlay-link').forEach((link) => link.addEventListener('click', closeMenu));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+  // Scroll animations
+  const fadeEls = document.querySelectorAll<HTMLElement>('.fade-up');
+  const fadeObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('is-visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  fadeEls.forEach((el) => fadeObserver.observe(el));
 
   // Índice lateral
   const sections = ['hero', 'servicios', 'galeria', 'proceso', 'diferenciadores', 'cobertura', 'contacto'];

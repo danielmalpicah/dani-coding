@@ -1,0 +1,23 @@
+---
+import { WHATSAPP_URL } from '../lib/site';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+
+interface Props {
+  class?: string;
+  iconSize?: number;
+  ariaLabel?: string;
+}
+
+const { class: className = '', iconSize = 16, ariaLabel } = Astro.props;
+---
+
+<a
+  href={WHATSAPP_URL}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={className}
+  aria-label={ariaLabel}
+>
+  <WhatsAppIcon size={iconSize} />
+  <slot />
+</a>

@@ -1,39 +1,59 @@
 ---
+import { SITE } from '../lib/site';
+
 interface Props {
   title?: string;
   description?: string;
 }
 
-const {
-  title = 'Dani Coding — Programación Automotriz Nivel Concesionario | Texcoco, EDOMEX',
-  description = 'Programación automotriz nivel concesionario en Texcoco, Estado de México. ODIS para Volkswagen, Audi, Seat y Skoda. ISTA + E-SYS para BMW. Servicio a domicilio en CDMX y Área Metropolitana.',
-} = Astro.props;
+const { title = SITE.title, description = SITE.description } = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "AutoRepair",
-  "name": "Dani Coding",
-  "description": "Programación automotriz nivel concesionario. ODIS para Grupo VAG, ISTA y E-SYS para BMW.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Lomas de Cristo",
-    "addressLocality": "Texcoco",
-    "addressRegion": "Estado de México",
-    "addressCountry": "MX"
+  '@context': 'https://schema.org',
+  '@type': 'AutoRepair',
+  name: SITE.name,
+  url: SITE.url,
+  description:
+    'Programación automotriz nivel concesionario. ODIS para Grupo VAG, ISTA y E-SYS para BMW.',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Lomas de Cristo',
+    addressLocality: 'Texcoco',
+    addressRegion: 'Estado de México',
+    addressCountry: 'MX',
   },
-  "areaServed": ["Texcoco", "Estado de México", "Ciudad de México", "Zona Metropolitana del Valle de México"],
-  "openingHours": "Mo-Su 00:00-23:59",
-  "telephone": "+525542868902",
-  "priceRange": "$$",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Servicios de programación automotriz",
-    "itemListElement": [
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Programación Grupo VAG con ODIS Engineering" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Programación BMW con ISTA y E-SYS" } }
-    ]
-  }
+  areaServed: [
+    'Texcoco',
+    'Estado de México',
+    'Ciudad de México',
+    'Zona Metropolitana del Valle de México',
+  ],
+  openingHours: 'Mo-Su 00:00-23:59',
+  telephone: SITE.phone,
+  priceRange: '$$',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de programación automotriz',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Programación Grupo VAG con ODIS Engineering',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: 'Programación BMW con ISTA y E-SYS' },
+      },
+    ],
+  },
 };
+
+// Escapar `<` previene cierre prematuro del tag script si algún dato llegara a contenerlo
+const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -42,7 +62,10 @@ const jsonLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="programación automotriz Texcoco, programación ECU CDMX, ODIS Volkswagen Audi México, ISTA BMW México, codificación BMW CDMX, programación VAG Estado de México, diagnóstico automotriz nivel concesionario" />
+    <meta
+      name="keywords"
+      content="programación automotriz Texcoco, programación ECU CDMX, ODIS Volkswagen Audi México, ISTA BMW México, codificación BMW CDMX, programación VAG Estado de México, diagnóstico automotriz nivel concesionario"
+    />
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="robots" content="index, follow" />
     <meta name="geo.region" content="MX-MEX" />
@@ -53,12 +76,15 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
+    {canonical && <meta property="og:url" content={canonical} />}
+
+    {canonical && <link rel="canonical" href={canonical} />}
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- JSON-LD -->
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline type="application/ld+json" set:html={jsonLdSafe} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

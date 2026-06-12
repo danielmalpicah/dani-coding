@@ -1,553 +1,463 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import SlashDivider from '../components/SlashDivider.astro';
+import WhatsAppCta from '../components/WhatsAppCta.astro';
+import {
+  DIFFERENTIATORS,
+  GALLERY,
+  INDEX_ITEMS,
+  NAV_ITEMS,
+  PROCESS_PARTICULARES,
+  PROCESS_TALLERES,
+  SERVICES,
+  STATS,
+} from '../lib/site';
 import '../styles/global.css';
-
-const WHATSAPP_NUMBER = '525542868902';
-const WHATSAPP_MSG = encodeURIComponent('Hola, me interesa una cotización para programación automotriz.');
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`;
-
-const services = [
-  {
-    code: 'VAG·001',
-    brand: 'Grupo VAG',
-    models: 'Volkswagen · Audi · Seat · Skoda',
-    software: 'ODIS Engineering',
-    description: 'Diagnóstico, codificación, adaptaciones y programación de módulos con el mismo software que usa la red oficial de concesionarios VAG.',
-    tags: ['Codificación', 'Adaptaciones', 'Flash ECU', 'Activación de funciones'],
-  },
-  {
-    code: 'BMW·002',
-    brand: 'BMW',
-    models: 'BMW · Mini',
-    software: 'ISTA-D · E-SYS',
-    description: 'Diagnóstico integral con ISTA y programación/codificación profunda de módulos con E-SYS. Funciones ocultas, retrofits y actualizaciones de software.',
-    tags: ['E-SYS Coding', 'ISTA Diagnóstico', 'Retrofits', 'Hidden Features'],
-  },
-];
-
-const navItems = [
-  { code: '000-00', label: 'INICIO',          href: '#hero' },
-  { code: '001-00', label: 'SERVICIOS',        href: '#servicios' },
-  { code: '001A-00', label: 'GRUPO VAG',       href: '#servicios', sub: true },
-  { code: '001B-00', label: 'BMW',             href: '#servicios', sub: true },
-  { code: '002-00', label: 'GALERÍA',          href: '#galeria' },
-  { code: '003-00', label: 'PROCESO',          href: '#proceso' },
-  { code: '004-00', label: 'POR QUÉ DANI CODING', href: '#diferenciadores' },
-  { code: '005-00', label: 'COBERTURA',        href: '#cobertura' },
-  { code: '006-00', label: 'CONTACTO',         href: '#contacto' },
-];
-
-const indexItems = [
-  { code: '000-00', label: 'INICIO',     section: 'hero' },
-  { code: '001-00', label: 'SERVICIOS',  section: 'servicios' },
-  { code: '002-00', label: 'GALERÍA',    section: 'galeria' },
-  { code: '003-00', label: 'PROCESO',    section: 'proceso' },
-  { code: '004-00', label: 'POR QUÉ',   section: 'diferenciadores' },
-  { code: '005-00', label: 'COBERTURA', section: 'cobertura' },
-  { code: '006-00', label: 'CONTACTO',  section: 'contacto' },
-];
-
-const gallery = [
-  { src: '/images/ista-bmw.jpg',        caption: 'ISTA · BMW F22 Coupé' },
-  { src: '/images/vcds-vag.jpg',         caption: 'VCDS · Grupo VAG' },
-  { src: '/images/ista-diagnostico.jpg', caption: 'ISTA+ · Árbol de módulos' },
-];
 ---
 
 <Layout>
-
   <!-- OVERLAY MENÚ -->
   <div
     id="nav-overlay"
-    class="fixed inset-0 z-40 flex flex-col justify-between px-6 py-8 pointer-events-none"
-    style="background-color: var(--color-surface); opacity: 0; transition: opacity 0.3s ease;"
+    class="fixed inset-0 z-40 flex flex-col justify-between px-6 py-8 bg-surface"
     aria-hidden="true"
   >
     <div class="flex items-center justify-between">
       <span class="font-display font-bold text-lg tracking-tight">
-        Dani<span style="color: var(--color-brand)">Coding</span>
+        Dani<span class="text-brand">Coding</span>
       </span>
       <button id="menu-close" class="label-editorial flex items-center gap-2 text-white" aria-label="Cerrar menú">
-        <span style="font-size: 1.2rem; line-height: 1;">×</span>
+        <span class="text-xl leading-none">×</span>
         CERRAR
       </button>
     </div>
 
     <nav class="flex flex-col gap-1 mt-8 overflow-y-auto">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class="overlay-link flex items-baseline gap-5 py-3 group transition-colors duration-150"
-          style={`border-bottom: 1px solid var(--color-border); padding-left: ${item.sub ? '2rem' : '0'};`}
-        >
-          <span class="font-mono shrink-0" style="font-size: 0.6rem; letter-spacing: 0.15em; color: var(--color-muted); min-width: 4.5rem;">
-            {item.sub ? '└ ' : ''}{item.code}
-          </span>
-          <span
-            class="font-mono font-bold text-white transition-colors duration-150 group-hover:text-[#e8ff47]"
-            style={`font-size: ${item.sub ? '1rem' : '1.5rem'}; letter-spacing: 0.02em;`}
+      {
+        NAV_ITEMS.map((item) => (
+          <a
+            href={item.href}
+            class:list={['flex items-baseline gap-5 py-3 group border-b border-border', item.sub && 'pl-8']}
           >
-            {item.label}
-          </span>
-        </a>
-      ))}
+            <span class="code-tag shrink-0 min-w-18">
+              {item.sub ? '└ ' : ''}
+              {item.code}
+            </span>
+            <span
+              class:list={[
+                'font-mono font-bold text-white transition-colors duration-150 group-hover:text-brand',
+                item.sub ? 'text-base' : 'text-2xl',
+              ]}
+            >
+              {item.label}
+            </span>
+          </a>
+        ))
+      }
     </nav>
 
     <div class="pt-6">
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="overlay-link inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 transition-opacity hover:opacity-80"
-        style="background-color: var(--color-brand); color: #000;"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
+      <WhatsAppCta class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity hover:opacity-80">
         Cotizar por WhatsApp
-      </a>
+      </WhatsAppCta>
     </div>
   </div>
 
   <!-- ÍNDICE LATERAL (desktop) -->
-  <aside id="section-index" class="fixed right-6 top-1/2 z-30 -translate-y-1/2 flex-col gap-4 hidden lg:flex" aria-label="Navegación">
-    {indexItems.map((item) => (
-      <a href={`#${item.section}`} data-section={item.section} class="index-item flex items-center gap-3 group" aria-label={item.label}>
-        <span class="index-label label-editorial text-right transition-all duration-200 opacity-0 group-hover:opacity-100 whitespace-nowrap" style="color: var(--color-muted-light);">
-          {item.code}
-        </span>
-        <span class="index-dot block w-px transition-all duration-200" style="height: 20px; background-color: var(--color-muted);"></span>
-      </a>
-    ))}
+  <aside class="fixed right-6 top-1/2 z-30 -translate-y-1/2 flex-col gap-4 hidden lg:flex" aria-label="Navegación de secciones">
+    {
+      INDEX_ITEMS.map((item) => (
+        <a href={`#${item.section}`} data-section={item.section} class="index-item flex items-center gap-3 group" aria-label={item.label}>
+          <span class="index-label label-editorial text-right transition-opacity duration-200 opacity-0 group-hover:opacity-100 whitespace-nowrap text-muted-light">
+            {item.code}
+          </span>
+          <span class="index-dot block w-px"></span>
+        </a>
+      ))
+    }
   </aside>
 
   <!-- NAV -->
-  <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 transition-all duration-300">
+  <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5">
     <span class="font-display font-bold text-lg tracking-tight">
-      Dani<span style="color: var(--color-brand)">Coding</span>
+      Dani<span class="text-brand">Coding</span>
     </span>
     <div class="flex items-center gap-4">
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="label-editorial text-white border px-4 py-2 hover:border-white/60 transition-colors duration-200 hidden sm:inline-flex"
-        style="border-color: var(--color-border-light);"
+      <WhatsAppCta
+        class="label-editorial text-white! border border-border-light px-4 py-2 hover:border-white/60 transition-colors duration-200 hidden sm:inline-flex items-center gap-2"
+        iconSize={12}
       >
-        + Cotizar
-      </a>
+        Cotizar
+      </WhatsAppCta>
       <button
         id="menu-open"
-        class="label-editorial flex items-center gap-2 text-white border px-4 py-2 transition-colors duration-200 hover:border-white/60"
-        style="border-color: var(--color-border-light);"
+        class="label-editorial flex items-center gap-2 text-white border border-border-light px-4 py-2 transition-colors duration-200 hover:border-white/60"
         aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="nav-overlay"
       >
         <span class="hidden sm:inline">MENÚ</span>
-        <span style="font-size: 1rem; line-height: 1;">≡</span>
+        <span class="text-base leading-none">≡</span>
       </button>
     </div>
   </header>
 
   <main>
     <!-- HERO -->
-    <section id="hero" class="min-h-screen flex flex-col justify-end px-6 pb-24 pt-32 relative overflow-hidden" style="background-color: var(--color-surface);">
-      <span class="absolute right-6 top-1/2 -translate-y-1/2 font-display font-bold select-none pointer-events-none hidden lg:block"
-        style="font-size: clamp(12rem, 22vw, 20rem); color: var(--color-border); line-height: 1; letter-spacing: -0.05em;" aria-hidden="true">DC</span>
+    <section id="hero" class="min-h-screen flex flex-col justify-end px-6 pb-24 pt-32 relative overflow-hidden bg-surface">
+      <span class="hero-watermark absolute right-6 top-1/2 -translate-y-1/2 font-display font-bold select-none pointer-events-none hidden lg:block" aria-hidden="true">
+        DC
+      </span>
+
       <div class="max-w-5xl mx-auto w-full relative z-10">
         <div class="flex items-center gap-4 mb-10">
           <span class="label-editorial">Programación automotriz</span>
-          <span style="color: var(--color-border-light);">/</span>
+          <span class="text-border-light">/</span>
           <span class="label-editorial">Nivel concesionario</span>
         </div>
-        <h1 class="font-display font-bold leading-none tracking-tighter mb-10" style="font-size: clamp(3rem, 9vw, 7.5rem);">
+
+        <h1 class="display-hero font-display font-bold leading-none tracking-tighter mb-10">
           Diagnóstico<br />
-          <span style="color: var(--color-brand);">&amp; codificación</span><br />
+          <span class="text-brand">&amp; codificación</span><br />
           de élite.
         </h1>
+
         <div class="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 transition-opacity duration-200 hover:opacity-80"
-            style="background-color: var(--color-brand); color: #000;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
+          <WhatsAppCta class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity duration-200 hover:opacity-80">
             Cotizar por WhatsApp
-          </a>
-          <span class="label-editorial" style="color: var(--color-muted);">Respuesta en menos de 1 hora</span>
+          </WhatsAppCta>
+          <span class="label-editorial">Respuesta en menos de 1 hora</span>
         </div>
 
         <!-- Stats -->
-        <div class="flex flex-wrap gap-px mt-16 w-full" style="border-top: 1px solid var(--color-border);">
-          {[
-            ['50+', 'Vehículos programados'],
-            ['2',   'Marcas · VAG · BMW'],
-            ['7',   'Días a la semana'],
-          ].map(([num, label], i) => (
-            <div class="fade-up flex flex-col gap-1 pt-6 pr-10" data-delay={String(i + 1)}>
-              <span class="font-display font-bold" style="font-size: 2.5rem; line-height: 1; color: var(--color-brand);">{num}</span>
-              <span class="label-editorial" style="color: var(--color-muted);">{label}</span>
-            </div>
-          ))}
+        <div class="flex flex-wrap gap-px mt-16 w-full border-t border-border">
+          {
+            STATS.map(([num, label], i) => (
+              <div class="fade-up flex flex-col gap-1 pt-6 pr-10" data-delay={String(i + 1)}>
+                <span class="font-display font-bold text-brand text-4xl leading-none">{num}</span>
+                <span class="label-editorial">{label}</span>
+              </div>
+            ))
+          }
         </div>
       </div>
     </section>
 
-    <!-- SLASH DIVIDER -->
-    <div class="w-full overflow-hidden" style="height: 48px; background-color: var(--color-surface);">
-      <svg viewBox="0 0 1440 48" preserveAspectRatio="none" width="100%" height="48">
-        <line x1="0" y1="48" x2="360" y2="0" stroke="#1e1e1e" stroke-width="1"/><line x1="120" y1="48" x2="480" y2="0" stroke="#1e1e1e" stroke-width="1"/>
-        <line x1="240" y1="48" x2="600" y2="0" stroke="#1e1e1e" stroke-width="1"/><line x1="560" y1="48" x2="920" y2="0" stroke="#1e1e1e" stroke-width="1"/>
-        <line x1="680" y1="48" x2="1040" y2="0" stroke="#1e1e1e" stroke-width="1"/><line x1="900" y1="48" x2="1260" y2="0" stroke="#1e1e1e" stroke-width="1"/>
-        <line x1="1020" y1="48" x2="1380" y2="0" stroke="#1e1e1e" stroke-width="1"/><line x1="1140" y1="48" x2="1500" y2="0" stroke="#1e1e1e" stroke-width="1"/>
-      </svg>
-    </div>
+    <SlashDivider direction="asc" class="bg-surface" />
 
     <!-- SERVICIOS -->
-    <section id="servicios" class="px-6 py-24" style="background-color: var(--color-surface);">
+    <section id="servicios" class="px-6 py-24 bg-surface">
       <div class="max-w-5xl mx-auto">
-        <div class="fade-up flex items-center gap-4 mb-14">
-          <span class="label-editorial" style="color: var(--color-brand);">+</span>
-          <span class="label-editorial">S E R V I C I O S</span>
-        </div>
-        <div class="grid md:grid-cols-2 gap-px" style="background-color: var(--color-border);">
-          {services.map((s, i) => (
-            <div class="fade-up p-10 flex flex-col gap-6 relative" data-delay={String(i + 1)} style="background-color: var(--color-surface);">
-              <div class="corner-mark corner-mark-tl"></div>
-              <div class="corner-mark corner-mark-br"></div>
-              <div class="flex items-start justify-between">
-                <span class="font-mono" style="font-size: 0.6rem; letter-spacing: 0.2em; color: var(--color-muted);">{s.code}</span>
-                <span class="label-editorial px-3 py-1 border" style="border-color: var(--color-border-light);">{s.software}</span>
-              </div>
-              <div>
-                <h2 class="font-display font-bold text-3xl mb-1">{s.brand}</h2>
-                <p class="label-editorial" style="color: var(--color-muted-light);">{s.models}</p>
-              </div>
-              <p class="text-sm leading-relaxed" style="color: #999999;">{s.description}</p>
-              <div class="flex flex-wrap gap-2 mt-auto pt-5" style="border-top: 1px solid var(--color-border);">
-                {s.tags.map((tag) => (
-                  <span class="label-editorial px-3 py-1" style="background-color: var(--color-surface-2); color: var(--color-muted-light);">+ {tag}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+        <SectionLabel label="Servicios" class="fade-up mb-14" />
+
+        <div class="grid md:grid-cols-2 gap-px bg-border">
+          {
+            SERVICES.map((s, i) => (
+              <article class="fade-up p-10 flex flex-col gap-6 relative bg-surface" data-delay={String(i + 1)}>
+                <div class="corner-mark corner-mark-tl" />
+                <div class="corner-mark corner-mark-br" />
+
+                <div class="flex items-start justify-between">
+                  <span class="code-tag">{s.code}</span>
+                  <span class="label-editorial px-3 py-1 border border-border-light">{s.software}</span>
+                </div>
+
+                <div>
+                  <h2 class="font-display font-bold text-3xl mb-1">{s.brand}</h2>
+                  <p class="label-editorial text-muted-light">{s.models}</p>
+                </div>
+
+                <p class="text-sm leading-relaxed text-muted-light">{s.description}</p>
+
+                <div class="flex flex-wrap gap-2 mt-auto pt-5 border-t border-border">
+                  {s.tags.map((tag) => (
+                    <span class="label-editorial px-3 py-1 bg-surface-2 text-muted-light">+ {tag}</span>
+                  ))}
+                </div>
+              </article>
+            ))
+          }
         </div>
       </div>
     </section>
 
     <!-- GALERÍA -->
-    <section id="galeria" class="px-6 py-24" style="background-color: var(--color-surface-1);">
+    <section id="galeria" class="px-6 py-24 bg-surface-1">
       <div class="max-w-5xl mx-auto">
-        <div class="fade-up flex items-center gap-4 mb-14">
-          <span class="label-editorial" style="color: var(--color-brand);">+</span>
-          <span class="label-editorial">G A L E R Í A</span>
-        </div>
-        <div class="grid md:grid-cols-3 gap-px" style="background-color: var(--color-border);">
-          {gallery.map((img, i) => (
-            <div class="fade-up relative overflow-hidden group" data-delay={String(i + 1)} style="background-color: var(--color-surface-2); aspect-ratio: 3/4;">
-              <img
-                src={img.src}
-                alt={img.caption}
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div class="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center justify-between"
-                style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
-                <span class="label-editorial text-white">{img.caption}</span>
-                <span class="font-mono" style="font-size: 0.55rem; color: var(--color-muted);">0{i + 1}</span>
-              </div>
-            </div>
-          ))}
+        <SectionLabel label="Galería" class="fade-up mb-14" />
+
+        <div class="grid md:grid-cols-3 gap-px bg-border">
+          {
+            GALLERY.map((img, i) => (
+              <figure class="fade-up relative overflow-hidden group bg-surface-2 aspect-3/4 m-0" data-delay={String(i + 1)}>
+                <img
+                  src={img.src}
+                  alt={img.caption}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption class="caption-gradient absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center justify-between">
+                  <span class="label-editorial text-white!">{img.caption}</span>
+                  <span class="code-tag">0{i + 1}</span>
+                </figcaption>
+              </figure>
+            ))
+          }
         </div>
       </div>
     </section>
 
-    <!-- SLASH DIVIDER -->
-    <div class="w-full overflow-hidden" style="height: 48px; background-color: var(--color-surface); margin-top: -1px;">
-      <svg viewBox="0 0 1440 48" preserveAspectRatio="none" width="100%" height="48">
-        <line x1="0" y1="0" x2="360" y2="48" stroke="#1a1a1a" stroke-width="1"/><line x1="120" y1="0" x2="480" y2="48" stroke="#1a1a1a" stroke-width="1"/>
-        <line x1="240" y1="0" x2="600" y2="48" stroke="#1a1a1a" stroke-width="1"/><line x1="560" y1="0" x2="920" y2="48" stroke="#1a1a1a" stroke-width="1"/>
-        <line x1="680" y1="0" x2="1040" y2="48" stroke="#1a1a1a" stroke-width="1"/><line x1="900" y1="0" x2="1260" y2="48" stroke="#1a1a1a" stroke-width="1"/>
-        <line x1="1020" y1="0" x2="1380" y2="48" stroke="#1a1a1a" stroke-width="1"/><line x1="1140" y1="0" x2="1500" y2="48" stroke="#1a1a1a" stroke-width="1"/>
-      </svg>
-    </div>
+    <SlashDivider direction="desc" class="bg-surface" />
 
     <!-- PROCESO -->
-    <section id="proceso" class="px-6 py-24" style="background-color: var(--color-surface);">
+    <section id="proceso" class="px-6 py-24 bg-surface">
       <div class="max-w-5xl mx-auto">
-        <div class="fade-up flex items-center gap-4 mb-14">
-          <span class="label-editorial" style="color: var(--color-brand);">+</span>
-          <span class="label-editorial">C Ó M O   F U N C I O N A</span>
-        </div>
+        <SectionLabel label="Cómo funciona" class="fade-up mb-14" />
 
-        <div class="grid md:grid-cols-2 gap-px mb-px" style="background-color: var(--color-border);">
-          <!-- Particulares -->
-          <div class="fade-up p-10 relative" data-delay="1" style="background-color: var(--color-surface);">
+        <div class="grid md:grid-cols-2 gap-px bg-border">
+          <article class="fade-up p-10 relative bg-surface" data-delay="1">
             <div class="corner-mark corner-mark-tl"></div>
             <div class="flex items-center gap-3 mb-6">
-              <span class="font-mono" style="font-size: 0.6rem; letter-spacing: 0.15em; color: var(--color-muted);">003-A</span>
-              <span class="label-editorial px-3 py-1" style="background-color: var(--color-surface-2); color: var(--color-brand);">+ Particulares</span>
+              <span class="code-tag">003-A</span>
+              <span class="label-editorial px-3 py-1 bg-surface-2 text-brand!">+ Particulares</span>
             </div>
-            <h3 class="font-display font-bold text-2xl mb-3">Trae tu auto<br/>al taller</h3>
-            <p class="text-sm leading-relaxed mb-6" style="color: #888;">
+            <h3 class="font-display font-bold text-2xl mb-3">Trae tu auto<br />al taller</h3>
+            <p class="text-sm leading-relaxed mb-6 text-muted-light">
               Atendemos clientes particulares directamente en nuestras instalaciones en Texcoco, Estado de México. Agenda tu cita y llega con tu vehículo.
             </p>
-            <div class="space-y-3">
-              {['Agenda tu cita por WhatsApp', 'Llega a nuestro taller en Texcoco', 'Conectamos el equipo de diagnóstico', 'Programación y verificación final'].map((step, i) => (
-                <div class="flex items-center gap-4">
-                  <span class="font-mono shrink-0" style="font-size: 0.55rem; color: var(--color-muted); letter-spacing: 0.1em;">0{i + 1}</span>
-                  <span class="text-sm" style="color: #aaa;">{step}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+            <ol class="space-y-3 list-none m-0 p-0">
+              {
+                PROCESS_PARTICULARES.map((step, i) => (
+                  <li class="flex items-center gap-4">
+                    <span class="code-tag shrink-0">0{i + 1}</span>
+                    <span class="text-sm text-muted-light">{step}</span>
+                  </li>
+                ))
+              }
+            </ol>
+          </article>
 
-          <!-- Talleres -->
-          <div class="fade-up p-10 relative" data-delay="2" style="background-color: var(--color-surface);">
+          <article class="fade-up p-10 relative bg-surface" data-delay="2">
             <div class="corner-mark corner-mark-tl"></div>
             <div class="flex items-center gap-3 mb-6">
-              <span class="font-mono" style="font-size: 0.6rem; letter-spacing: 0.15em; color: var(--color-muted);">003-B</span>
-              <span class="label-editorial px-3 py-1" style="background-color: var(--color-surface-2); color: var(--color-brand);">+ Talleres</span>
+              <span class="code-tag">003-B</span>
+              <span class="label-editorial px-3 py-1 bg-surface-2 text-brand!">+ Talleres</span>
             </div>
-            <h3 class="font-display font-bold text-2xl mb-3">Vamos<br/>a tu taller</h3>
-            <p class="text-sm leading-relaxed mb-6" style="color: #888;">
+            <h3 class="font-display font-bold text-2xl mb-3">Vamos<br />a tu taller</h3>
+            <p class="text-sm leading-relaxed mb-6 text-muted-light">
               Si eres un taller establecido que no cuenta con las herramientas de nivel concesionario, llevamos el equipo a tus instalaciones en CDMX y Área Metropolitana.
             </p>
-            <div class="space-y-3">
-              {['Contáctanos con el caso específico', 'Coordinamos fecha y lugar', 'Llegamos con equipo completo', 'Servicio in-situ con verificación'].map((step, i) => (
-                <div class="flex items-center gap-4">
-                  <span class="font-mono shrink-0" style="font-size: 0.55rem; color: var(--color-muted); letter-spacing: 0.1em;">0{i + 1}</span>
-                  <span class="text-sm" style="color: #aaa;">{step}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+            <ol class="space-y-3 list-none m-0 p-0">
+              {
+                PROCESS_TALLERES.map((step, i) => (
+                  <li class="flex items-center gap-4">
+                    <span class="code-tag shrink-0">0{i + 1}</span>
+                    <span class="text-sm text-muted-light">{step}</span>
+                  </li>
+                ))
+              }
+            </ol>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- SLASH DIVIDER -->
-    <div class="w-full overflow-hidden" style="height: 48px; background-color: var(--color-surface-1); margin-top: -1px;">
-      <svg viewBox="0 0 1440 48" preserveAspectRatio="none" width="100%" height="48">
-        <line x1="0" y1="48" x2="360" y2="0" stroke="#222" stroke-width="1"/><line x1="120" y1="48" x2="480" y2="0" stroke="#222" stroke-width="1"/>
-        <line x1="240" y1="48" x2="600" y2="0" stroke="#222" stroke-width="1"/><line x1="560" y1="48" x2="920" y2="0" stroke="#222" stroke-width="1"/>
-        <line x1="680" y1="48" x2="1040" y2="0" stroke="#222" stroke-width="1"/><line x1="900" y1="48" x2="1260" y2="0" stroke="#222" stroke-width="1"/>
-        <line x1="1020" y1="48" x2="1380" y2="0" stroke="#222" stroke-width="1"/><line x1="1140" y1="48" x2="1500" y2="0" stroke="#222" stroke-width="1"/>
-      </svg>
-    </div>
+    <SlashDivider direction="asc" class="bg-surface-1" />
 
     <!-- POR QUÉ -->
-    <section id="diferenciadores" class="px-6 py-24" style="background-color: var(--color-surface-1);">
+    <section id="diferenciadores" class="px-6 py-24 bg-surface-1">
       <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
         <div>
-          <div class="flex items-center gap-4 mb-8">
-            <span class="label-editorial" style="color: var(--color-brand);">+</span>
-            <span class="label-editorial">P O R   Q U É   D A N I   C O D I N G</span>
-          </div>
-          <h2 class="font-display font-bold leading-tight tracking-tight mb-6" style="font-size: clamp(2rem, 4.5vw, 3.5rem);">
+          <SectionLabel label="Por qué Dani Coding" class="fade-up mb-8" />
+          <h2 class="display-section font-display font-bold leading-tight tracking-tight mb-6">
             Software de<br />concesionario,<br />
-            <span style="color: var(--color-brand);">precio de taller.</span>
+            <span class="text-brand">precio de taller.</span>
           </h2>
-          <p class="text-sm leading-relaxed" style="color: #888;">
+          <p class="text-sm leading-relaxed text-muted-light">
             Los concesionarios cobran horas de mano de obra por servicios que con el software correcto toman minutos. Usamos exactamente las mismas herramientas que la red oficial, sin intermediarios y sin costos inflados.
           </p>
         </div>
-        <div style="border: 1px solid var(--color-border);">
-          {[
-            ['01', 'Software oficial de fábrica', 'ODIS, ISTA-D y E-SYS — no herramientas genéricas'],
-            ['02', 'Sin viaje al concesionario', 'Diagnóstico preciso sin costos de traslado'],
-            ['03', 'Activación de funciones', 'Features bloqueados de fábrica habilitados vía software'],
-            ['04', 'Más marcas próximamente', 'Expansión continua a otras marcas premium'],
-          ].map(([num, title, desc]) => (
-            <div class="px-6 py-5" style="border-bottom: 1px solid var(--color-border);">
-              <div class="flex items-start gap-4">
-                <span class="font-mono shrink-0 mt-0.5" style="font-size: 0.6rem; letter-spacing: 0.15em; color: var(--color-muted);">{num}</span>
-                <div>
-                  <p class="text-sm font-medium mb-1">{title}</p>
-                  <p class="label-editorial" style="color: var(--color-muted);">{desc}</p>
+
+        <div class="border border-border">
+          {
+            DIFFERENTIATORS.map(([num, title, desc]) => (
+              <div class="px-6 py-5 border-b border-border last:border-b-0">
+                <div class="flex items-start gap-4">
+                  <span class="code-tag shrink-0 mt-0.5">{num}</span>
+                  <div>
+                    <p class="text-sm font-medium mb-1">{title}</p>
+                    <p class="label-editorial">{desc}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </section>
 
     <!-- COBERTURA -->
-    <section id="cobertura" class="px-6 py-24" style="background-color: var(--color-surface);">
+    <section id="cobertura" class="px-6 py-24 bg-surface">
       <div class="max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-14">
-          <span class="label-editorial" style="color: var(--color-brand);">+</span>
-          <span class="label-editorial">C O B E R T U R A   &amp;   H O R A R I O</span>
-        </div>
-        <div class="grid md:grid-cols-3 gap-px" style="background-color: var(--color-border);">
-          <div class="fade-up px-8 py-10 relative" data-delay="1" style="background-color: var(--color-surface);">
+        <SectionLabel label="Cobertura & horario" class="fade-up mb-14" />
+
+        <div class="grid md:grid-cols-3 gap-px bg-border">
+          <div class="fade-up px-8 py-10 relative bg-surface" data-delay="1">
             <div class="corner-mark corner-mark-tl"></div>
-            <p class="font-mono mb-2" style="font-size: 0.55rem; letter-spacing: 0.15em; color: var(--color-muted);">005-A · UBICACIÓN</p>
+            <p class="code-tag mb-2">005-A · UBICACIÓN</p>
             <p class="font-display font-bold text-xl mb-3">Taller</p>
-            <p class="text-sm leading-relaxed" style="color: #888;">
-              Lomas de Cristo<br/>
+            <p class="text-sm leading-relaxed text-muted-light">
+              Lomas de Cristo<br />
               Texcoco, Estado de México
             </p>
           </div>
-          <div class="fade-up px-8 py-10 relative" data-delay="2" style="background-color: var(--color-surface);">
+          <div class="fade-up px-8 py-10 relative bg-surface" data-delay="2">
             <div class="corner-mark corner-mark-tl"></div>
-            <p class="font-mono mb-2" style="font-size: 0.55rem; letter-spacing: 0.15em; color: var(--color-muted);">005-B · COBERTURA</p>
+            <p class="code-tag mb-2">005-B · COBERTURA</p>
             <p class="font-display font-bold text-xl mb-3">Zona de servicio</p>
-            <p class="text-sm leading-relaxed" style="color: #888;">
-              CDMX y Área Metropolitana<br/>
-              <span style="color: var(--color-muted);">Servicio a domicilio para talleres</span>
+            <p class="text-sm leading-relaxed text-muted-light">
+              CDMX y Área Metropolitana<br />
+              <span class="text-muted">Servicio a domicilio para talleres</span>
             </p>
           </div>
-          <div class="fade-up px-8 py-10 relative" data-delay="3" style="background-color: var(--color-surface);">
+          <div class="fade-up px-8 py-10 relative bg-surface" data-delay="3">
             <div class="corner-mark corner-mark-tl"></div>
-            <p class="font-mono mb-2" style="font-size: 0.55rem; letter-spacing: 0.15em; color: var(--color-muted);">005-C · HORARIO</p>
+            <p class="code-tag mb-2">005-C · HORARIO</p>
             <p class="font-display font-bold text-xl mb-3">Disponibilidad</p>
-            <p class="text-sm leading-relaxed" style="color: #888;">
-              Lunes – Domingo<br/>
-              <span style="color: var(--color-brand);">Con cita previa</span>
+            <p class="text-sm leading-relaxed text-muted-light">
+              Lunes – Domingo<br />
+              <span class="text-brand">Con cita previa</span>
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLASH DIVIDER -->
-    <div class="w-full overflow-hidden" style="height: 48px; background-color: var(--color-surface); margin-top: -1px;">
-      <svg viewBox="0 0 1440 48" preserveAspectRatio="none" width="100%" height="48">
-        <line x1="0" y1="0" x2="360" y2="48" stroke="#1e1e1e" stroke-width="1"/><line x1="120" y1="0" x2="480" y2="48" stroke="#1e1e1e" stroke-width="1"/>
-        <line x1="240" y1="0" x2="600" y2="48" stroke="#1e1e1e" stroke-width="1"/><line x1="560" y1="0" x2="920" y2="48" stroke="#1e1e1e" stroke-width="1"/>
-        <line x1="680" y1="0" x2="1040" y2="48" stroke="#1e1e1e" stroke-width="1"/><line x1="900" y1="0" x2="1260" y2="48" stroke="#1e1e1e" stroke-width="1"/>
-        <line x1="1020" y1="0" x2="1380" y2="48" stroke="#1e1e1e" stroke-width="1"/><line x1="1140" y1="0" x2="1500" y2="48" stroke="#1e1e1e" stroke-width="1"/>
-      </svg>
-    </div>
+    <SlashDivider direction="desc" class="bg-surface" />
 
     <!-- CONTACTO -->
-    <section id="contacto" class="px-6 py-32 relative overflow-hidden" style="background-color: var(--color-surface);">
-      <div class="absolute left-1/2 top-0 bottom-0 w-px hidden lg:block" style="background: linear-gradient(to bottom, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);"></div>
+    <section id="contacto" class="px-6 py-32 relative overflow-hidden bg-surface">
+      <div class="v-line absolute left-1/2 top-0 bottom-0 w-px hidden lg:block"></div>
+
       <div class="max-w-2xl mx-auto text-center relative z-10">
-        <div class="flex items-center justify-center gap-4 mb-10">
-          <span class="label-editorial" style="color: var(--color-brand);">+</span>
-          <span class="label-editorial">C O N T A C T O</span>
-          <span class="label-editorial" style="color: var(--color-brand);">+</span>
-        </div>
-        <h2 class="font-display font-bold leading-none tracking-tighter mb-4" style="font-size: clamp(2.5rem, 7vw, 5rem);">
+        <SectionLabel label="Contacto" centered class="fade-up mb-10" />
+
+        <h2 class="display-cta font-display font-bold leading-none tracking-tighter mb-4">
           ¿Tu auto necesita<br />
-          <span style="color: var(--color-brand);">programación?</span>
+          <span class="text-brand">programación?</span>
         </h2>
-        <p class="text-sm mb-10" style="color: var(--color-muted-light);">
-          Escríbenos directamente.<br/>Respondemos en menos de 1 hora.
+
+        <p class="text-sm mb-10 text-muted-light">
+          Escríbenos directamente.<br />Respondemos en menos de 1 hora.
         </p>
-        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-3 font-semibold text-sm px-8 py-4 transition-opacity duration-200 hover:opacity-80"
-          style="background-color: var(--color-brand); color: #000;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
+
+        <WhatsAppCta
+          class="inline-flex items-center gap-3 font-semibold text-sm px-8 py-4 bg-brand text-black transition-opacity duration-200 hover:opacity-80"
+          iconSize={18}
+        >
           Escribir por WhatsApp
-        </a>
+        </WhatsAppCta>
       </div>
     </section>
   </main>
 
   <!-- FOOTER -->
-  <footer class="px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style="border-top: 1px solid var(--color-border);">
+  <footer class="px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-border">
     <span class="font-display font-bold text-sm">
-      Dani<span style="color: var(--color-brand);">Coding</span>
+      Dani<span class="text-brand">Coding</span>
     </span>
     <div class="flex flex-col sm:flex-row gap-2 sm:gap-6 items-start sm:items-center">
       <span class="label-editorial">Texcoco, Estado de México</span>
-      <span class="label-editorial" style="color: var(--color-border-light);">/</span>
+      <span class="label-editorial text-border-light hidden sm:inline">/</span>
       <span class="label-editorial">Lunes – Domingo · Con cita previa</span>
     </div>
   </footer>
 
   <!-- WhatsApp flotante -->
-  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 shadow-lg transition-transform duration-200 hover:scale-110"
-    style="background-color: #25d366;" aria-label="Contactar por WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  </a>
-
+  <WhatsAppCta
+    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 shadow-lg transition-transform duration-200 hover:scale-110 bg-[#25d366] text-white"
+    iconSize={26}
+    ariaLabel="Contactar por WhatsApp"
+  />
 </Layout>
 
 <script>
-  // Header scroll
-  const headerEl = document.querySelector('header')!;
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      headerEl.style.backgroundColor = 'rgba(10,10,10,0.92)';
-      headerEl.style.backdropFilter = 'blur(12px)';
-      headerEl.style.borderBottom = '1px solid var(--color-border)';
-    } else {
-      headerEl.style.backgroundColor = 'transparent';
-      headerEl.style.backdropFilter = 'none';
-      headerEl.style.borderBottom = 'none';
-    }
-  }, { passive: true });
+  // Marca JS activo: las animaciones fade-up solo se aplican con esta clase,
+  // así el contenido queda visible si el script no carga
+  document.documentElement.classList.add('js');
 
-  // Overlay menu
-  const overlay = document.getElementById('nav-overlay')!;
-  const openBtn = document.getElementById('menu-open')!;
-  const closeBtn = document.getElementById('menu-close')!;
+  const header = document.querySelector<HTMLElement>('header');
+  const overlay = document.getElementById('nav-overlay');
+  const openBtn = document.getElementById('menu-open');
+  const closeBtn = document.getElementById('menu-close');
 
-  function openMenu() {
-    overlay.style.opacity = '1';
-    overlay.style.pointerEvents = 'auto';
-    overlay.setAttribute('aria-hidden', 'false');
-    headerEl.style.opacity = '0';
-    headerEl.style.pointerEvents = 'none';
-    document.body.style.overflow = 'hidden';
+  // Fondo del header al hacer scroll
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  function closeMenu() {
-    overlay.style.opacity = '0';
-    overlay.style.pointerEvents = 'none';
-    overlay.setAttribute('aria-hidden', 'true');
-    headerEl.style.opacity = '1';
-    headerEl.style.pointerEvents = 'auto';
-    document.body.style.overflow = '';
-  }
+  // Menú overlay
+  if (header && overlay && openBtn && closeBtn) {
+    const setMenu = (open: boolean) => {
+      overlay.classList.toggle('is-open', open);
+      overlay.setAttribute('aria-hidden', String(!open));
+      openBtn.setAttribute('aria-expanded', String(open));
+      header.classList.toggle('is-hidden', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
 
-  openBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.querySelectorAll('.overlay-link').forEach((link) => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-
-  // Scroll animations
-  const fadeEls = document.querySelectorAll<HTMLElement>('.fade-up');
-  const fadeObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          (entry.target as HTMLElement).classList.add('is-visible');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-  fadeEls.forEach((el) => fadeObserver.observe(el));
-
-  // Índice lateral
-  const sections = ['hero', 'servicios', 'galeria', 'proceso', 'diferenciadores', 'cobertura', 'contacto'];
-  const indexLinks = document.querySelectorAll<HTMLElement>('.index-item');
-
-  function setActive(sectionId: string) {
-    indexLinks.forEach((link) => {
-      const dot = link.querySelector<HTMLElement>('.index-dot')!;
-      const label = link.querySelector<HTMLElement>('.index-label')!;
-      const isActive = link.dataset.section === sectionId;
-      dot.style.backgroundColor = isActive ? 'var(--color-brand)' : 'var(--color-muted)';
-      dot.style.height = isActive ? '32px' : '20px';
-      label.style.color = isActive ? 'var(--color-brand)' : 'var(--color-muted-light)';
+    openBtn.addEventListener('click', () => setMenu(true));
+    closeBtn.addEventListener('click', () => setMenu(false));
+    overlay.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setMenu(false));
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setMenu(false);
     });
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) setActive(entry.target.id); }); },
-    { threshold: 0.3 }
-  );
-  sections.forEach((id) => { const el = document.getElementById(id); if (el) observer.observe(el); });
+  // Animaciones de entrada
+  const fadeEls = document.querySelectorAll<HTMLElement>('.fade-up');
+  if (fadeEls.length > 0) {
+    const fadeObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+    fadeEls.forEach((el) => fadeObserver.observe(el));
+  }
+
+  // Índice lateral: sección activa derivada del DOM
+  const indexLinks = document.querySelectorAll<HTMLElement>('.index-item');
+  if (indexLinks.length > 0) {
+    const setActive = (sectionId: string) => {
+      indexLinks.forEach((link) => {
+        link.classList.toggle('is-active', link.dataset.section === sectionId);
+      });
+    };
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    indexLinks.forEach((link) => {
+      const section = link.dataset.section ? document.getElementById(link.dataset.section) : null;
+      if (section) sectionObserver.observe(section);
+    });
+  }
 </script>

@@ -30,7 +30,18 @@ body {
   color: #000000;
 }
 
-/* Label editorial — caps + tracking extremo */
+/* ── Tipografía display fluida ─────────────────────────── */
+.display-hero {
+  font-size: clamp(3rem, 9vw, 7.5rem);
+}
+.display-cta {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+}
+.display-section {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+}
+
+/* ── Labels editoriales ────────────────────────────────── */
 .label-editorial {
   font-size: 0.75rem;
   font-weight: 500;
@@ -39,22 +50,86 @@ body {
   color: var(--color-muted);
 }
 
-/* Scroll animations */
-.fade-up {
+/* Tracking amplio para títulos de sección */
+.label-section {
+  letter-spacing: 0.5em;
+}
+
+/* Código técnico en mono (VAG·001, 003-A, etc.) */
+.code-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--color-muted);
+}
+
+/* ── Header ────────────────────────────────────────────── */
+header {
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+header.is-scrolled {
+  background-color: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+header.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Overlay de navegación ─────────────────────────────── */
+#nav-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+#nav-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Índice lateral ────────────────────────────────────── */
+.index-dot {
+  height: 20px;
+  background-color: var(--color-muted);
+  transition: height 0.2s ease, background-color 0.2s ease;
+}
+.index-item.is-active .index-dot {
+  height: 32px;
+  background-color: var(--color-brand);
+}
+.index-item.is-active .index-label {
+  color: var(--color-brand);
+}
+
+/* ── Animaciones de entrada ────────────────────────────── */
+/* Gated con html.js: sin JavaScript el contenido queda visible */
+html.js .fade-up {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.65s ease, transform 0.65s ease;
 }
-.fade-up.is-visible {
+html.js .fade-up.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
-.fade-up[data-delay="1"] { transition-delay: 0.1s; }
-.fade-up[data-delay="2"] { transition-delay: 0.2s; }
-.fade-up[data-delay="3"] { transition-delay: 0.3s; }
-.fade-up[data-delay="4"] { transition-delay: 0.4s; }
+html.js .fade-up[data-delay="1"] { transition-delay: 0.1s; }
+html.js .fade-up[data-delay="2"] { transition-delay: 0.2s; }
+html.js .fade-up[data-delay="3"] { transition-delay: 0.3s; }
+html.js .fade-up[data-delay="4"] { transition-delay: 0.4s; }
 
-/* Corner marker — bracket de esquina */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  html.js .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Ornamentos ────────────────────────────────────────── */
 .corner-mark {
   position: absolute;
   width: 12px;
@@ -71,4 +146,28 @@ body {
   bottom: 14px;
   right: 14px;
   border-width: 0 1px 1px 0;
+}
+
+/* Marca de agua DC del hero */
+.hero-watermark {
+  font-size: clamp(12rem, 22vw, 20rem);
+  color: var(--color-border);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+/* Gradiente de caption en galería */
+.caption-gradient {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
+
+/* Línea vertical decorativa de contacto */
+.v-line {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-border) 20%,
+    var(--color-border) 80%,
+    transparent
+  );
 }

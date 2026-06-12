@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string;
+  centered?: boolean;
+  class?: string;
+}
+
+const { label, centered = false, class: className = '' } = Astro.props;
+---
+
+<div class={`flex items-center gap-4 ${centered ? 'justify-center' : ''} ${className}`}>
+  <span class="label-editorial text-brand">+</span>
+  <span class="label-editorial label-section">{label}</span>
+  {centered && <span class="label-editorial text-brand">+</span>}
+</div>

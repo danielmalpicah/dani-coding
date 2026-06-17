@@ -2,8 +2,7 @@
 
 export const SITE = {
   name: 'Dani Coding',
-  // TODO: actualizar al conectar dominio propio
-  url: 'https://dani-coding.vercel.app',
+  url: 'https://dani-coding.com',
   title: 'Dani Coding — Programación Automotriz Nivel Concesionario | Texcoco, EDOMEX',
   description:
     'Programación automotriz nivel concesionario en Texcoco, Estado de México. ODIS para Volkswagen, Audi, Seat y Skoda. ISTA + E-SYS para BMW. Servicio a domicilio en CDMX y Área Metropolitana.',

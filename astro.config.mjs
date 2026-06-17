@@ -1,8 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  // TODO: actualizar al conectar dominio propio
-  site: 'https://dani-coding.vercel.app',
+  site: 'https://dani-coding.com',
   vite: {
     build: {
       // Fuerza scripts como archivos externos — requerido por la CSP (script-src 'self')

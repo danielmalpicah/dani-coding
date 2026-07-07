@@ -59,6 +59,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { code: '002-00', label: 'GALERÍA', href: '#galeria' },
   { code: '003-00', label: 'PROCESO', href: '#proceso' },
   { code: '004-00', label: 'POR QUÉ DANI CODING', href: '#diferenciadores' },
+  { code: '004B-00', label: 'REMOTO', href: '#remoto' },
   { code: '005-00', label: 'COBERTURA', href: '#cobertura' },
   { code: '006-00', label: 'CONTACTO', href: '#contacto' },
 ] as const;
@@ -75,6 +76,7 @@ export const INDEX_ITEMS: readonly IndexItem[] = [
   { code: '002-00', label: 'GALERÍA', section: 'galeria' },
   { code: '003-00', label: 'PROCESO', section: 'proceso' },
   { code: '004-00', label: 'POR QUÉ', section: 'diferenciadores' },
+  { code: '004B-00', label: 'REMOTO', section: 'remoto' },
   { code: '005-00', label: 'COBERTURA', section: 'cobertura' },
   { code: '006-00', label: 'CONTACTO', section: 'contacto' },
 ] as const;
@@ -115,4 +117,42 @@ export const PROCESS_TALLERES: readonly string[] = [
   'Coordinamos fecha y lugar',
   'Llegamos con equipo completo',
   'Servicio in-situ con verificación',
+] as const;
+
+export const PROCESS_REMOTO: readonly [string, string][] = [
+  [
+    'Agenda y verifica compatibilidad',
+    'Envíanos el VIN corto y la versión de firmware del head unit. Confirmamos qué features aplican a tu vehículo.',
+  ],
+  [
+    'Conecta el ENET',
+    'Enchufa el cable ENET al puerto OBD y a tu laptop, con el cargador de batería puesto. Nos das acceso por AnyDesk/TeamViewer.',
+  ],
+  [
+    'Codificamos en vivo',
+    'Tomamos el control y aplicamos la codificación mientras tú observas. Verificamos fault codes antes y después. Terminado en la misma sesión.',
+  ],
+] as const;
+
+export const REMOTE_SERVICES: readonly string[] = [
+  'Apple CarPlay en NBT Evo (firmware N–Y)',
+  'CarPlay fullscreen',
+  'Video in Motion (VIM)',
+  'Android screen mirroring',
+  'FDL coding: LEDs, welcome light, angel eyes, digital speed, video jack, cierre por control, menús ocultos',
+  'Lectura y borrado de fault codes',
+  'Ajustes de VO coding dentro de rangos seguros',
+] as const;
+
+export const REMOTE_REQUIREMENTS: readonly string[] = [
+  'Cable ENET (OBD a Ethernet) — te lo recomendamos o facilitamos',
+  'Laptop con Windows e internet estable',
+  'Cargador/mantenedor de batería conectado durante la sesión',
+  'Vehículo cerca de la laptop con acceso al puerto OBD',
+] as const;
+
+export const REMOTE_LIMITS: readonly string[] = [
+  'Flasheo/programación completa de módulos — requiere voltaje ≥70A y recuperación física',
+  'Firmware fuera de rango que necesite PSdZ Lite — se evalúa, puede requerir taller',
+  'Diagnóstico mecánico o eléctrico físico',
 ] as const;

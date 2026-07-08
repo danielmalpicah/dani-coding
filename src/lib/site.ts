@@ -59,7 +59,6 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { code: '002-00', label: 'GALERÍA', href: '#galeria' },
   { code: '003-00', label: 'PROCESO', href: '#proceso' },
   { code: '004-00', label: 'POR QUÉ DANI CODING', href: '#diferenciadores' },
-  { code: '004B-00', label: 'REMOTO', href: '#remoto' },
   { code: '005-00', label: 'COBERTURA', href: '#cobertura' },
   { code: '006-00', label: 'CONTACTO', href: '#contacto' },
 ] as const;
@@ -76,7 +75,6 @@ export const INDEX_ITEMS: readonly IndexItem[] = [
   { code: '002-00', label: 'GALERÍA', section: 'galeria' },
   { code: '003-00', label: 'PROCESO', section: 'proceso' },
   { code: '004-00', label: 'POR QUÉ', section: 'diferenciadores' },
-  { code: '004B-00', label: 'REMOTO', section: 'remoto' },
   { code: '005-00', label: 'COBERTURA', section: 'cobertura' },
   { code: '006-00', label: 'CONTACTO', section: 'contacto' },
 ] as const;

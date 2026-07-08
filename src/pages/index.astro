@@ -220,7 +220,7 @@ import '../styles/global.css';
       <div class="max-w-5xl mx-auto">
         <SectionLabel label="Cómo funciona" class="fade-up mb-14" />
 
-        <div class="grid md:grid-cols-2 gap-px bg-border">
+        <div class="grid md:grid-cols-3 gap-px bg-border">
           <article class="fade-up p-10 relative bg-surface" data-delay="1">
             <div class="corner-mark corner-mark-tl"></div>
             <div class="flex items-center gap-3 mb-6">
@@ -264,6 +264,83 @@ import '../styles/global.css';
               }
             </ol>
           </article>
+
+          <article class="fade-up p-10 relative bg-surface" data-delay="3">
+            <div class="corner-mark corner-mark-tl"></div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="code-tag">003-C</span>
+              <span class="label-editorial px-3 py-1 bg-surface-2 text-brand!">+ Remoto</span>
+            </div>
+            <h3 class="font-display font-bold text-2xl mb-3">Nos conectamos<br />a tu laptop</h3>
+            <p class="text-sm leading-relaxed mb-6 text-muted-light">
+              Con un cable ENET y acceso remoto por AnyDesk/TeamViewer, hacemos la codificación sin que el vehículo salga de donde está.
+            </p>
+            <ol class="space-y-3 list-none m-0 p-0">
+              {
+                PROCESS_REMOTO.map(([title], i) => (
+                  <li class="flex items-center gap-4">
+                    <span class="code-tag shrink-0">0{i + 1}</span>
+                    <span class="text-sm text-muted-light">{title}</span>
+                  </li>
+                ))
+              }
+            </ol>
+          </article>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-px bg-border mt-px">
+          <div class="fade-up p-10 relative bg-surface">
+            <div class="corner-mark corner-mark-tl" />
+            <p class="code-tag mb-6">QUÉ HACEMOS REMOTAMENTE</p>
+            <ul class="space-y-3 list-none m-0 p-0">
+              {
+                REMOTE_SERVICES.map((s) => (
+                  <li class="flex items-start gap-3">
+                    <span class="text-brand font-mono text-xs shrink-0 mt-0.5">+</span>
+                    <span class="text-sm text-muted-light">{s}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="fade-up p-10 relative bg-surface" data-delay="2">
+            <div class="corner-mark corner-mark-tl" />
+            <p class="code-tag mb-6">REQUISITOS</p>
+            <ul class="space-y-4 list-none m-0 p-0 mb-8">
+              {
+                REMOTE_REQUIREMENTS.map((r) => (
+                  <li class="flex items-start gap-3">
+                    <span class="text-brand font-mono text-xs shrink-0 mt-0.5">✓</span>
+                    <span class="text-sm text-muted-light">{r}</span>
+                  </li>
+                ))
+              }
+            </ul>
+            <div class="pt-6 border-t border-border">
+              <p class="code-tag mb-3">REQUIERE VISITA AL TALLER</p>
+              <ul class="space-y-2 list-none m-0 p-0">
+                {
+                  REMOTE_LIMITS.map((l) => (
+                    <li class="flex items-start gap-3">
+                      <span class="label-editorial text-muted shrink-0">—</span>
+                      <span class="label-editorial text-muted">{l}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-up mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+          <WhatsAppCta
+            class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity duration-200 hover:opacity-80"
+          >
+            Consultar compatibilidad remota
+          </WhatsAppCta>
+          <span class="label-editorial text-muted-light">
+            Envíanos el VIN corto + versión de firmware del head unit
+          </span>
         </div>
       </div>
     </section>
@@ -298,92 +375,6 @@ import '../styles/global.css';
               </div>
             ))
           }
-        </div>
-      </div>
-    </section>
-
-    <SlashDivider direction="desc" class="bg-surface" />
-
-    <!-- REMOTO -->
-    <section id="remoto" class="px-6 py-24 bg-surface">
-      <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Coding a distancia" class="fade-up mb-4" />
-        <p class="fade-up label-editorial text-muted-light mb-14 max-w-2xl" data-delay="1">
-          Si tienes un cable ENET y una laptop Windows, nos conectamos por AnyDesk/TeamViewer
-          y hacemos la codificación nosotros. Tú observas; nosotros ejecutamos.
-        </p>
-
-        <!-- 3 pasos -->
-        <div class="grid md:grid-cols-3 gap-px bg-border mb-px">
-          {
-            PROCESS_REMOTO.map(([title, desc], i) => (
-              <div class="fade-up px-8 py-10 relative bg-surface" data-delay={String(i + 1)}>
-                <div class="corner-mark corner-mark-tl" />
-                <span class="code-tag block mb-4">0{i + 1}</span>
-                <p class="text-sm font-medium mb-2">{title}</p>
-                <p class="label-editorial text-muted-light">{desc}</p>
-              </div>
-            ))
-          }
-        </div>
-
-        <!-- qué hacemos + requisitos -->
-        <div class="grid md:grid-cols-2 gap-px bg-border mb-px">
-          <div class="fade-up p-10 relative bg-surface">
-            <div class="corner-mark corner-mark-tl" />
-            <p class="code-tag mb-6">QUÉ HACEMOS REMOTAMENTE</p>
-            <ul class="space-y-3 list-none m-0 p-0">
-              {
-                REMOTE_SERVICES.map((s) => (
-                  <li class="flex items-start gap-3">
-                    <span class="text-brand font-mono text-xs shrink-0 mt-0.5">+</span>
-                    <span class="text-sm text-muted-light">{s}</span>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-          <div class="fade-up p-10 relative bg-surface" data-delay="2">
-            <div class="corner-mark corner-mark-tl" />
-            <p class="code-tag mb-6">REQUISITOS</p>
-            <ul class="space-y-4 list-none m-0 p-0">
-              {
-                REMOTE_REQUIREMENTS.map((r) => (
-                  <li class="flex items-start gap-3">
-                    <span class="text-brand font-mono text-xs shrink-0 mt-0.5">✓</span>
-                    <span class="text-sm text-muted-light">{r}</span>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </div>
-
-        <!-- límites — honestidad genera confianza -->
-        <div class="fade-up px-8 py-6 border border-border mb-10">
-          <p class="code-tag mb-4">REQUIERE VISITA AL TALLER</p>
-          <ul class="space-y-2 list-none m-0 p-0">
-            {
-              REMOTE_LIMITS.map((l) => (
-                <li class="flex items-start gap-3">
-                  <span class="label-editorial text-muted shrink-0 mt-0.5">—</span>
-                  <span class="label-editorial text-muted">{l}</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <!-- CTA -->
-        <div class="fade-up flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <WhatsAppCta
-            class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity duration-200 hover:opacity-80"
-          >
-            Consultar compatibilidad
-          </WhatsAppCta>
-          <span class="label-editorial text-muted-light">
-            Envíanos el VIN corto + versión de firmware del head unit
-          </span>
         </div>
       </div>
     </section>

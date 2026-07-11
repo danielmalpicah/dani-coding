@@ -38,11 +38,11 @@ export const SERVICES: readonly Service[] = [
   {
     code: 'BMW·002',
     brand: 'BMW',
-    models: 'BMW · Mini',
+    models: 'F-series · NBT Evo',
     software: 'ISTA-D · E-SYS',
     description:
-      'Diagnóstico integral con ISTA y programación/codificación profunda de módulos con E-SYS. Funciones ocultas, retrofits y actualizaciones de software.',
-    tags: ['E-SYS Coding', 'ISTA Diagnóstico', 'Retrofits', 'Hidden Features'],
+      'Coding y diagnóstico para BMW F-series y Mini. CarPlay en NBT Evo — incluyendo firmware fuera de rango N–Y vía PSdZ Lite (servicio que la mayoría de talleres rechaza). Funciones ocultas, FDL coding y retrofits.',
+    tags: ['CarPlay NBT Evo', 'FDL Coding', 'ISTA Diagnóstico', 'Funciones ocultas'],
   },
 ] as const;
 
@@ -167,13 +167,22 @@ export interface PricingItem {
 }
 
 export const PRICING_BMW: readonly PricingItem[] = [
-  { service: 'Toggle / adaptación individual',       range: '—', tier: 1,    wa: 'Hola, quiero cotizar una adaptación/toggle en mi BMW.' },
-  { service: 'Video in Motion (coding)',              range: '—', tier: 1,    wa: 'Hola, quiero activar Video in Motion en mi BMW.' },
-  { service: 'FDL coding / personalización',         range: '—', tier: 1,    wa: 'Hola, quiero cotizar el paquete FDL coding para mi BMW.' },
-  { service: 'Diagnóstico ISTA completo',            range: '—', tier: null, wa: 'Hola, quiero un diagnóstico ISTA para mi BMW.' },
-  { service: 'Retrofit coding (tras instalar hardware)', range: '—', tier: 2, wa: 'Hola, quiero cotizar retrofit coding para mi BMW.' },
-  { service: 'Funciones ocultas / cockpit (paquete premium)', range: '—', tier: 2, wa: 'Hola, quiero cotizar el paquete premium de funciones ocultas para mi BMW.' },
-  { service: 'CarPlay (sistema EVO, 2018+)',         range: '—', tier: 2,    wa: 'Hola, quiero activar CarPlay en mi BMW con sistema EVO.' },
+  // Tier 1 — features sueltos, precio fijo, F-series + NBT Evo
+  { service: 'LED / retrofit lights F-series',          range: '—', tier: 1,    wa: 'Hola, quiero cotizar coding de LED / retrofit lights para mi BMW F-series.' },
+  { service: 'Anti-dazzle (vidrio antideslumbrante)',   range: '—', tier: 1,    wa: 'Hola, quiero activar anti-dazzle en mi BMW.' },
+  { service: 'Digital speed',                           range: '—', tier: 1,    wa: 'Hola, quiero activar digital speed en mi BMW.' },
+  { service: 'Video in Motion (VIM)',                   range: '—', tier: 1,    wa: 'Hola, quiero activar Video in Motion en mi BMW.' },
+  { service: 'Welcome light / angel eyes',              range: '—', tier: 1,    wa: 'Hola, quiero activar welcome light o angel eyes en mi BMW.' },
+  { service: 'Cierre por control (single lock/unlock)', range: '—', tier: 1,    wa: 'Hola, quiero activar cierre por control en mi BMW.' },
+  { service: 'Menús ocultos',                           range: '—', tier: 1,    wa: 'Hola, quiero activar menús ocultos en mi BMW.' },
+  // Diagnóstico
+  { service: 'Diagnóstico ISTA completo',               range: '—', tier: null, wa: 'Hola, quiero un diagnóstico ISTA completo para mi BMW.' },
+  // Tier 2 — CarPlay, paquetes, retrofits
+  { service: 'CarPlay Fullscreen — NBT Evo en rango (solo coding)',                     range: '—', tier: 2, wa: 'Hola, quiero activar CarPlay Fullscreen en mi BMW NBT Evo. El firmware está en rango (N–Y).' },
+  { service: 'CarPlay — NBT Evo fuera de rango (firmware update + coding, PSdZ Lite)', range: '—', tier: 2, wa: 'Hola, quiero activar CarPlay en mi BMW NBT Evo. El firmware está fuera de rango y necesita actualización.' },
+  { service: 'Paquete FDL completo',                    range: '—', tier: 2,    wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.' },
+  { service: 'Retrofit coding (tras instalar hardware)', range: '—', tier: 2,   wa: 'Hola, quiero cotizar retrofit coding para mi BMW. Ya tengo el hardware instalado.' },
+  { service: 'Funciones ocultas / cockpit (paquete premium)', range: '—', tier: 2, wa: 'Hola, quiero cotizar el paquete premium de funciones ocultas y cockpit para mi BMW.' },
 ] as const;
 
 export const PRICING_VAG: readonly PricingItem[] = [

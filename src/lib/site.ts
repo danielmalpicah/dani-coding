@@ -3,9 +3,9 @@
 export const SITE = {
   name: 'Dani Coding',
   url: 'https://dani-coding.com',
-  title: 'Dani Coding — Programación Automotriz Nivel Concesionario | Texcoco, EDOMEX',
+  title: 'Dani Coding — Funciones Ocultas & Codificación BMW y VAG | Remoto Todo México',
   description:
-    'Programación automotriz nivel concesionario en Texcoco, Estado de México. ODIS para Volkswagen, Audi, Seat y Skoda. ISTA + E-SYS para BMW. Servicio a domicilio en CDMX y Área Metropolitana.',
+    'Codificación, funciones ocultas y activaciones para BMW y VAG — servicio remoto en todo México, presencial en CDMX y Área Metropolitana. ODIS, ISTA-D, E-Sys y VCDS. Software de agencia, precio de taller.',
   phone: '+525542868902',
 } as const;
 
@@ -13,6 +13,8 @@ const WHATSAPP_NUMBER = '525542868902';
 const WHATSAPP_MESSAGE = 'Hola, me interesa una cotización para programación automotriz.';
 
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+export const waUrl = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 export interface Service {
   code: string;
@@ -56,6 +58,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { code: '001-00', label: 'SERVICIOS', href: '#servicios' },
   { code: '001A-00', label: 'GRUPO VAG', href: '#servicios', sub: true },
   { code: '001B-00', label: 'BMW', href: '#servicios', sub: true },
+  { code: '001C-00', label: 'PRECIOS', href: '#precios' },
   { code: '002-00', label: 'GALERÍA', href: '#galeria' },
   { code: '003-00', label: 'PROCESO', href: '#proceso' },
   { code: '004-00', label: 'POR QUÉ DANI CODING', href: '#diferenciadores' },
@@ -72,6 +75,7 @@ export interface IndexItem {
 export const INDEX_ITEMS: readonly IndexItem[] = [
   { code: '000-00', label: 'INICIO', section: 'hero' },
   { code: '001-00', label: 'SERVICIOS', section: 'servicios' },
+  { code: '001C-00', label: 'PRECIOS', section: 'precios' },
   { code: '002-00', label: 'GALERÍA', section: 'galeria' },
   { code: '003-00', label: 'PROCESO', section: 'proceso' },
   { code: '004-00', label: 'POR QUÉ', section: 'diferenciadores' },
@@ -91,7 +95,7 @@ export const GALLERY: readonly GalleryItem[] = [
 ] as const;
 
 export const STATS: readonly [string, string][] = [
-  ['50+', 'Vehículos programados'],
+  ['50+', 'Vehículos sin un solo incidente'],
   ['2', 'Marcas · VAG · BMW'],
   ['7', 'Días a la semana'],
 ] as const;
@@ -153,4 +157,37 @@ export const REMOTE_LIMITS: readonly string[] = [
   'Flasheo/programación completa de módulos — requiere voltaje ≥70A y recuperación física',
   'Firmware fuera de rango que necesite PSdZ Lite — se evalúa, puede requerir taller',
   'Diagnóstico mecánico o eléctrico físico',
+] as const;
+
+export interface PricingItem {
+  service: string;
+  range: string;
+  tier: 1 | 2 | null; // null = diagnóstico / anzuelo
+  wa: string;          // texto prellenado para WhatsApp
+}
+
+export const PRICING_BMW: readonly PricingItem[] = [
+  { service: 'Toggle / adaptación individual',       range: '—', tier: 1,    wa: 'Hola, quiero cotizar una adaptación/toggle en mi BMW.' },
+  { service: 'Video in Motion (coding)',              range: '—', tier: 1,    wa: 'Hola, quiero activar Video in Motion en mi BMW.' },
+  { service: 'FDL coding / personalización',         range: '—', tier: 1,    wa: 'Hola, quiero cotizar el paquete FDL coding para mi BMW.' },
+  { service: 'Diagnóstico ISTA completo',            range: '—', tier: null, wa: 'Hola, quiero un diagnóstico ISTA para mi BMW.' },
+  { service: 'Retrofit coding (tras instalar hardware)', range: '—', tier: 2, wa: 'Hola, quiero cotizar retrofit coding para mi BMW.' },
+  { service: 'Funciones ocultas / cockpit (paquete premium)', range: '—', tier: 2, wa: 'Hola, quiero cotizar el paquete premium de funciones ocultas para mi BMW.' },
+  { service: 'CarPlay (sistema EVO, 2018+)',         range: '—', tier: 2,    wa: 'Hola, quiero activar CarPlay en mi BMW con sistema EVO.' },
+] as const;
+
+export const PRICING_VAG: readonly PricingItem[] = [
+  { service: 'Toggle / adaptación individual',          range: '—', tier: 1,    wa: 'Hola, quiero cotizar una adaptación/toggle en mi VAG.' },
+  { service: 'Video in Motion / menús ocultos',         range: '—', tier: 1,    wa: 'Hola, quiero activar Video in Motion o menús ocultos en mi VAG.' },
+  { service: 'Paquete funciones ocultas (Sport, ambient, coming home…)', range: '—', tier: 1, wa: 'Hola, quiero el paquete de funciones ocultas para mi VAG.' },
+  { service: 'Diagnóstico VCDS completo',               range: '—', tier: null, wa: 'Hola, quiero un diagnóstico VCDS para mi VAG.' },
+  { service: 'CarPlay / Android Auto / App-Connect (MIB2+)', range: '—', tier: 2, wa: 'Hola, quiero activar CarPlay/Android Auto en mi VAG.' },
+  { service: 'Virtual Cockpit (coding)',                 range: '—', tier: 2,    wa: 'Hola, quiero cotizar coding de Virtual Cockpit en mi VAG.' },
+  { service: 'Retrofit coding (tras instalar hardware)', range: '—', tier: 2,    wa: 'Hola, quiero cotizar retrofit coding en mi VAG.' },
+] as const;
+
+export const TRUST_BADGES: readonly [string, string][] = [
+  ['Software oficial de agencia', 'ODIS · ISTA-D · E-Sys · VCDS'],
+  ['Trabajo garantizado', 'Proceso reversible, sin riesgo de brick'],
+  ['50+ vehículos', 'Sin un solo incidente'],
 ] as const;

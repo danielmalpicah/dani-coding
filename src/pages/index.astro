@@ -8,6 +8,8 @@ import {
   GALLERY,
   INDEX_ITEMS,
   NAV_ITEMS,
+  PRICING_BMW,
+  PRICING_VAG,
   PROCESS_PARTICULARES,
   PROCESS_REMOTO,
   PROCESS_TALLERES,
@@ -16,7 +18,16 @@ import {
   REMOTE_SERVICES,
   SERVICES,
   STATS,
+  TRUST_BADGES,
+  waUrl,
 } from '../lib/site';
+
+const BMW_T1 = PRICING_BMW.filter((i) => i.tier === 1);
+const BMW_DX = PRICING_BMW.filter((i) => i.tier === null);
+const BMW_T2 = PRICING_BMW.filter((i) => i.tier === 2);
+const VAG_T1 = PRICING_VAG.filter((i) => i.tier === 1);
+const VAG_DX = PRICING_VAG.filter((i) => i.tier === null);
+const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
 import '../styles/global.css';
 ---
 
@@ -116,15 +127,15 @@ import '../styles/global.css';
 
       <div class="max-w-5xl mx-auto w-full relative z-10">
         <div class="flex items-center gap-4 mb-10">
-          <span class="label-editorial">Programación automotriz</span>
+          <span class="label-editorial">VAG · BMW · Mini</span>
           <span class="text-border-light">/</span>
-          <span class="label-editorial">Nivel concesionario</span>
+          <span class="label-editorial">Remoto en todo México</span>
         </div>
 
         <h1 class="display-hero font-display font-bold leading-none tracking-tighter mb-10">
-          Diagnóstico<br />
+          Funciones ocultas<br />
           <span class="text-brand">&amp; codificación</span><br />
-          de élite.
+          en todo México.
         </h1>
 
         <div class="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
@@ -183,6 +194,171 @@ import '../styles/global.css';
             ))
           }
         </div>
+      </div>
+    </section>
+
+    <!-- PRECIOS -->
+    <section id="precios" class="px-6 py-24 bg-surface-1">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Precios" class="fade-up mb-4" />
+        <p class="fade-up label-editorial text-muted-light mb-14 max-w-2xl" data-delay="1">
+          Precios en MXN. Remoto aplica en todo México al mismo costo o −10% sin traslado.
+          Domicilio CDMX/metro: +$300–600 según zona.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-px bg-border">
+          <!-- BMW -->
+          <div class="fade-up bg-surface-1" data-delay="1">
+            <div class="flex items-center gap-4 px-8 py-6 border-b border-border">
+              <span class="code-tag">BMW·001</span>
+              <span class="font-display font-bold text-xl">BMW / Mini</span>
+            </div>
+
+            <div class="px-8 py-3 bg-surface-2 border-b border-border">
+              <span class="label-editorial text-muted-light">Tier 1 · Coding &amp; funciones ocultas</span>
+            </div>
+            {
+              BMW_T1.map((item) => (
+                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
+                  <span class="text-sm text-muted-light">{item.service}</span>
+                  <div class="flex flex-col items-end gap-1 shrink-0">
+                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
+                    <a
+                      href={waUrl(item.wa)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
+                    >
+                      Agendar →
+                    </a>
+                  </div>
+                </div>
+              ))
+            }
+
+            <div class="px-8 py-3 bg-surface-2 border-b border-border">
+              <span class="label-editorial text-muted-light">Diagnóstico</span>
+            </div>
+            {
+              BMW_DX.map((item) => (
+                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
+                  <span class="text-sm text-muted-light">{item.service}</span>
+                  <div class="flex flex-col items-end gap-1 shrink-0">
+                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
+                    <a
+                      href={waUrl(item.wa)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
+                    >
+                      Agendar →
+                    </a>
+                  </div>
+                </div>
+              ))
+            }
+
+            <div class="px-8 py-3 bg-surface-2 border-b border-border">
+              <span class="label-editorial text-muted-light">Tier 2 · Activaciones con licencia</span>
+            </div>
+            {
+              BMW_T2.map((item) => (
+                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border last:border-b-0">
+                  <span class="text-sm text-muted-light">{item.service}</span>
+                  <div class="flex flex-col items-end gap-1 shrink-0">
+                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
+                    <a
+                      href={waUrl(item.wa)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
+                    >
+                      Agendar →
+                    </a>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- VAG -->
+          <div class="fade-up bg-surface-1" data-delay="2">
+            <div class="flex items-center gap-4 px-8 py-6 border-b border-border">
+              <span class="code-tag">VAG·001</span>
+              <span class="font-display font-bold text-xl">VAG · VW / Audi / Seat / Skoda</span>
+            </div>
+
+            <div class="px-8 py-3 bg-surface-2 border-b border-border">
+              <span class="label-editorial text-muted-light">Tier 1 · Coding &amp; funciones ocultas</span>
+            </div>
+            {
+              VAG_T1.map((item) => (
+                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
+                  <span class="text-sm text-muted-light">{item.service}</span>
+                  <div class="flex flex-col items-end gap-1 shrink-0">
+                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
+                    <a
+                      href={waUrl(item.wa)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
+                    >
+                      Agendar →
+                    </a>
+                  </div>
+                </div>
+              ))
+            }
+
+            <div class="px-8 py-3 bg-surface-2 border-b border-border">
+              <span class="label-editorial text-muted-light">Diagnóstico</span>
+            </div>
+            {
+              VAG_DX.map((item) => (
+                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
+                  <span class="text-sm text-muted-light">{item.service}</span>
+                  <div class="flex flex-col items-end gap-1 shrink-0">
+                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
+                    <a
+                      href={waUrl(item.wa)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
+                    >
+                      Agendar →
+                    </a>
+                  </div>
+                </div>
+              ))
+            }
+
+            <div class="px-8 py-3 bg-surface-2 border-b border-border">
+              <span class="label-editorial text-muted-light">Tier 2 · Activaciones con licencia</span>
+            </div>
+            {
+              VAG_T2.map((item) => (
+                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border last:border-b-0">
+                  <span class="text-sm text-muted-light">{item.service}</span>
+                  <div class="flex flex-col items-end gap-1 shrink-0">
+                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
+                    <a
+                      href={waUrl(item.wa)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
+                    >
+                      Agendar →
+                    </a>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <p class="fade-up label-editorial text-muted mt-6" data-delay="1">
+          * Precios orientativos en MXN. Confirmar al agendar según modelo, año y especificaciones del vehículo.
+        </p>
       </div>
     </section>
 
@@ -349,7 +525,8 @@ import '../styles/global.css';
 
     <!-- POR QUÉ -->
     <section id="diferenciadores" class="px-6 py-24 bg-surface-1">
-      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center mb-12">
         <div>
           <SectionLabel label="Por qué Dani Coding" class="fade-up mb-8" />
           <h2 class="display-section font-display font-bold leading-tight tracking-tight mb-6">
@@ -372,6 +549,18 @@ import '../styles/global.css';
                     <p class="label-editorial">{desc}</p>
                   </div>
                 </div>
+              </div>
+            ))
+          }
+        </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-px bg-border">
+          {
+            TRUST_BADGES.map(([title, sub]) => (
+              <div class="fade-up px-6 py-5 bg-surface-1">
+                <p class="text-sm font-medium mb-1">{title}</p>
+                <p class="label-editorial">{sub}</p>
               </div>
             ))
           }
@@ -399,8 +588,8 @@ import '../styles/global.css';
             <p class="code-tag mb-2">005-B · COBERTURA</p>
             <p class="font-display font-bold text-xl mb-3">Zona de servicio</p>
             <p class="text-sm leading-relaxed text-muted-light">
-              CDMX y Área Metropolitana<br />
-              <span class="text-muted">Servicio a domicilio para talleres</span>
+              Presencial: CDMX y Área Metropolitana<br />
+              <span class="text-brand">Remoto: Todo México</span>
             </p>
           </div>
           <div class="fade-up px-8 py-10 relative bg-surface" data-delay="3">

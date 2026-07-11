@@ -168,31 +168,31 @@ export interface PricingItem {
 
 export const PRICING_BMW: readonly PricingItem[] = [
   // Tier 1 — features sueltos, precio fijo, F-series + NBT Evo
-  { service: 'LED / retrofit lights F-series',          range: '—', tier: 1,    wa: 'Hola, quiero cotizar coding de LED / retrofit lights para mi BMW F-series.' },
-  { service: 'Anti-dazzle (vidrio antideslumbrante)',   range: '—', tier: 1,    wa: 'Hola, quiero activar anti-dazzle en mi BMW.' },
-  { service: 'Digital speed',                           range: '—', tier: 1,    wa: 'Hola, quiero activar digital speed en mi BMW.' },
-  { service: 'Video in Motion (VIM)',                   range: '—', tier: 1,    wa: 'Hola, quiero activar Video in Motion en mi BMW.' },
-  { service: 'Welcome light / angel eyes',              range: '—', tier: 1,    wa: 'Hola, quiero activar welcome light o angel eyes en mi BMW.' },
-  { service: 'Cierre por control (single lock/unlock)', range: '—', tier: 1,    wa: 'Hola, quiero activar cierre por control en mi BMW.' },
-  { service: 'Menús ocultos',                           range: '—', tier: 1,    wa: 'Hola, quiero activar menús ocultos en mi BMW.' },
+  { service: 'LED / retrofit lights F-series',          range: '$600', tier: 1,    wa: 'Hola, quiero cotizar coding de LED / retrofit lights para mi BMW F-series.' },
+  { service: 'Anti-dazzle (vidrio antideslumbrante)',   range: '$600', tier: 1,    wa: 'Hola, quiero activar anti-dazzle en mi BMW.' },
+  { service: 'Digital speed',                           range: '$600', tier: 1,    wa: 'Hola, quiero activar digital speed en mi BMW.' },
+  { service: 'Video in Motion (VIM)',                   range: '$600', tier: 1,    wa: 'Hola, quiero activar Video in Motion en mi BMW.' },
+  { service: 'Welcome light / angel eyes',              range: '$600', tier: 1,    wa: 'Hola, quiero activar welcome light o angel eyes en mi BMW.' },
+  { service: 'Cierre por control (single lock/unlock)', range: '$600', tier: 1,    wa: 'Hola, quiero activar cierre por control en mi BMW.' },
+  { service: 'Menús ocultos',                           range: '$600', tier: 1,    wa: 'Hola, quiero activar menús ocultos en mi BMW.' },
+  { service: 'Paquete FDL (varios features)',           range: '$1,200', tier: 1,  wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.' },
   // Diagnóstico
-  { service: 'Diagnóstico ISTA completo',               range: '—', tier: null, wa: 'Hola, quiero un diagnóstico ISTA completo para mi BMW.' },
+  { service: 'Diagnóstico ISTA completo — acreditable si contratas el trabajo', range: '$600', tier: null, wa: 'Hola, quiero un diagnóstico ISTA completo para mi BMW.' },
   // Tier 2 — CarPlay, paquetes, retrofits
-  { service: 'CarPlay Fullscreen — NBT Evo en rango (solo coding)',                     range: '—', tier: 2, wa: 'Hola, quiero activar CarPlay Fullscreen en mi BMW NBT Evo. El firmware está en rango (N–Y).' },
-  { service: 'CarPlay — NBT Evo fuera de rango (firmware update + coding, PSdZ Lite)', range: '—', tier: 2, wa: 'Hola, quiero activar CarPlay en mi BMW NBT Evo. El firmware está fuera de rango y necesita actualización.' },
-  { service: 'Paquete FDL completo',                    range: '—', tier: 2,    wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.' },
-  { service: 'Retrofit coding (tras instalar hardware)', range: '—', tier: 2,   wa: 'Hola, quiero cotizar retrofit coding para mi BMW. Ya tengo el hardware instalado.' },
-  { service: 'Funciones ocultas / cockpit (paquete premium)', range: '—', tier: 2, wa: 'Hola, quiero cotizar el paquete premium de funciones ocultas y cockpit para mi BMW.' },
+  { service: 'CarPlay — NBT Evo en rango (solo coding)',            range: '$5,900',     tier: 2, wa: 'Hola, quiero activar CarPlay en mi BMW NBT Evo. El firmware está en rango (N–Y).' },
+  { service: 'CarPlay — NBT Evo fuera de rango (firmware update + coding)', range: '$7,600', tier: 2, wa: 'Hola, quiero activar CarPlay en mi BMW NBT Evo. El firmware está fuera de rango y necesita actualización.' },
+  { service: 'Funciones ocultas / cockpit premium',                 range: '$2,900',     tier: 2, wa: 'Hola, quiero cotizar el paquete de funciones ocultas y cockpit para mi BMW.' },
+  { service: 'Retrofit coding (tras instalar hardware)',            range: 'Desde $1,500', tier: 2, wa: 'Hola, quiero cotizar retrofit coding para mi BMW. Ya tengo el hardware instalado.' },
 ] as const;
 
 export const PRICING_VAG: readonly PricingItem[] = [
-  { service: 'Toggle / adaptación individual',          range: '—', tier: 1,    wa: 'Hola, quiero cotizar una adaptación/toggle en mi VAG.' },
-  { service: 'Video in Motion / menús ocultos',         range: '—', tier: 1,    wa: 'Hola, quiero activar Video in Motion o menús ocultos en mi VAG.' },
-  { service: 'Paquete funciones ocultas (Sport, ambient, coming home…)', range: '—', tier: 1, wa: 'Hola, quiero el paquete de funciones ocultas para mi VAG.' },
-  { service: 'Diagnóstico VCDS completo',               range: '—', tier: null, wa: 'Hola, quiero un diagnóstico VCDS para mi VAG.' },
-  { service: 'CarPlay / Android Auto / App-Connect (MIB2+)', range: '—', tier: 2, wa: 'Hola, quiero activar CarPlay/Android Auto en mi VAG.' },
-  { service: 'Virtual Cockpit (coding)',                 range: '—', tier: 2,    wa: 'Hola, quiero cotizar coding de Virtual Cockpit en mi VAG.' },
-  { service: 'Retrofit coding (tras instalar hardware)', range: '—', tier: 2,    wa: 'Hola, quiero cotizar retrofit coding en mi VAG.' },
+  { service: 'Toggle / adaptación individual',          range: '$400',       tier: 1,    wa: 'Hola, quiero cotizar una adaptación/toggle en mi VAG.' },
+  { service: 'Video in Motion / menús ocultos',         range: '$450',       tier: 1,    wa: 'Hola, quiero activar Video in Motion o menús ocultos en mi VAG.' },
+  { service: 'Paquete funciones ocultas (Sport, ambient, coming home…)', range: '$700', tier: 1, wa: 'Hola, quiero el paquete de funciones ocultas para mi VAG.' },
+  { service: 'Diagnóstico VCDS completo',               range: '$500',       tier: null, wa: 'Hola, quiero un diagnóstico VCDS para mi VAG.' },
+  { service: 'CarPlay / Android Auto / App-Connect (MIB2+)', range: 'Desde $2,000', tier: 2, wa: 'Hola, quiero activar CarPlay/Android Auto en mi VAG.' },
+  { service: 'Virtual Cockpit — coding/activación (hardware ya instalado)', range: '$1,800', tier: 2, wa: 'Hola, quiero cotizar coding/activación de Virtual Cockpit en mi VAG. El hardware ya está instalado.' },
+  { service: 'Retrofit coding (tras instalar hardware)', range: 'Desde $1,500', tier: 2, wa: 'Hola, quiero cotizar retrofit coding en mi VAG.' },
 ] as const;
 
 export const TRUST_BADGES: readonly [string, string][] = [

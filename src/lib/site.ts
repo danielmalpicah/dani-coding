@@ -27,22 +27,22 @@ export interface Service {
 
 export const SERVICES: readonly Service[] = [
   {
-    code: 'VAG·001',
-    brand: 'Grupo VAG',
-    models: 'Volkswagen · Audi · Seat · Skoda',
-    software: 'ODIS Engineering',
-    description:
-      'Diagnóstico, codificación, adaptaciones y programación de módulos con el mismo software que usa la red oficial de concesionarios VAG.',
-    tags: ['Codificación', 'Adaptaciones', 'Flash ECU', 'Activación de funciones'],
-  },
-  {
-    code: 'BMW·002',
+    code: 'BMW·001',
     brand: 'BMW',
     models: 'F-series · NBT Evo',
     software: 'ISTA-D · E-SYS',
     description:
       'Coding y diagnóstico para BMW F-series y Mini. CarPlay en NBT Evo — incluyendo firmware fuera de rango N–Y vía PSdZ Lite (servicio que la mayoría de talleres rechaza). Funciones ocultas, FDL coding y retrofits.',
     tags: ['CarPlay NBT Evo', 'FDL Coding', 'ISTA Diagnóstico', 'Funciones ocultas'],
+  },
+  {
+    code: 'VAG·002',
+    brand: 'Grupo VAG',
+    models: 'Volkswagen · Audi · Seat · Skoda',
+    software: 'ODIS Engineering',
+    description:
+      'Diagnóstico, codificación, adaptaciones y programación de módulos con el mismo software que usa la red oficial de concesionarios VAG.',
+    tags: ['Codificación', 'Adaptaciones', 'Flash ECU', 'Activación de funciones'],
   },
 ] as const;
 
@@ -56,8 +56,8 @@ export interface NavItem {
 export const NAV_ITEMS: readonly NavItem[] = [
   { code: '000-00', label: 'INICIO', href: '#hero' },
   { code: '001-00', label: 'SERVICIOS', href: '#servicios' },
-  { code: '001A-00', label: 'GRUPO VAG', href: '#servicios', sub: true },
-  { code: '001B-00', label: 'BMW', href: '#servicios', sub: true },
+  { code: '001A-00', label: 'BMW', href: '#servicios', sub: true },
+  { code: '001B-00', label: 'GRUPO VAG', href: '#servicios', sub: true },
   { code: '001C-00', label: 'PRECIOS', href: '#precios' },
   { code: '002-00', label: 'GALERÍA', href: '#galeria' },
   { code: '003-00', label: 'PROCESO', href: '#proceso' },
@@ -167,7 +167,7 @@ export interface PricingItem {
 }
 
 export const PRICING_BMW: readonly PricingItem[] = [
-  // Tier 1 — features sueltos, precio fijo, F-series + NBT Evo
+  // Tier 1 — features sueltos (1–2 codificaciones), precio fijo, F-series + NBT Evo
   { service: 'LED / retrofit lights F-series',          range: '$600', tier: 1,    wa: 'Hola, quiero cotizar coding de LED / retrofit lights para mi BMW F-series.' },
   { service: 'Anti-dazzle (vidrio antideslumbrante)',   range: '$600', tier: 1,    wa: 'Hola, quiero activar anti-dazzle en mi BMW.' },
   { service: 'Digital speed',                           range: '$600', tier: 1,    wa: 'Hola, quiero activar digital speed en mi BMW.' },
@@ -175,14 +175,14 @@ export const PRICING_BMW: readonly PricingItem[] = [
   { service: 'Welcome light / angel eyes',              range: '$600', tier: 1,    wa: 'Hola, quiero activar welcome light o angel eyes en mi BMW.' },
   { service: 'Cierre por control (single lock/unlock)', range: '$600', tier: 1,    wa: 'Hola, quiero activar cierre por control en mi BMW.' },
   { service: 'Menús ocultos',                           range: '$600', tier: 1,    wa: 'Hola, quiero activar menús ocultos en mi BMW.' },
-  { service: 'Paquete FDL (varios features)',           range: '$1,200', tier: 1,  wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.' },
+  { service: 'Paquete FDL (hasta 6 codificaciones · +$150 por extra)', range: '$1,200', tier: 1, wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.' },
   // Diagnóstico
   { service: 'Diagnóstico ISTA completo — acreditable si contratas el trabajo', range: '$600', tier: null, wa: 'Hola, quiero un diagnóstico ISTA completo para mi BMW.' },
-  // Tier 2 — CarPlay, paquetes, retrofits
-  { service: 'CarPlay — NBT Evo en rango (solo coding)',            range: '$5,900',     tier: 2, wa: 'Hola, quiero activar CarPlay en mi BMW NBT Evo. El firmware está en rango (N–Y).' },
-  { service: 'CarPlay — NBT Evo fuera de rango (firmware update + coding)', range: '$7,600', tier: 2, wa: 'Hola, quiero activar CarPlay en mi BMW NBT Evo. El firmware está fuera de rango y necesita actualización.' },
-  { service: 'Funciones ocultas / cockpit premium',                 range: '$2,900',     tier: 2, wa: 'Hola, quiero cotizar el paquete de funciones ocultas y cockpit para mi BMW.' },
-  { service: 'Retrofit coding (tras instalar hardware)',            range: 'Desde $1,500', tier: 2, wa: 'Hola, quiero cotizar retrofit coding para mi BMW. Ya tengo el hardware instalado.' },
+  // Tier 2 — CarPlay (fullscreen incluido), paquetes, retrofits
+  { service: 'CarPlay Fullscreen — NBT Evo en rango (solo coding)',            range: '$6,500',     tier: 2, wa: 'Hola, quiero activar CarPlay Fullscreen en mi BMW NBT Evo. El firmware está en rango (N–Y). ¿También puedo agregar Video in Motion por $300 adicional?' },
+  { service: 'CarPlay Fullscreen — NBT Evo fuera de rango (firmware update + coding)', range: '$7,600', tier: 2, wa: 'Hola, quiero activar CarPlay Fullscreen en mi BMW NBT Evo. El firmware está fuera de rango y necesita actualización. ¿También puedo agregar Video in Motion por $300 adicional?' },
+  { service: 'Funciones ocultas / cockpit premium',                            range: '$2,900',     tier: 2, wa: 'Hola, quiero cotizar el paquete de funciones ocultas y cockpit para mi BMW.' },
+  { service: 'Retrofit coding (tras instalar hardware)',                        range: 'Desde $1,500', tier: 2, wa: 'Hola, quiero cotizar retrofit coding para mi BMW. Ya tengo el hardware instalado.' },
 ] as const;
 
 export const PRICING_VAG: readonly PricingItem[] = [

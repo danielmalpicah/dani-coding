@@ -56,14 +56,10 @@ export interface NavItem {
 export const NAV_ITEMS: readonly NavItem[] = [
   { code: '000-00', label: 'INICIO', href: '#hero' },
   { code: '001-00', label: 'SERVICIOS', href: '#servicios' },
-  { code: '001A-00', label: 'BMW', href: '#servicios', sub: true },
-  { code: '001B-00', label: 'GRUPO VAG', href: '#servicios', sub: true },
-  { code: '001C-00', label: 'PRECIOS', href: '#precios' },
-  { code: '002-00', label: 'GALERÍA', href: '#galeria' },
+  { code: '002-00', label: 'PRECIOS', href: '#precios' },
   { code: '003-00', label: 'PROCESO', href: '#proceso' },
-  { code: '004-00', label: 'POR QUÉ DANI CODING', href: '#diferenciadores' },
-  { code: '005-00', label: 'COBERTURA', href: '#cobertura' },
-  { code: '006-00', label: 'CONTACTO', href: '#contacto' },
+  { code: '004-00', label: 'PREGUNTAS FRECUENTES', href: '#faq' },
+  { code: '005-00', label: 'CONTACTO', href: '#contacto' },
 ] as const;
 
 export interface IndexItem {
@@ -80,7 +76,8 @@ export const INDEX_ITEMS: readonly IndexItem[] = [
   { code: '003-00', label: 'PROCESO', section: 'proceso' },
   { code: '004-00', label: 'POR QUÉ', section: 'diferenciadores' },
   { code: '005-00', label: 'COBERTURA', section: 'cobertura' },
-  { code: '006-00', label: 'CONTACTO', section: 'contacto' },
+  { code: '006-00', label: 'FAQ', section: 'faq' },
+  { code: '007-00', label: 'CONTACTO', section: 'contacto' },
 ] as const;
 
 export interface GalleryItem {
@@ -193,6 +190,85 @@ export const PRICING_VAG: readonly PricingItem[] = [
   { service: 'CarPlay / Android Auto / App-Connect (MIB2+)', range: 'Desde $2,000', tier: 2, wa: 'Hola, quiero activar CarPlay/Android Auto en mi VAG.' },
   { service: 'Virtual Cockpit — coding/activación (hardware ya instalado)', range: '$1,800', tier: 2, wa: 'Hola, quiero cotizar coding/activación de Virtual Cockpit en mi VAG. El hardware ya está instalado.' },
   { service: 'Retrofit coding (tras instalar hardware)', range: 'Desde $1,500', tier: 2, wa: 'Hola, quiero cotizar retrofit coding en mi VAG.' },
+] as const;
+
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
+// Objeciones reales de coding BMW/VAG. Edítalas con tu voz — son un punto de partida honesto.
+export const FAQ_ITEMS: readonly FaqItem[] = [
+  {
+    q: '¿La codificación puede dañar mi auto o dejarlo inservible?',
+    a: 'No. Trabajamos con el software oficial de fábrica (ISTA, E-Sys, ODIS, VCDS) y todo cambio es reversible. Leemos y verificamos los fault codes antes y después de cada sesión. Llevamos 50+ vehículos sin un solo incidente.',
+  },
+  {
+    q: '¿Pierdo la garantía de agencia?',
+    a: 'La activación de funciones ocultas usa parámetros que el propio vehículo ya soporta de fábrica; no se modifica hardware. Como todo es reversible, puedes dejar el auto en configuración original antes de una visita a la agencia si lo necesitas.',
+  },
+  {
+    q: '¿El servicio remoto funciona de verdad?',
+    a: 'Sí. Con un cable ENET conectado al puerto OBD y acceso por AnyDesk/TeamViewer, tomamos el control y codificamos en vivo mientras tú observas — terminado en la misma sesión. El flasheo completo de módulos y algunos casos fuera de rango sí requieren visita al taller.',
+  },
+  {
+    q: '¿Qué necesito para una sesión remota?',
+    a: 'Cable ENET (te lo recomendamos o facilitamos), una laptop con Windows e internet estable, un cargador/mantenedor de batería conectado durante la sesión, y el vehículo cerca de la laptop con acceso al puerto OBD.',
+  },
+  {
+    q: '¿Pueden activar CarPlay en mi BMW aunque el firmware esté fuera de rango?',
+    a: 'Sí. En NBT Evo hacemos CarPlay incluso con firmware fuera de rango N–Y vía actualización con PSdZ Lite — un servicio que la mayoría de talleres rechaza. Nos envías el VIN corto y la versión de firmware del head unit y confirmamos compatibilidad antes de agendar.',
+  },
+  {
+    q: '¿Cómo cotizo y cuánto tarda?',
+    a: 'Escríbenos por WhatsApp con el modelo, año y lo que buscas activar; confirmamos precio y compatibilidad. La mayoría de los trabajos de coding se resuelven en una sola sesión.',
+  },
+] as const;
+
+export interface FeaturedService {
+  title: string;
+  badge: string;
+  blurb: string;
+  price: string; // solo el monto — la etiqueta "Desde" es fija en la UI
+  img?: string; // opcional: swap por foto real del auto/trabajo cuando la tengas
+  ghost?: boolean; // botón secundario (diagnóstico)
+  wa: string;
+}
+
+// Los 4 servicios estrella que se muestran como tarjetas arriba de la tabla completa.
+export const FEATURED_PRICING: readonly FeaturedService[] = [
+  {
+    title: 'CarPlay Fullscreen',
+    badge: 'BMW · NBT Evo',
+    blurb: 'Apple CarPlay a pantalla completa. Incluso con firmware fuera de rango vía PSdZ.',
+    price: '$6,500',
+    img: '/images/ista-bmw.jpg',
+    wa: 'Hola, quiero cotizar CarPlay Fullscreen para mi BMW NBT Evo.',
+  },
+  {
+    title: 'Paquete FDL',
+    badge: 'BMW · FDL',
+    blurb: 'Hasta 6 funciones ocultas: LEDs, welcome light, digital speed, menús ocultos…',
+    price: '$1,200',
+    wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.',
+  },
+  {
+    title: 'Funciones ocultas VAG',
+    badge: 'VW · Audi · Seat · Skoda',
+    blurb: 'Sport display, ambient, coming/leaving home, Video in Motion y más.',
+    price: '$700',
+    img: '/images/vcds-vag.jpg',
+    wa: 'Hola, quiero el paquete de funciones ocultas para mi VAG.',
+  },
+  {
+    title: 'Diagnóstico completo',
+    badge: 'ISTA · VCDS',
+    blurb: 'ISTA / VCDS. Acreditable al costo del trabajo si contratas el servicio.',
+    price: '$500',
+    img: '/images/ista-diagnostico.jpg',
+    ghost: true,
+    wa: 'Hola, quiero un diagnóstico completo para mi vehículo.',
+  },
 ] as const;
 
 export const TRUST_BADGES: readonly [string, string][] = [

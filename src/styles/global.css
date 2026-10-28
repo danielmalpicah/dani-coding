@@ -156,6 +156,52 @@ html.js .fade-up[data-delay="4"] { transition-delay: 0.4s; }
   letter-spacing: -0.05em;
 }
 
+/* ── FAQ (details/summary nativo) ──────────────────────── */
+.faq-item summary {
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-marker {
+  transition: transform 0.2s ease;
+}
+.faq-item[open] .faq-marker {
+  transform: rotate(45deg);
+}
+.faq-item summary:hover .font-display {
+  color: var(--color-brand);
+  transition: color 0.15s ease;
+}
+
+/* ── Tarjetas de precios destacadas ────────────────────── */
+.pricing-thumb {
+  background-color: var(--color-surface-2);
+}
+/* Placeholder mientras no haya foto real */
+.pricing-ph {
+  background: repeating-linear-gradient(135deg, #141414 0 12px, #111 12px 24px);
+  color: var(--color-border-light);
+}
+/* Tabla completa colapsable */
+.pricing-details summary {
+  list-style: none;
+  cursor: pointer;
+}
+.pricing-details summary::-webkit-details-marker {
+  display: none;
+}
+.pricing-marker {
+  transition: transform 0.2s ease;
+}
+.pricing-details[open] .pricing-marker {
+  transform: rotate(45deg);
+}
+.pricing-details summary:hover .font-display {
+  color: var(--color-brand);
+  transition: color 0.15s ease;
+}
+
 /* Gradiente de caption en galería */
 .caption-gradient {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);

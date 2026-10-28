@@ -5,6 +5,8 @@ import SlashDivider from '../components/SlashDivider.astro';
 import WhatsAppCta from '../components/WhatsAppCta.astro';
 import {
   DIFFERENTIATORS,
+  FAQ_ITEMS,
+  FEATURED_PRICING,
   GALLERY,
   INDEX_ITEMS,
   NAV_ITEMS,
@@ -201,12 +203,64 @@ import '../styles/global.css';
     <section id="precios" class="px-6 py-24 bg-surface-1">
       <div class="max-w-5xl mx-auto">
         <SectionLabel label="Precios" class="fade-up mb-4" />
-        <p class="fade-up label-editorial text-muted-light mb-14 max-w-2xl" data-delay="1">
-          Precios en MXN. Remoto aplica en todo México al mismo costo o −10% sin traslado.
-          Domicilio CDMX/metro: +$300–600 según zona.
+        <p class="fade-up label-editorial text-muted-light mb-12 max-w-2xl" data-delay="1">
+          Lo más solicitado — precio de arranque directo. Remoto en todo México
+          al mismo costo o −10% sin traslado.
         </p>
 
-        <div class="grid md:grid-cols-2 gap-px bg-border">
+        <!-- Servicios destacados -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+          {
+            FEATURED_PRICING.map((f, i) => (
+              <article class="fade-up flex flex-col bg-surface relative" data-delay={String(Math.min(i + 1, 4))}>
+                <div class="corner-mark corner-mark-tl"></div>
+                <div class="pricing-thumb relative aspect-4/3 flex items-end justify-between p-3 overflow-hidden">
+                  {f.img ? (
+                    <img src={f.img} alt={f.title} class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                  ) : (
+                    <span class="pricing-ph absolute inset-0 flex items-center justify-center code-tag text-center px-4">Foto próximamente</span>
+                  )}
+                  <span class="label-editorial relative z-10 px-2 py-1 border border-border-light bg-surface/60 text-brand!">{f.badge}</span>
+                </div>
+                <div class="p-5 flex flex-col gap-2.5 flex-1">
+                  <h3 class="font-display font-bold text-lg leading-tight">{f.title}</h3>
+                  <p class="text-sm text-muted-light flex-1">{f.blurb}</p>
+                  <div class="mt-1">
+                    <span class="label-editorial block mb-0.5">Desde</span>
+                    <span class="font-mono text-brand text-lg">{f.price}</span>
+                  </div>
+                  <a
+                    href={waUrl(f.wa)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class:list={[
+                      'mt-3 inline-flex items-center justify-center gap-2 font-semibold text-sm py-2.5 transition-opacity duration-200',
+                      f.ghost
+                        ? 'border border-border-light text-white hover:border-white/60'
+                        : 'bg-brand text-black hover:opacity-80',
+                    ]}
+                  >
+                    Agendar →
+                  </a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <!-- Lista completa (colapsable) -->
+        <details class="pricing-details fade-up mt-8 border border-border" data-delay="1">
+          <summary class="flex items-center justify-between gap-4 px-6 py-5">
+            <span class="font-display font-bold text-base">Ver lista completa de precios · BMW y VAG</span>
+            <span class="pricing-marker text-brand text-2xl leading-none" aria-hidden="true">+</span>
+          </summary>
+
+          <p class="label-editorial text-muted px-6 pb-5">
+            Precios en MXN · orientativos · se confirman al agendar según modelo, año y especificaciones.
+            Domicilio CDMX/metro: +$300–600 según zona.
+          </p>
+
+        <div class="grid md:grid-cols-2 gap-px bg-border border-t border-border">
           <!-- BMW -->
           <div class="fade-up bg-surface-1" data-delay="1">
             <div class="flex items-center gap-4 px-8 py-6 border-b border-border">
@@ -356,9 +410,7 @@ import '../styles/global.css';
           </div>
         </div>
 
-        <p class="fade-up label-editorial text-muted mt-6" data-delay="1">
-          * Precios orientativos en MXN. Confirmar al agendar según modelo, año y especificaciones del vehículo.
-        </p>
+        </details>
       </div>
     </section>
 
@@ -601,6 +653,28 @@ import '../styles/global.css';
               <span class="text-brand">Con cita previa</span>
             </p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="px-6 py-24 bg-surface-1">
+      <div class="max-w-3xl mx-auto">
+        <SectionLabel label="Preguntas frecuentes" class="fade-up mb-14" />
+
+        <div class="border-t border-border">
+          {
+            FAQ_ITEMS.map((item, i) => (
+              <details class="faq-item fade-up group border-b border-border" data-delay={String(Math.min(i + 1, 4))}>
+                <summary class="flex items-start gap-5 py-6 cursor-pointer">
+                  <span class="code-tag shrink-0 mt-2">006-{String.fromCharCode(65 + i)}</span>
+                  <span class="flex-1 font-display font-bold text-lg leading-snug">{item.q}</span>
+                  <span class="faq-marker text-brand text-2xl leading-none shrink-0 mt-0.5" aria-hidden="true">+</span>
+                </summary>
+                <p class="text-sm leading-relaxed text-muted-light pb-6 pr-8 sm:pl-16 max-w-2xl">{item.a}</p>
+              </details>
+            ))
+          }
         </div>
       </div>
     </section>

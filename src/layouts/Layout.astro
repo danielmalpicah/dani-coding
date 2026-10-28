@@ -1,5 +1,5 @@
 ---
-import { SITE } from '../lib/site';
+import { SITE, FAQ_ITEMS } from '../lib/site';
 
 interface Props {
   title?: string;
@@ -9,6 +9,7 @@ interface Props {
 const { title = SITE.title, description = SITE.description } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const ogImage = new URL('/og.jpg', SITE.url).href;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -53,8 +54,19 @@ const jsonLd = {
   },
 };
 
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
 // Escapar `<` previene cierre prematuro del tag script si algún dato llegara a contenerlo
 const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+const faqLdSafe = JSON.stringify(faqLd).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -77,7 +89,18 @@ const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Dani Coding — funciones ocultas y codificación BMW y VAG" />
     {canonical && <meta property="og:url" content={canonical} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     {canonical && <link rel="canonical" href={canonical} />}
 
@@ -86,6 +109,7 @@ const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 
     <!-- JSON-LD -->
     <script is:inline type="application/ld+json" set:html={jsonLdSafe} />
+    <script is:inline type="application/ld+json" set:html={faqLdSafe} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -96,6 +120,7 @@ const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
     />
 
     <title>{title}</title>
+
   </head>
   <body>
     <slot />

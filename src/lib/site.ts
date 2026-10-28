@@ -2,7 +2,7 @@
 
 export const SITE = {
   name: 'Dani Coding',
-  url: 'https://dani-coding.com',
+  url: 'https://www.dani-coding.com',
   title: 'Dani Coding — Funciones Ocultas & Codificación BMW y VAG | Remoto Todo México',
   description:
     'Codificación, funciones ocultas y activaciones para BMW y VAG — servicio remoto en todo México, presencial en CDMX y Área Metropolitana. ODIS, ISTA-D, E-Sys y VCDS. Software de agencia, precio de taller.',

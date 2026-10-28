@@ -121,6 +121,8 @@ const faqLdSafe = JSON.stringify(faqLd).replace(/</g, '\\u003c');
 
     <title>{title}</title>
 
+    <!-- Vercel Web Analytics — mismo origen, compatible con la CSP; se activa en el dashboard de Vercel -->
+    <script is:inline defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
     <slot />

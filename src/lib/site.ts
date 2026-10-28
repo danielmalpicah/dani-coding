@@ -174,14 +174,16 @@ export const PRICING_BMW: readonly PricingItem[] = [
   { service: 'Welcome light / angel eyes',              range: '$600', tier: 1,    wa: 'Hola, quiero activar welcome light o angel eyes en mi BMW.' },
   { service: 'Cierre por control (single lock/unlock)', range: '$600', tier: 1,    wa: 'Hola, quiero activar cierre por control en mi BMW.' },
   { service: 'Menús ocultos',                           range: '$600', tier: 1,    wa: 'Hola, quiero activar menús ocultos en mi BMW.' },
-  { service: 'Paquete FDL (hasta 6 codificaciones · +$150 por extra)', range: '$1,200', tier: 1, wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.' },
+  { service: 'Paquete FDL (hasta 6 codificaciones · +$150 por extra)', range: '$2,500', tier: 1, wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.' },
   // Diagnóstico
   { service: 'Diagnóstico ISTA completo — acreditable si contratas el trabajo', range: '$600', tier: null, wa: 'Hola, quiero un diagnóstico ISTA completo para mi BMW.' },
   // Tier 2 — CarPlay (fullscreen incluido), paquetes, retrofits
-  { service: 'CarPlay Fullscreen — NBT Evo en rango (solo coding)',            range: '$6,500',     tier: 2, wa: 'Hola, quiero activar CarPlay Fullscreen en mi BMW NBT Evo. El firmware está en rango (N–Y). ¿También puedo agregar Video in Motion por $300 adicional?' },
-  { service: 'CarPlay Fullscreen — NBT Evo fuera de rango (firmware update + coding)', range: '$7,600', tier: 2, wa: 'Hola, quiero activar CarPlay Fullscreen en mi BMW NBT Evo. El firmware está fuera de rango y necesita actualización. ¿También puedo agregar Video in Motion por $300 adicional?' },
+  // CarPlay: una sola fila "Desde" — las capas (FSC, flasheo, antena) se explican al cotizar
+  { service: 'Apple CarPlay — NBT Evo (fullscreen incluido)',             range: 'Desde $6,500', tier: 2, wa: 'Hola, quiero activar CarPlay Fullscreen en mi BMW NBT Evo. ¿También puedo agregar Video in Motion por $300 adicional?' },
+  { service: 'Fullscreen para CarPlay ya activo',                               range: 'Desde $1,500', tier: 2, wa: 'Hola, mi BMW ya tiene CarPlay y quiero activarlo a pantalla completa (fullscreen).' },
   { service: 'Funciones ocultas / cockpit premium',                            range: '$2,900',     tier: 2, wa: 'Hola, quiero cotizar el paquete de funciones ocultas y cockpit para mi BMW.' },
-  { service: 'Retrofit coding (tras instalar hardware)',                        range: 'Desde $1,500', tier: 2, wa: 'Hola, quiero cotizar retrofit coding para mi BMW. Ya tengo el hardware instalado.' },
+  { service: 'Retrofit coding simple (hardware ya instalado y reconocido)',      range: 'Desde $1,500', tier: 2, wa: 'Hola, quiero cotizar retrofit coding para mi BMW. Ya tengo el hardware instalado.' },
+  { service: 'Retrofit / integración (módulos no reconocidos o multi-módulo · diagnóstico incluido)', range: 'Desde $4,500', tier: 2, wa: 'Hola, tengo un retrofit en mi BMW que no quedó funcionando (módulo no reconocido o varios módulos). Quiero cotizar la integración.' },
 ] as const;
 
 export const PRICING_VAG: readonly PricingItem[] = [
@@ -251,7 +253,7 @@ export const FEATURED_PRICING: readonly FeaturedService[] = [
     title: 'Paquete FDL',
     badge: 'BMW · FDL',
     blurb: 'Hasta 6 funciones ocultas: LEDs, welcome light, digital speed, menús ocultos…',
-    price: '$1,200',
+    price: '$2,500',
     wa: 'Hola, quiero cotizar el paquete FDL completo para mi BMW.',
   },
   {

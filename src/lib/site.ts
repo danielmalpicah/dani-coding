@@ -10,11 +10,13 @@ export const SITE = {
 } as const;
 
 const WHATSAPP_NUMBER = '525542868902';
-const WHATSAPP_MESSAGE = 'Hola, me interesa una cotización para programación automotriz.';
+export const WHATSAPP_MESSAGE = 'Hola, me interesa una cotización para programación automotriz.';
 
-export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
-export const waUrl = (message: string) =>
-  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+// `src` marca desde qué botón llegó el lead (ej. "Ref: web-hero") — visible en el chat de WhatsApp
+export const waUrl = (message: string, src: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${message}
+
+Ref: web-${src}`)}`;
 
 export interface Service {
   code: string;

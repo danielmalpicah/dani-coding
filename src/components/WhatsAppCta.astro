@@ -1,18 +1,19 @@
 ---
-import { WHATSAPP_URL } from '../lib/site';
+import { WHATSAPP_MESSAGE, waUrl } from '../lib/site';
 import WhatsAppIcon from './WhatsAppIcon.astro';
 
 interface Props {
   class?: string;
   iconSize?: number;
   ariaLabel?: string;
+  src: string; // origen del lead, ver waUrl
 }
 
-const { class: className = '', iconSize = 16, ariaLabel } = Astro.props;
+const { class: className = '', iconSize = 16, ariaLabel, src } = Astro.props;
 ---
 
 <a
-  href={WHATSAPP_URL}
+  href={waUrl(WHATSAPP_MESSAGE, src)}
   target="_blank"
   rel="noopener noreferrer"
   class={className}

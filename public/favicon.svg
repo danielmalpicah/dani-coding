@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#0a0a0a"/>
-  <text x="3" y="23" font-family="monospace" font-weight="700" font-size="17" fill="#e8ff47">DC</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.00 100.00" role="img" aria-label="DaniCoding · DC">
+  <title>DaniCoding · DC</title>
+  <rect x="2.10" y="2.10" width="95.80" height="95.80" rx="20.00" fill="none" stroke="#E8FF47" stroke-width="4.20"/>
+  <g transform="translate(24.45,65.11) scale(0.04330,-0.04330)" fill="#E8FF47"><path transform="translate(0.0,0)" d="M64 698H289Q430 698 498.0 608.0Q566 518 566 349Q566 180 498.0 90.0Q430 0 289 0H64ZM279 118Q346 118 377.0 161.0Q408 204 408 286V413Q408 494 377.0 537.0Q346 580 279 580H212V118Z"/> <path transform="translate(580.0,0)" d="M316 -12Q176 -12 108.5 82.5Q41 177 41 349Q41 521 108.5 615.5Q176 710 316 710Q370 710 411.5 695.5Q453 681 483.0 655.0Q513 629 532.5 592.0Q552 555 563 509L423 475Q417 500 409.0 521.0Q401 542 388.5 557.0Q376 572 357.5 580.5Q339 589 313 589Q252 589 226.5 541.5Q201 494 201 410V288Q201 204 226.5 156.5Q252 109 313 109Q365 109 388.5 141.0Q412 173 423 223L563 189Q552 143 532.5 106.0Q513 69 483.0 42.5Q453 16 411.5 2.0Q370 -12 316 -12Z"/></g>
 </svg>

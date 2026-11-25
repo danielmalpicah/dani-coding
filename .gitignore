@@ -13,3 +13,7 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# llaves de cuentas de servicio (deben vivir fuera del repo, esto es solo red de seguridad)
+*-key.json
+dani-coding-gsc-*.json

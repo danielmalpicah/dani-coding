@@ -3,13 +3,15 @@ interface Props {
   label: string;
   centered?: boolean;
   class?: string;
+  h2?: boolean; // úsalo cuando la sección no tiene otro <h2> (jerarquía de encabezados)
 }
 
-const { label, centered = false, class: className = '' } = Astro.props;
+const { label, centered = false, class: className = '', h2 = false } = Astro.props;
+const Tag = h2 ? 'h2' : 'span';
 ---
 
 <div class={`flex items-center gap-4 ${centered ? 'justify-center' : ''} ${className}`}>
-  <span class="label-editorial text-brand">+</span>
-  <span class="label-editorial label-section">{label}</span>
-  {centered && <span class="label-editorial text-brand">+</span>}
+  <span class="label-editorial text-brand" aria-hidden="true">+</span>
+  <Tag class="label-editorial label-section m-0">{label}</Tag>
+  {centered && <span class="label-editorial text-brand" aria-hidden="true">+</span>}
 </div>

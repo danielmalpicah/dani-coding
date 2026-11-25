@@ -93,7 +93,7 @@ const VERDICTS: readonly [string, string][] = [
     <!-- CÓMO FUNCIONA -->
     <section id="proceso" class="px-6 py-24 bg-surface-1">
       <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Cómo funciona" class="fade-up mb-12" />
+        <SectionLabel h2 label="Cómo funciona" class="fade-up mb-12" />
         <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border list-none m-0 p-0">
           {
             STEPS.map(([title, desc], i) => (
@@ -146,7 +146,7 @@ const VERDICTS: readonly [string, string][] = [
     <!-- OTROS SERVICIOS -->
     <section class="px-6 py-24 bg-surface">
       <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Después de comprar" class="fade-up mb-12" />
+        <SectionLabel h2 label="Después de comprar" class="fade-up mb-12" />
         <ServiceCards exclude={PATH} />
       </div>
     </section>

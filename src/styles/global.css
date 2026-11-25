@@ -9,8 +9,9 @@
   --color-surface: #0a0a0a;
   --color-surface-1: #111111;
   --color-surface-2: #1a1a1a;
-  --color-muted: #5a5a5a;
-  --color-muted-light: #888888;
+  /* muted ≥4.5:1 sobre surface-2 (WCAG AA); antes #5a5a5a daba 2.5:1 */
+  --color-muted: #868686;
+  --color-muted-light: #a3a3a3;
   --color-border: #1e1e1e;
   --color-border-light: #2a2a2a;
 }
@@ -23,6 +24,29 @@ body {
   background-color: var(--color-surface);
   color: #ffffff;
   font-family: var(--font-sans);
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Foco visible para teclado (el reset de Tailwind no deja anillo propio) */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+/* Feedback al presionar los CTA principales */
+a.bg-brand,
+a.bg-\[\#25d366\] {
+  transition-property: opacity, transform;
+}
+a.bg-brand:active,
+a.bg-\[\#25d366\]:active {
+  transform: scale(0.97);
 }
 
 ::selection {
@@ -58,7 +82,7 @@ body {
 /* Código técnico en mono (VAG·001, 003-A, etc.) */
 .code-tag {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.6875rem; /* 11px: 9.6px era ilegible en móvil */
   letter-spacing: 0.2em;
   color: var(--color-muted);
 }
@@ -78,14 +102,16 @@ header.is-hidden {
 }
 
 /* ── Overlay de navegación ─────────────────────────────── */
+/* visibility saca los links del orden de tabulación cuando está cerrado */
 #nav-overlay {
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  visibility: hidden;
+  transition: opacity 0.2s ease-out, visibility 0s 0.2s;
 }
 #nav-overlay.is-open {
   opacity: 1;
-  pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.2s ease-out;
 }
 
 /* ── Índice lateral ────────────────────────────────────── */
@@ -106,8 +132,8 @@ header.is-hidden {
 /* Gated con html.js: sin JavaScript el contenido queda visible */
 html.js .fade-up {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 html.js .fade-up.is-visible {
   opacity: 1;

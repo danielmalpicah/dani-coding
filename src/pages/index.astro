@@ -42,7 +42,7 @@ const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
     {
       INDEX_ITEMS.map((item) => (
         <a href={`#${item.section}`} data-section={item.section} class="index-item flex items-center gap-3 group" aria-label={item.label}>
-          <span class="index-label label-editorial text-right transition-opacity duration-200 opacity-0 group-hover:opacity-100 whitespace-nowrap text-muted-light">
+          <span class="index-label label-editorial text-right transition-opacity duration-200 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 whitespace-nowrap text-muted-light">
             {item.code}
           </span>
           <span class="index-dot block w-px"></span>
@@ -53,7 +53,7 @@ const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
 
   <main>
     <!-- HERO -->
-    <section id="hero" class="min-h-screen flex flex-col justify-end px-6 pb-24 pt-32 relative overflow-hidden bg-surface">
+    <section id="hero" class="min-h-dvh flex flex-col justify-end px-6 pb-24 pt-32 relative overflow-hidden bg-surface">
       <span class="hero-watermark absolute right-6 top-1/2 -translate-y-1/2 font-display font-bold select-none pointer-events-none hidden lg:block" aria-hidden="true">
         DC
       </span>
@@ -99,7 +99,7 @@ const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
     <!-- SERVICIOS -->
     <section id="servicios" class="px-6 py-24 bg-surface">
       <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Servicios" class="fade-up mb-14" />
+        <SectionLabel h2 label="Servicios" class="fade-up mb-14" />
         <ServiceCards />
       </div>
     </section>
@@ -107,10 +107,9 @@ const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
     <!-- PRECIOS -->
     <section id="precios" class="px-6 py-24 bg-surface-1">
       <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Precios" class="fade-up mb-4" />
+        <SectionLabel h2 label="Precios" class="fade-up mb-4" />
         <p class="fade-up label-editorial text-muted-light mb-12 max-w-2xl" data-delay="1">
-          Lo más solicitado — precio de arranque directo. Remoto en todo México
-          al mismo costo o −10% sin traslado.
+          Los más buscados.
         </p>
 
         <!-- Servicios destacados -->
@@ -220,7 +219,7 @@ const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
     <!-- GALERÍA -->
     <section id="galeria" class="px-6 py-24 bg-surface-1">
       <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Galería" class="fade-up mb-14" />
+        <SectionLabel h2 label="Galería" class="fade-up mb-14" />
 
         <div class="grid md:grid-cols-3 gap-px bg-border">
           {
@@ -229,7 +228,7 @@ const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
                 <img
                   src={img.src}
                   alt={img.caption}
-                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  class="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
                 />
@@ -249,7 +248,7 @@ const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
     <!-- PROCESO -->
     <section id="proceso" class="px-6 py-24 bg-surface">
       <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Cómo funciona" class="fade-up mb-14" />
+        <SectionLabel h2 label="Cómo funciona" class="fade-up mb-14" />
 
         <div class="grid md:grid-cols-3 gap-px bg-border">
           <article class="fade-up p-10 relative bg-surface" data-delay="1">
@@ -426,7 +425,7 @@ const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
     <!-- COBERTURA -->
     <section id="cobertura" class="px-6 py-24 bg-surface">
       <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Cobertura & horario" class="fade-up mb-14" />
+        <SectionLabel h2 label="Cobertura & horario" class="fade-up mb-14" />
 
         <div class="grid md:grid-cols-3 gap-px bg-border">
           <div class="fade-up px-8 py-10 relative bg-surface" data-delay="1">

@@ -70,7 +70,7 @@ const schemas = [jsonLd, ...(faq.length ? [faqLd] : []), ...ld].map((o) =>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content={description} />
     <meta
       name="keywords"
@@ -207,7 +207,7 @@ const schemas = [jsonLd, ...(faq.length ? [faqLd] : []), ...ld].map((o) =>
 
     <!-- WhatsApp flotante -->
     <WhatsAppCta src="flotante"
-      class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 shadow-lg transition-transform duration-200 hover:scale-110 bg-[#25d366] text-white"
+      class="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-50 flex items-center justify-center size-14 shadow-lg transition-transform duration-200 ease-out hover:scale-105 bg-[#25d366] text-white"
       iconSize={26}
       ariaLabel="Contactar por WhatsApp"
     />
@@ -231,12 +231,17 @@ const schemas = [jsonLd, ...(faq.length ? [faqLd] : []), ...ld].map((o) =>
 
       // Menú overlay
       if (header && overlay && openBtn && closeBtn) {
+        // ponytail: `inert` en el resto de la página = trampa de foco nativa, sin librería
+        const rest = [...document.body.children].filter((el) => el !== overlay && el.tagName !== 'SCRIPT');
         const setMenu = (open: boolean) => {
+          if (open === overlay.classList.contains('is-open')) return;
           overlay.classList.toggle('is-open', open);
           overlay.setAttribute('aria-hidden', String(!open));
           openBtn.setAttribute('aria-expanded', String(open));
           header.classList.toggle('is-hidden', open);
           document.body.style.overflow = open ? 'hidden' : '';
+          rest.forEach((el) => el.toggleAttribute('inert', open));
+          (open ? closeBtn : openBtn).focus();
         };
 
         openBtn.addEventListener('click', () => setMenu(true));

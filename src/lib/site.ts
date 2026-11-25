@@ -3,9 +3,9 @@
 export const SITE = {
   name: 'Dani Coding',
   url: 'https://www.dani-coding.com',
-  title: 'Dani Coding — Funciones Ocultas & Codificación BMW y VAG | Remoto Todo México',
+  title: 'Dani Coding — Inspección Precompra BMW y MINI · Codificación BMW y VAG | CDMX',
   description:
-    'Codificación, funciones ocultas y activaciones para BMW y VAG — servicio remoto en todo México, presencial en CDMX y Área Metropolitana. ODIS, ISTA-D, E-Sys y VCDS. Software de agencia, precio de taller.',
+    'Inspección precompra especializada en BMW y MINI con software de agencia (ISTA): todos los módulos, kilometraje cruzado, equipamiento de fábrica y veredicto claro. Además codificación y funciones ocultas BMW y VAG, remoto en todo México.',
   phone: '+525542868902',
 } as const;
 
@@ -58,6 +58,7 @@ export interface NavItem {
 export const NAV_ITEMS: readonly NavItem[] = [
   { code: '000-00', label: 'INICIO', href: '#hero' },
   { code: '001-00', label: 'SERVICIOS', href: '#servicios' },
+  { code: '001B-00', label: 'PRECOMPRA BMW / MINI', href: '#precompra' },
   { code: '002-00', label: 'PRECIOS', href: '#precios' },
   { code: '003-00', label: 'PROCESO', href: '#proceso' },
   { code: '004-00', label: 'PREGUNTAS FRECUENTES', href: '#faq' },
@@ -73,6 +74,7 @@ export interface IndexItem {
 export const INDEX_ITEMS: readonly IndexItem[] = [
   { code: '000-00', label: 'INICIO', section: 'hero' },
   { code: '001-00', label: 'SERVICIOS', section: 'servicios' },
+  { code: '001B-00', label: 'PRECOMPRA', section: 'precompra' },
   { code: '001C-00', label: 'PRECIOS', section: 'precios' },
   { code: '002-00', label: 'GALERÍA', section: 'galeria' },
   { code: '003-00', label: 'PROCESO', section: 'proceso' },
@@ -196,6 +198,25 @@ export const PRICING_VAG: readonly PricingItem[] = [
   { service: 'Retrofit coding (tras instalar hardware)', range: 'Desde $1,500', tier: 2, wa: 'Hola, quiero cotizar retrofit coding en mi VAG.' },
 ] as const;
 
+// Inspección precompra — solo BMW y MINI. Precios fijos, cerrados, sin extras.
+export const PRICING_PRECOMPRA: readonly PricingItem[] = [
+  { service: 'Combustión · en taller (Texcoco)', range: '$3,500', tier: null, wa: 'Hola, quiero agendar una inspección precompra en taller para un BMW/MINI de combustión. Modelo y año: ' },
+  { service: 'Combustión · en sitio (lote o agencia CDMX/Edomex, traslado incluido)', range: '$4,500', tier: null, wa: 'Hola, quiero una inspección precompra en sitio para un BMW/MINI de combustión. Modelo, año y ubicación: ' },
+  { service: 'Híbrido / eléctrico (PHEV / EV) · en sitio', range: '$6,000', tier: null, wa: 'Hola, quiero una inspección precompra para un BMW/MINI híbrido o eléctrico. Modelo, año y ubicación: ' },
+  { service: 'Lotes y agencias · precio especial por volumen', range: 'Contáctanos', tier: null, wa: 'Hola, tengo un lote/agencia y quiero inspección precompra para 3 o más BMW/MINI el mismo día.' },
+] as const;
+
+export const PRECOMPRA_INCLUDES: readonly [string, string][] = [
+  ['Escaneo ISTA de todos los módulos', 'Con el software de agencia y el kilometraje en que ocurrió cada falla.'],
+  ['Cruce de kilometraje entre módulos', 'Comparamos lo que guarda cada módulo contra el tablero: detecta tablero alterado o cambiado.'],
+  ['Equipamiento real vs. de fábrica', 'Por VIN: retrofits, swaps y piezas de otro coche.'],
+  ['Historial de choques', 'Lo que quedó registrado en el módulo de airbag.'],
+  ['Batería y campañas', 'Historial de cambio de batería y campañas pendientes por VIN.'],
+  ['Revisión física', 'Fugas típicas de BMW/MINI, frenos, llantas (DOT), suspensión y carrocería.'],
+  ['Alto voltaje (PHEV / EV)', 'Estado de la batería: energía, delta de celdas y temperaturas.'],
+  ['Reporte escrito + llamada', 'Te explicamos cada hallazgo y qué significa en dinero.'],
+] as const;
+
 export interface FaqItem {
   q: string;
   a: string;
@@ -203,6 +224,22 @@ export interface FaqItem {
 
 // Objeciones reales de coding BMW/VAG. Edítalas con tu voz — son un punto de partida honesto.
 export const FAQ_ITEMS: readonly FaqItem[] = [
+  {
+    q: '¿La inspección precompra modifica algo del coche?',
+    a: 'No. Es solo lectura: no se borra ni se modifica nada en ningún módulo. El coche queda exactamente como lo encontramos.',
+  },
+  {
+    q: '¿Trabajan para el comprador o para el vendedor?',
+    a: 'Para el comprador, siempre. Nuestro cliente es quien va a comprar; el veredicto (comprar, comprar negociando o no comprar) es para ti.',
+  },
+  {
+    q: '¿Qué pasa si el vendedor no deja conectar al OBD?',
+    a: 'Se cobra el traslado y se entrega una inspección incompleta: revisión visual, fotos y equipamiento de fábrica por VIN. Si un vendedor no deja escanear el coche, eso ya es información.',
+  },
+  {
+    q: '¿Hacen precompra de otras marcas?',
+    a: 'No. Solo BMW y MINI — es donde tenemos el software de agencia y el criterio para leer lo que el coche no dice a simple vista.',
+  },
   {
     q: '¿La codificación puede dañar mi auto o dejarlo inservible?',
     a: 'No. Trabajamos con el software oficial de fábrica (ISTA, E-Sys, ODIS, VCDS) y todo cambio es reversible. Leemos y verificamos los fault codes antes y después de cada sesión. Llevamos 50+ vehículos sin un solo incidente.',

@@ -10,7 +10,9 @@ import {
   GALLERY,
   INDEX_ITEMS,
   NAV_ITEMS,
+  PRECOMPRA_INCLUDES,
   PRICING_BMW,
+  PRICING_PRECOMPRA,
   PRICING_VAG,
   PROCESS_PARTICULARES,
   PROCESS_REMOTO,
@@ -146,7 +148,9 @@ import '../styles/global.css';
           <WhatsAppCta src="hero" class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity duration-200 hover:opacity-80">
             Cotizar por WhatsApp
           </WhatsAppCta>
-          <span class="label-editorial">Respuesta en menos de 1 hora</span>
+          <a href="#precompra" class="label-editorial text-white! border-b border-brand pb-0.5 hover:text-brand! transition-colors duration-150">
+            ¿Vas a comprar un BMW o MINI usado? Inspección precompra →
+          </a>
         </div>
 
         <!-- Stats -->
@@ -198,6 +202,73 @@ import '../styles/global.css';
             ))
           }
         </div>
+      </div>
+    </section>
+
+    <!-- PRECOMPRA BMW / MINI -->
+    <section id="precompra" class="px-6 py-24 bg-surface-1">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Inspección precompra · BMW y MINI" class="fade-up mb-8" />
+
+        <div class="grid md:grid-cols-2 gap-12 mb-14">
+          <div class="fade-up">
+            <h2 class="display-section font-display font-bold leading-tight tracking-tight mb-6">
+              Antes de comprarlo,<br />
+              <span class="text-brand">escanéalo como agencia.</span>
+            </h2>
+            <p class="text-sm leading-relaxed text-muted-light mb-4">
+              Un BMW o MINI usado cuesta entre $300,000 y $1,500,000. La inspección es menos del 1–2% de eso
+              y puede evitarte comprar un motor, una transmisión o un tablero alterado.
+            </p>
+            <p class="text-sm leading-relaxed text-muted-light">
+              En EE.UU. un especialista BMW cobra $220–322 USD por lo mismo. En CDMX no hay otro servicio de
+              precompra especializado en BMW/MINI con software de agencia.
+            </p>
+          </div>
+
+          <div class="fade-up border border-border self-start" data-delay="1">
+            <div class="px-6 py-4 bg-surface-2 border-b border-border">
+              <span class="label-editorial text-muted-light">Precio fijo · cerrado · sin extras</span>
+            </div>
+            {
+              PRICING_PRECOMPRA.map((item) => (
+                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
+                  <span class="text-sm text-muted-light">{item.service}</span>
+                  <div class="flex flex-col items-end gap-1 shrink-0">
+                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
+                    <a
+                      href={waUrl(item.wa, 'precompra')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
+                    >
+                      Agendar →
+                    </a>
+                  </div>
+                </div>
+              ))
+            }
+            <div class="px-6 py-4">
+              <p class="label-editorial text-muted">Veredicto claro: comprar · comprar negociando · no comprar</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+          {
+            PRECOMPRA_INCLUDES.map(([title, desc], i) => (
+              <div class="fade-up px-6 py-6 bg-surface-1" data-delay={String((i % 4) + 1)}>
+                <span class="code-tag block mb-3">PC·{String(i + 1).padStart(2, '0')}</span>
+                <p class="text-sm font-medium mb-1">{title}</p>
+                <p class="text-sm leading-relaxed text-muted-light">{desc}</p>
+              </div>
+            ))
+          }
+        </div>
+
+        <p class="fade-up label-editorial text-muted-light mt-8">
+          Caso reciente: BMW X5 xDrive45e 2023 (G05) · híbrido enchufable · CDMX.
+        </p>
       </div>
     </section>
 

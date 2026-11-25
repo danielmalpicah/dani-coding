@@ -1,0 +1,35 @@
+---
+import SectionLabel from './SectionLabel.astro';
+import WhatsAppCta from './WhatsAppCta.astro';
+
+interface Props {
+  line1: string;
+  line2: string; // segunda línea, en color de marca
+  message?: string;
+  src: string;
+}
+
+const { line1, line2, message, src } = Astro.props;
+---
+
+<section id="contacto" class="px-6 py-32 relative overflow-hidden bg-surface">
+  <div class="v-line absolute left-1/2 top-0 bottom-0 w-px hidden lg:block"></div>
+  <div class="max-w-2xl mx-auto text-center relative z-10">
+    <SectionLabel label="Contacto" centered class="fade-up mb-10" />
+    <h2 class="display-cta font-display font-bold leading-none tracking-tighter mb-4">
+      {line1}<br />
+      <span class="text-brand">{line2}</span>
+    </h2>
+    <p class="text-sm mb-10 text-muted-light">
+      Escríbenos directamente.<br />Respondemos en menos de 1 hora.
+    </p>
+    <WhatsAppCta
+      src={src}
+      message={message}
+      class="inline-flex items-center gap-3 font-semibold text-sm px-8 py-4 bg-brand text-black transition-opacity duration-200 hover:opacity-80"
+      iconSize={18}
+    >
+      Escribir por WhatsApp
+    </WhatsAppCta>
+  </div>
+</section>

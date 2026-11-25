@@ -1,0 +1,28 @@
+---
+import type { PricingItem } from '../lib/site';
+import PriceRows from './PriceRows.astro';
+
+interface Props {
+  groups: readonly { label: string; items: readonly PricingItem[] }[];
+  src: string;
+  note?: string;
+}
+
+const { groups, src, note } = Astro.props;
+---
+
+<div class="border border-border bg-surface-1">
+  {
+    groups.filter((g) => g.items.length).map((g) => (
+      <Fragment>
+        <div class="px-6 py-3 bg-surface-2 border-b border-border">
+          <span class="label-editorial text-muted-light">{g.label}</span>
+        </div>
+        <div class="border-b border-border last:border-b-0">
+          <PriceRows items={g.items} src={src} />
+        </div>
+      </Fragment>
+    ))
+  }
+  {note && <p class="label-editorial text-muted px-6 py-4">{note}</p>}
+</div>

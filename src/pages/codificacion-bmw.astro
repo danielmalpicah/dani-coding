@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactCta from '../components/ContactCta.astro';
+import FaqList from '../components/FaqList.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceTable from '../components/PriceTable.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import { FAQ_GENERAL, FAQ_REMOTE, PRICING_BMW_CODING, REMOTE_SERVICES, breadcrumbLd, COMPAT_NOTE, serviceLd } from '../lib/site';
+
+const PATH = '/codificacion-bmw/';
+const MSG = 'Hola, quiero cotizar codificación / funciones ocultas para mi BMW. Modelo, año y lo que quiero activar: ';
+const FAQ = [...FAQ_GENERAL, ...FAQ_REMOTE];
+const T1 = PRICING_BMW_CODING.filter((i) => i.tier === 1);
+const DX = PRICING_BMW_CODING.filter((i) => i.tier === null);
+const T2 = PRICING_BMW_CODING.filter((i) => i.tier === 2);
+---
+
+<Layout
+  title="Codificación y Funciones Ocultas BMW y MINI · FDL, Retrofits | Dani Coding"
+  description="Funciones ocultas, paquete FDL, retrofits y diagnóstico ISTA para BMW F-series y MINI con software de agencia. Desde $600 MXN. Taller en Texcoco, CDMX y remoto en todo México."
+  faq={FAQ}
+  ld={[breadcrumbLd('Codificación BMW y MINI', PATH), serviceLd('Codificación y funciones ocultas BMW y MINI', PATH, PRICING_BMW_CODING)]}
+>
+  <main>
+    <PageHero
+      kicker="Codificación BMW y MINI"
+      lead="Activamos funciones ocultas, paquete FDL, retrofits y diagnóstico en BMW F-series y MINI con ISTA-D y E-Sys, el software de agencia. Funciones sueltas desde $600 MXN y paquete FDL de hasta 6 codificaciones por $2,500 MXN. Todo cambio es reversible y verificamos fault codes antes y después. En nuestro taller de Texcoco, a domicilio en CDMX y Edomex, o remoto en todo México."
+      message={MSG}
+      src="coding-bmw-hero"
+      note={COMPAT_NOTE}
+    >
+      Codificación y funciones ocultas <span class="text-brand">BMW y MINI</span>
+    </PageHero>
+
+    <!-- PRECIOS -->
+    <section id="precios" class="px-6 py-24 bg-surface-1">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+        <div class="fade-up">
+          <SectionLabel label="Precios" class="mb-8" />
+          <h2 class="font-display font-bold text-3xl leading-tight mb-6">
+            Software de concesionario, <span class="text-brand">precio de taller.</span>
+          </h2>
+          <p class="text-sm leading-relaxed text-muted-light mb-6">
+            Las funciones ocultas son parámetros que tu BMW ya soporta de fábrica: no se instala hardware. Por eso son
+            reversibles y no ponen en riesgo los módulos.
+          </p>
+          <p class="text-sm leading-relaxed text-muted-light mb-6">
+            En retrofits, si el hardware ya está instalado y el coche lo reconoce, es codificación simple. Si el módulo no
+            se reconoce o involucra varios módulos, es integración con diagnóstico incluido.
+          </p>
+          <p class="text-sm leading-relaxed text-muted-light">
+            ¿Buscas CarPlay? <a href="/carplay-bmw/" class="text-brand underline underline-offset-4">Ver Apple CarPlay BMW →</a>
+          </p>
+        </div>
+        <div class="fade-up" data-delay="1">
+          <PriceTable
+            groups={[
+              { label: 'Funciones sueltas y paquete FDL', items: T1 },
+              { label: 'Diagnóstico', items: DX },
+              { label: 'Paquetes y retrofits', items: T2 },
+            ]}
+            src="coding-bmw"
+            note="Precios en MXN. Domicilio CDMX/metro: +$300–600 según zona."
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- REMOTO -->
+    <section id="remoto" class="px-6 py-24 bg-surface">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Remoto · todo México" class="fade-up mb-6" />
+        <h2 class="fade-up font-display font-bold text-3xl leading-tight mb-12 max-w-3xl">
+          Lo que codificamos <span class="text-brand">sin que tu BMW se mueva.</span>
+        </h2>
+        <ul class="fade-up grid md:grid-cols-2 gap-px bg-border list-none m-0 p-0">
+          {
+            REMOTE_SERVICES.map((s) => (
+              <li class="flex items-start gap-3 p-6 bg-surface">
+                <span class="text-brand font-mono text-xs shrink-0 mt-0.5">+</span>
+                <span class="text-sm text-muted-light">{s}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <FaqList items={FAQ} />
+
+    <section class="px-6 py-24 bg-surface">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Otros servicios" class="fade-up mb-12" />
+        <ServiceCards exclude={PATH} />
+      </div>
+    </section>
+
+    <ContactCta line1="¿Qué quieres activar" line2="en tu BMW?" message={MSG} src="coding-bmw-contacto" />
+  </main>
+</Layout>

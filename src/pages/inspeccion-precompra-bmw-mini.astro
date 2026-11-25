@@ -1,0 +1,156 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactCta from '../components/ContactCta.astro';
+import FaqList from '../components/FaqList.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceTable from '../components/PriceTable.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import WhatsAppCta from '../components/WhatsAppCta.astro';
+import { FAQ_PRECOMPRA, PRECOMPRA_INCLUDES, PRICING_PRECOMPRA, breadcrumbLd, serviceLd } from '../lib/site';
+
+const PATH = '/inspeccion-precompra-bmw-mini/';
+const MSG = 'Hola, quiero una inspección precompra para un BMW/MINI. Modelo, año y dónde está el coche: ';
+
+const STEPS: readonly [string, string][] = [
+  ['Mándanos el coche', 'Por WhatsApp: liga del anuncio o modelo, año y ubicación. Confirmamos precio y fecha.'],
+  ['Lo revisamos', 'En nuestro taller de Texcoco o en el lote, agencia o domicilio del vendedor en CDMX/Edomex.'],
+  ['Escaneo + revisión física', 'ISTA en todos los módulos y revisión física. Solo lectura: no se modifica nada del coche.'],
+  ['Reporte + llamada', 'Reporte escrito con hallazgos y una llamada para explicártelo, con veredicto claro.'],
+];
+
+const VERDICTS: readonly [string, string][] = [
+  ['Comprar', 'Sin hallazgos que cambien el precio. El coche es lo que dice el anuncio.'],
+  ['Comprar negociando', 'Hay fallas o desgaste con costo conocido: te decimos qué son y cuánto restar al precio.'],
+  ['No comprar', 'Kilometraje inconsistente, choque fuerte, falla cara o equipamiento que no corresponde.'],
+];
+---
+
+<Layout
+  title="Inspección Precompra BMW y MINI en CDMX con ISTA | Dani Coding"
+  description="Inspección precompra solo para BMW y MINI con ISTA, el software de agencia: todos los módulos, kilometraje cruzado, equipamiento de fábrica por VIN y veredicto claro. Desde $3,500 MXN en CDMX y Edomex."
+  faq={FAQ_PRECOMPRA}
+  ld={[breadcrumbLd('Inspección precompra BMW y MINI', PATH), serviceLd('Inspección precompra BMW y MINI', PATH, PRICING_PRECOMPRA)]}
+>
+  <main>
+    <PageHero
+      kicker="Inspección precompra BMW y MINI"
+      lead="Revisamos el BMW o MINI usado que vas a comprar con ISTA, el software de agencia: todos los módulos, el kilometraje cruzado entre módulos, el equipamiento de fábrica por VIN y el historial de choques. Precio fijo desde $3,500 MXN, en nuestro taller de Texcoco o en el lote o agencia en CDMX y Estado de México. Recibes reporte escrito, llamada y un veredicto: comprar, comprar negociando o no comprar."
+      message={MSG}
+      src="precompra-hero"
+      cta="Agendar inspección"
+    >
+      Inspección precompra <span class="text-brand">BMW y MINI</span> con software de agencia
+    </PageHero>
+
+    <!-- PRECIOS -->
+    <section id="precios" class="px-6 py-24 bg-surface-1">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+        <div class="fade-up">
+          <SectionLabel label="Precio fijo · cerrado · sin extras" class="mb-8" />
+          <h2 class="font-display font-bold text-3xl leading-tight mb-6">
+            Lo que se ve bien en el anuncio <span class="text-brand">no siempre es lo que compras.</span>
+          </h2>
+          <p class="text-sm leading-relaxed text-muted-light">
+            Un tablero alterado, un choque que no se nota, fallas guardadas en los módulos que no prenden ningún testigo o
+            equipamiento que no es de fábrica. Lo detectamos antes de que pagues, no después.
+          </p>
+        </div>
+        <div class="fade-up" data-delay="1">
+          <PriceTable
+            groups={[{ label: 'Inspección precompra · solo BMW y MINI', items: PRICING_PRECOMPRA }]}
+            src="precompra"
+            note="Veredicto claro: comprar · comprar negociando · no comprar"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ INCLUYE -->
+    <section id="incluye" class="px-6 py-24 bg-surface">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Qué incluye" class="fade-up mb-6" />
+        <h2 class="fade-up font-display font-bold text-3xl leading-tight mb-12 max-w-3xl">
+          Lo que una revisión mecánica genérica <span class="text-brand">no puede ver.</span>
+        </h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+          {
+            PRECOMPRA_INCLUDES.map(([title, desc], i) => (
+              <div class="fade-up px-6 py-6 bg-surface" data-delay={String((i % 4) + 1)}>
+                <span class="code-tag block mb-3">PC·{String(i + 1).padStart(2, '0')}</span>
+                <h3 class="text-sm font-medium mb-1">{title}</h3>
+                <p class="text-sm leading-relaxed text-muted-light">{desc}</p>
+              </div>
+            ))
+          }
+        </div>
+        <p class="fade-up label-editorial text-muted-light mt-8">
+          Caso reciente: BMW X5 xDrive45e 2023 (G05) · híbrido enchufable · CDMX.
+        </p>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section id="proceso" class="px-6 py-24 bg-surface-1">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Cómo funciona" class="fade-up mb-12" />
+        <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border list-none m-0 p-0">
+          {
+            STEPS.map(([title, desc], i) => (
+              <li class="fade-up p-8 bg-surface-1" data-delay={String(i + 1)}>
+                <span class="code-tag block mb-4">0{i + 1}</span>
+                <h3 class="font-display font-bold text-lg mb-2">{title}</h3>
+                <p class="text-sm leading-relaxed text-muted-light">{desc}</p>
+              </li>
+            ))
+          }
+        </ol>
+
+        <h2 class="fade-up font-display font-bold text-2xl mt-16 mb-8">El veredicto</h2>
+        <div class="grid md:grid-cols-3 gap-px bg-border">
+          {
+            VERDICTS.map(([title, desc], i) => (
+              <div class="fade-up p-8 bg-surface" data-delay={String(i + 1)}>
+                <h3 class="font-display font-bold text-xl text-brand mb-2">{title}</h3>
+                <p class="text-sm leading-relaxed text-muted-light">{desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- LOTES -->
+    <section id="lotes" class="px-6 py-20 bg-surface">
+      <div class="fade-up max-w-5xl mx-auto border border-border p-10 flex flex-col md:flex-row gap-8 md:items-center justify-between">
+        <div>
+          <p class="code-tag mb-3">LOTES · AGENCIAS MULTIMARCA</p>
+          <h2 class="font-display font-bold text-2xl mb-2">¿Vendes BMW o MINI seminuevos?</h2>
+          <p class="text-sm text-muted-light max-w-xl">
+            Precio especial para 3 o más unidades el mismo día. Un reporte independiente le da al comprador la confianza
+            para cerrar.
+          </p>
+        </div>
+        <WhatsAppCta
+          src="precompra-lotes"
+          message="Hola, tengo un lote/agencia y quiero inspección precompra para varios BMW/MINI."
+          class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 border border-border-light text-white hover:border-white/60 transition-colors duration-200 shrink-0"
+        >
+          Precio para lotes
+        </WhatsAppCta>
+      </div>
+    </section>
+
+    <FaqList items={FAQ_PRECOMPRA} />
+
+    <!-- OTROS SERVICIOS -->
+    <section class="px-6 py-24 bg-surface">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Después de comprar" class="fade-up mb-12" />
+        <ServiceCards exclude={PATH} />
+      </div>
+    </section>
+
+    <ContactCta line1="¿Ya encontraste el coche?" line2="Revisémoslo antes." message={MSG} src="precompra-contacto" />
+  </main>
+</Layout>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ponytail: sitemap estático de una sola página; cambiar a @astrojs/sitemap si se agregan páginas -->
+<!-- ponytail: sitemap estático; agregar aquí cada página nueva (o cambiar a @astrojs/sitemap si crecen) -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.dani-coding.com/</loc>
-    <lastmod>2026-10-28</lastmod>
-  </url>
+  <url><loc>https://www.dani-coding.com/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://www.dani-coding.com/inspeccion-precompra-bmw-mini/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://www.dani-coding.com/carplay-bmw/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://www.dani-coding.com/codificacion-bmw/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://www.dani-coding.com/codificacion-vag/</loc><lastmod>2026-11-25</lastmod></url>
 </urlset>

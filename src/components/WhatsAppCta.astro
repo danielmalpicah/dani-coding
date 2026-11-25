@@ -7,13 +7,14 @@ interface Props {
   iconSize?: number;
   ariaLabel?: string;
   src: string; // origen del lead, ver waUrl
+  message?: string;
 }
 
-const { class: className = '', iconSize = 16, ariaLabel, src } = Astro.props;
+const { class: className = '', iconSize = 16, ariaLabel, src, message = WHATSAPP_MESSAGE } = Astro.props;
 ---
 
 <a
-  href={waUrl(WHATSAPP_MESSAGE, src)}
+  href={waUrl(message, src)}
   target="_blank"
   rel="noopener noreferrer"
   class={className}

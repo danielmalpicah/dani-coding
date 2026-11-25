@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactCta from '../components/ContactCta.astro';
+import FaqList from '../components/FaqList.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceTable from '../components/PriceTable.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import { FAQ_GENERAL, FAQ_VAG, PRICING_VAG, breadcrumbLd, COMPAT_NOTE, serviceLd } from '../lib/site';
+
+const PATH = '/codificacion-vag/';
+const MSG = 'Hola, quiero cotizar codificación / funciones ocultas para mi VW/Audi/Seat/Skoda. Modelo, año y lo que quiero activar: ';
+const FAQ = [...FAQ_VAG, ...FAQ_GENERAL];
+const T1 = PRICING_VAG.filter((i) => i.tier === 1);
+const DX = PRICING_VAG.filter((i) => i.tier === null);
+const T2 = PRICING_VAG.filter((i) => i.tier === 2);
+
+const BRANDS = ['Volkswagen', 'Audi', 'Seat', 'Skoda'] as const;
+---
+
+<Layout
+  title="Funciones Ocultas VW, Audi, Seat y Skoda · ODIS y VCDS | Dani Coding"
+  description="Funciones ocultas, CarPlay / Android Auto en MIB2+, Virtual Cockpit y adaptaciones para Volkswagen, Audi, Seat y Skoda con ODIS y VCDS. Desde $400 MXN. Texcoco y CDMX."
+  faq={FAQ}
+  ld={[breadcrumbLd('Codificación VAG', PATH), serviceLd('Codificación y funciones ocultas Grupo VAG', PATH, PRICING_VAG)]}
+>
+  <main>
+    <PageHero
+      kicker="Codificación VAG"
+      lead="Activamos funciones ocultas, CarPlay / Android Auto en head units MIB2 o posteriores, Virtual Cockpit y adaptaciones en Volkswagen, Audi, Seat y Skoda con ODIS Engineering y VCDS, el software de la red oficial de concesionarios VAG. Adaptaciones desde $400 MXN y paquete de funciones ocultas por $700 MXN. En nuestro taller de Texcoco o a domicilio en CDMX y Estado de México."
+      message={MSG}
+      src="coding-vag-hero"
+      note={COMPAT_NOTE}
+    >
+      Funciones ocultas <span class="text-brand">VW, Audi, Seat y Skoda</span>
+    </PageHero>
+
+    <section id="precios" class="px-6 py-24 bg-surface-1">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+        <div class="fade-up">
+          <SectionLabel label="Precios" class="mb-8" />
+          <h2 class="font-display font-bold text-3xl leading-tight mb-6">
+            El software de la agencia, <span class="text-brand">sin la cita en la agencia.</span>
+          </h2>
+          <p class="text-sm leading-relaxed text-muted-light mb-8">
+            El paquete de funciones ocultas incluye las más pedidas: Sport display, iluminación ambiental, coming / leaving
+            home y Video in Motion, según lo que soporte tu modelo.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {BRANDS.map((b) => <span class="label-editorial px-3 py-1 bg-surface-2 text-muted-light">+ {b}</span>)}
+          </div>
+        </div>
+        <div class="fade-up" data-delay="1">
+          <PriceTable
+            groups={[
+              { label: 'Funciones ocultas y adaptaciones', items: T1 },
+              { label: 'Diagnóstico', items: DX },
+              { label: 'CarPlay, Virtual Cockpit y retrofits', items: T2 },
+            ]}
+            src="coding-vag"
+            note="Precios en MXN. Domicilio CDMX/metro: +$300–600 según zona."
+          />
+        </div>
+      </div>
+    </section>
+
+    <FaqList items={FAQ} class="bg-surface" />
+
+    <section class="px-6 py-24 bg-surface-1">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Otros servicios" class="fade-up mb-12" />
+        <ServiceCards exclude={PATH} />
+      </div>
+    </section>
+
+    <ContactCta line1="¿Qué quieres activar" line2="en tu VW o Audi?" message={MSG} src="coding-vag-contacto" />
+  </main>
+</Layout>

@@ -1,0 +1,35 @@
+---
+// Tarjetas que enlazan a las páginas de servicio. `exclude` oculta la página actual.
+import { SERVICE_PAGES } from '../lib/site';
+
+interface Props {
+  exclude?: string;
+  class?: string;
+}
+
+const { exclude, class: className = '' } = Astro.props;
+const pages = SERVICE_PAGES.filter((p) => p.href !== exclude);
+---
+
+<div class={`grid md:grid-cols-2 gap-px bg-border ${className}`}>
+  {
+    pages.map((s, i) => (
+      <a href={s.href} class="service-card fade-up p-8 flex flex-col gap-5 relative bg-surface group" data-delay={String(Math.min(i + 1, 4))}>
+        <div class="corner-mark corner-mark-tl" />
+        <div class="corner-mark corner-mark-br" />
+        <div class="flex items-start justify-between gap-4">
+          <span class="code-tag">{s.code}</span>
+          <span class="label-editorial px-3 py-1 border border-border-light">{s.kicker}</span>
+        </div>
+        <h3 class="font-display font-bold text-2xl leading-tight group-hover:text-brand transition-colors duration-150">{s.title}</h3>
+        <p class="text-sm leading-relaxed text-muted-light">{s.description}</p>
+        <div class="flex flex-wrap gap-2 mt-auto pt-5 border-t border-border">
+          {s.tags.map((tag) => (
+            <span class="label-editorial px-3 py-1 bg-surface-2 text-muted-light">+ {tag}</span>
+          ))}
+        </div>
+        <span class="label-editorial text-brand!">Ver servicio →</span>
+      </a>
+    ))
+  }
+</div>

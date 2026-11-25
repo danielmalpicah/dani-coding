@@ -1,12 +1,16 @@
 ---
-import { SITE, FAQ_ITEMS } from '../lib/site';
+import { SITE, NAV_ITEMS, SERVICE_PAGES, type FaqItem } from '../lib/site';
+import WhatsAppCta from '../components/WhatsAppCta.astro';
+import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
+  faq?: readonly FaqItem[]; // genera el schema FAQPage de la página
+  ld?: readonly object[]; // schemas extra (Service, etc.)
 }
 
-const { title = SITE.title, description = SITE.description } = Astro.props;
+const { title = SITE.title, description = SITE.description, faq = [], ld = [] } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const ogImage = new URL('/og.jpg', SITE.url).href;
@@ -14,10 +18,12 @@ const ogImage = new URL('/og.jpg', SITE.url).href;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AutoRepair',
+  '@id': `${SITE.url}/#business`,
   name: SITE.name,
   url: SITE.url,
+  image: ogImage,
   description:
-    'Programación automotriz nivel concesionario. ODIS para Grupo VAG, ISTA y E-SYS para BMW.',
+    'Especialistas BMW y MINI con software de agencia (ISTA, E-Sys): inspección precompra, Apple CarPlay y codificación. También Grupo VAG con ODIS y VCDS.',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Lomas de Cristo',
@@ -32,32 +38,22 @@ const jsonLd = {
     'Zona Metropolitana del Valle de México',
     'México',
   ],
-  openingHours: 'Mo-Su 00:00-23:59',
   telephone: SITE.phone,
   priceRange: '$$',
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Servicios de programación automotriz',
-    itemListElement: [
-      {
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: 'Programación Grupo VAG con ODIS Engineering',
-        },
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: 'Programación BMW con ISTA y E-SYS' },
-      },
-    ],
+    name: 'Servicios',
+    itemListElement: SERVICE_PAGES.map((p) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: p.title, url: new URL(p.href, SITE.url).href },
+    })),
   },
 };
 
 const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: FAQ_ITEMS.map((item) => ({
+  mainEntity: faq.map((item) => ({
     '@type': 'Question',
     name: item.q,
     acceptedAnswer: { '@type': 'Answer', text: item.a },
@@ -65,8 +61,9 @@ const faqLd = {
 };
 
 // Escapar `<` previene cierre prematuro del tag script si algún dato llegara a contenerlo
-const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
-const faqLdSafe = JSON.stringify(faqLd).replace(/</g, '\\u003c');
+const schemas = [jsonLd, ...(faq.length ? [faqLd] : []), ...ld].map((o) =>
+  JSON.stringify(o).replace(/</g, '\\u003c')
+);
 ---
 
 <!doctype html>
@@ -93,7 +90,7 @@ const faqLdSafe = JSON.stringify(faqLd).replace(/</g, '\\u003c');
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Dani Coding — funciones ocultas y codificación BMW y VAG" />
+    <meta property="og:image:alt" content="Dani Coding — especialistas BMW y MINI con software de agencia: inspección precompra, Apple CarPlay y codificación" />
     {canonical && <meta property="og:url" content={canonical} />}
 
     <!-- Twitter -->
@@ -108,8 +105,7 @@ const faqLdSafe = JSON.stringify(faqLd).replace(/</g, '\\u003c');
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- JSON-LD -->
-    <script is:inline type="application/ld+json" set:html={jsonLdSafe} />
-    <script is:inline type="application/ld+json" set:html={faqLdSafe} />
+    {schemas.map((json) => <script is:inline type="application/ld+json" set:html={json} />)}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -125,6 +121,150 @@ const faqLdSafe = JSON.stringify(faqLd).replace(/</g, '\\u003c');
     <script is:inline defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
+    <!-- OVERLAY MENÚ -->
+    <div
+      id="nav-overlay"
+      class="fixed inset-0 z-40 flex flex-col justify-between px-6 py-8 bg-surface"
+      aria-hidden="true"
+    >
+      <div class="flex items-center justify-between">
+        <a href="/" class="font-display font-bold text-lg tracking-tight inline-flex items-center gap-2.5">
+          <img src="/favicon.svg" alt="" width="28" height="28" class="w-7 h-7" />
+          <span>Dani<span class="text-brand">Coding</span></span>
+        </a>
+        <button id="menu-close" class="label-editorial flex items-center gap-2 text-white" aria-label="Cerrar menú">
+          <span class="text-xl leading-none">×</span>
+          CERRAR
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-1 mt-8 overflow-y-auto">
+        {
+          NAV_ITEMS.map((item) => (
+            <a href={item.href} class="flex items-baseline gap-5 py-3 group border-b border-border">
+              <span class="code-tag shrink-0 min-w-18">{item.code}</span>
+              <span class="font-mono font-bold text-white transition-colors duration-150 group-hover:text-brand text-2xl">
+                {item.label}
+              </span>
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="pt-6">
+        <WhatsAppCta src="menu" class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity hover:opacity-80">
+          Cotizar por WhatsApp
+        </WhatsAppCta>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5">
+      <a href="/" class="font-display font-bold text-lg tracking-tight inline-flex items-center gap-2.5">
+        <img src="/favicon.svg" alt="" width="28" height="28" class="w-7 h-7" />
+        <span>Dani<span class="text-brand">Coding</span></span>
+      </a>
+      <div class="flex items-center gap-4">
+        <WhatsAppCta src="header"
+          class="label-editorial text-white! border border-border-light px-4 py-2 hover:border-white/60 transition-colors duration-200 hidden sm:inline-flex items-center gap-2"
+          iconSize={12}
+        >
+          Cotizar
+        </WhatsAppCta>
+        <button
+          id="menu-open"
+          class="label-editorial flex items-center gap-2 text-white border border-border-light px-4 py-2 transition-colors duration-200 hover:border-white/60"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="nav-overlay"
+        >
+          <span class="hidden sm:inline">MENÚ</span>
+          <span class="text-base leading-none">≡</span>
+        </button>
+      </div>
+    </header>
+
     <slot />
+
+    <!-- FOOTER -->
+    <footer class="px-6 py-10 border-t border-border">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-8 justify-between">
+        <div class="flex flex-col gap-3">
+          <a href="/" class="font-display font-bold text-sm inline-flex items-center gap-2">
+            <img src="/favicon.svg" alt="" width="20" height="20" class="w-5 h-5" />
+            <span>Dani<span class="text-brand">Coding</span></span>
+          </a>
+          <span class="label-editorial">Lomas de Cristo, Texcoco, Estado de México</span>
+          <span class="label-editorial">Lunes – Domingo · Con cita previa</span>
+        </div>
+        <nav class="flex flex-col gap-2" aria-label="Servicios">
+          {SERVICE_PAGES.map((p) => (
+            <a href={p.href} class="label-editorial hover:text-white transition-colors duration-150">{p.title}</a>
+          ))}
+        </nav>
+      </div>
+    </footer>
+
+    <!-- WhatsApp flotante -->
+    <WhatsAppCta src="flotante"
+      class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 shadow-lg transition-transform duration-200 hover:scale-110 bg-[#25d366] text-white"
+      iconSize={26}
+      ariaLabel="Contactar por WhatsApp"
+    />
+
+    <script>
+      // Marca JS activo: las animaciones fade-up solo se aplican con esta clase,
+      // así el contenido queda visible si el script no carga
+      document.documentElement.classList.add('js');
+
+      const header = document.querySelector<HTMLElement>('header');
+      const overlay = document.getElementById('nav-overlay');
+      const openBtn = document.getElementById('menu-open');
+      const closeBtn = document.getElementById('menu-close');
+
+      // Fondo del header al hacer scroll
+      if (header) {
+        const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+
+      // Menú overlay
+      if (header && overlay && openBtn && closeBtn) {
+        const setMenu = (open: boolean) => {
+          overlay.classList.toggle('is-open', open);
+          overlay.setAttribute('aria-hidden', String(!open));
+          openBtn.setAttribute('aria-expanded', String(open));
+          header.classList.toggle('is-hidden', open);
+          document.body.style.overflow = open ? 'hidden' : '';
+        };
+
+        openBtn.addEventListener('click', () => setMenu(true));
+        closeBtn.addEventListener('click', () => setMenu(false));
+        overlay.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => setMenu(false));
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') setMenu(false);
+        });
+      }
+
+      // Animaciones de entrada
+      const fadeEls = document.querySelectorAll<HTMLElement>('.fade-up');
+      if (fadeEls.length > 0) {
+        const fadeObserver = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                fadeObserver.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15 }
+        );
+        fadeEls.forEach((el) => fadeObserver.observe(el));
+      }
+    </script>
   </body>
 </html>

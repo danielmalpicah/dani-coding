@@ -1,0 +1,31 @@
+---
+import type { FaqItem } from '../lib/site';
+import SectionLabel from './SectionLabel.astro';
+
+interface Props {
+  items: readonly FaqItem[];
+  class?: string;
+}
+
+const { items, class: className = 'bg-surface-1' } = Astro.props;
+---
+
+<section id="faq" class={`px-6 py-24 ${className}`}>
+  <div class="max-w-3xl mx-auto">
+    <SectionLabel label="Preguntas frecuentes" class="fade-up mb-14" />
+    <div class="border-t border-border">
+      {
+        items.map((item, i) => (
+          <details class="faq-item fade-up group border-b border-border" data-delay={String(Math.min(i + 1, 4))}>
+            <summary class="flex items-start gap-5 py-6 cursor-pointer">
+              <span class="code-tag shrink-0 mt-2">Q-{String.fromCharCode(65 + i)}</span>
+              <h3 class="flex-1 font-display font-bold text-lg leading-snug m-0">{item.q}</h3>
+              <span class="faq-marker text-brand text-2xl leading-none shrink-0 mt-0.5" aria-hidden="true">+</span>
+            </summary>
+            <p class="text-sm leading-relaxed text-muted-light pb-6 pr-8 sm:pl-16 max-w-2xl">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

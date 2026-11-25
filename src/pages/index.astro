@@ -1,18 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ContactCta from '../components/ContactCta.astro';
+import FaqList from '../components/FaqList.astro';
+import PriceRows from '../components/PriceRows.astro';
 import SectionLabel from '../components/SectionLabel.astro';
+import ServiceCards from '../components/ServiceCards.astro';
 import SlashDivider from '../components/SlashDivider.astro';
 import WhatsAppCta from '../components/WhatsAppCta.astro';
 import {
   DIFFERENTIATORS,
-  FAQ_ITEMS,
+  FAQ_GENERAL,
+  FAQ_REMOTE,
   FEATURED_PRICING,
   GALLERY,
   INDEX_ITEMS,
-  NAV_ITEMS,
-  PRECOMPRA_INCLUDES,
   PRICING_BMW,
-  PRICING_PRECOMPRA,
   PRICING_VAG,
   PROCESS_PARTICULARES,
   PROCESS_REMOTO,
@@ -20,70 +22,21 @@ import {
   REMOTE_LIMITS,
   REMOTE_REQUIREMENTS,
   REMOTE_SERVICES,
-  SERVICES,
   STATS,
   TRUST_BADGES,
   waUrl,
 } from '../lib/site';
 
+const FAQ = [...FAQ_GENERAL, ...FAQ_REMOTE];
 const BMW_T1 = PRICING_BMW.filter((i) => i.tier === 1);
 const BMW_DX = PRICING_BMW.filter((i) => i.tier === null);
 const BMW_T2 = PRICING_BMW.filter((i) => i.tier === 2);
 const VAG_T1 = PRICING_VAG.filter((i) => i.tier === 1);
 const VAG_DX = PRICING_VAG.filter((i) => i.tier === null);
 const VAG_T2 = PRICING_VAG.filter((i) => i.tier === 2);
-import '../styles/global.css';
 ---
 
-<Layout>
-  <!-- OVERLAY MENÚ -->
-  <div
-    id="nav-overlay"
-    class="fixed inset-0 z-40 flex flex-col justify-between px-6 py-8 bg-surface"
-    aria-hidden="true"
-  >
-    <div class="flex items-center justify-between">
-      <span class="font-display font-bold text-lg tracking-tight inline-flex items-center gap-2.5">
-        <img src="/favicon.svg" alt="" width="28" height="28" class="w-7 h-7" />
-        <span>Dani<span class="text-brand">Coding</span></span>
-      </span>
-      <button id="menu-close" class="label-editorial flex items-center gap-2 text-white" aria-label="Cerrar menú">
-        <span class="text-xl leading-none">×</span>
-        CERRAR
-      </button>
-    </div>
-
-    <nav class="flex flex-col gap-1 mt-8 overflow-y-auto">
-      {
-        NAV_ITEMS.map((item) => (
-          <a
-            href={item.href}
-            class:list={['flex items-baseline gap-5 py-3 group border-b border-border', item.sub && 'pl-8']}
-          >
-            <span class="code-tag shrink-0 min-w-18">
-              {item.sub ? '└ ' : ''}
-              {item.code}
-            </span>
-            <span
-              class:list={[
-                'font-mono font-bold text-white transition-colors duration-150 group-hover:text-brand',
-                item.sub ? 'text-base' : 'text-2xl',
-              ]}
-            >
-              {item.label}
-            </span>
-          </a>
-        ))
-      }
-    </nav>
-
-    <div class="pt-6">
-      <WhatsAppCta src="menu" class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity hover:opacity-80">
-        Cotizar por WhatsApp
-      </WhatsAppCta>
-    </div>
-  </div>
-
+<Layout faq={FAQ}>
   <!-- ÍNDICE LATERAL (desktop) -->
   <aside class="fixed right-6 top-1/2 z-30 -translate-y-1/2 flex-col gap-4 hidden lg:flex" aria-label="Navegación de secciones">
     {
@@ -97,32 +50,6 @@ import '../styles/global.css';
       ))
     }
   </aside>
-
-  <!-- NAV -->
-  <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5">
-    <span class="font-display font-bold text-lg tracking-tight inline-flex items-center gap-2.5">
-        <img src="/favicon.svg" alt="" width="28" height="28" class="w-7 h-7" />
-      <span>Dani<span class="text-brand">Coding</span></span>
-    </span>
-    <div class="flex items-center gap-4">
-      <WhatsAppCta src="header"
-        class="label-editorial text-white! border border-border-light px-4 py-2 hover:border-white/60 transition-colors duration-200 hidden sm:inline-flex items-center gap-2"
-        iconSize={12}
-      >
-        Cotizar
-      </WhatsAppCta>
-      <button
-        id="menu-open"
-        class="label-editorial flex items-center gap-2 text-white border border-border-light px-4 py-2 transition-colors duration-200 hover:border-white/60"
-        aria-label="Abrir menú"
-        aria-expanded="false"
-        aria-controls="nav-overlay"
-      >
-        <span class="hidden sm:inline">MENÚ</span>
-        <span class="text-base leading-none">≡</span>
-      </button>
-    </div>
-  </header>
 
   <main>
     <!-- HERO -->
@@ -148,7 +75,7 @@ import '../styles/global.css';
           <WhatsAppCta src="hero" class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity duration-200 hover:opacity-80">
             Cotizar por WhatsApp
           </WhatsAppCta>
-          <a href="#precompra" class="label-editorial text-white! border-b border-brand pb-0.5 hover:text-brand! transition-colors duration-150">
+          <a href="/inspeccion-precompra-bmw-mini/" class="label-editorial text-white! border-b border-brand pb-0.5 hover:text-brand! transition-colors duration-150">
             ¿Vas a comprar un BMW o MINI usado? Inspección precompra →
           </a>
         </div>
@@ -173,98 +100,7 @@ import '../styles/global.css';
     <section id="servicios" class="px-6 py-24 bg-surface">
       <div class="max-w-5xl mx-auto">
         <SectionLabel label="Servicios" class="fade-up mb-14" />
-
-        <div class="grid md:grid-cols-2 gap-px bg-border">
-          {
-            SERVICES.map((s, i) => (
-              <article class="fade-up p-10 flex flex-col gap-6 relative bg-surface" data-delay={String(i + 1)}>
-                <div class="corner-mark corner-mark-tl" />
-                <div class="corner-mark corner-mark-br" />
-
-                <div class="flex items-start justify-between">
-                  <span class="code-tag">{s.code}</span>
-                  <span class="label-editorial px-3 py-1 border border-border-light">{s.software}</span>
-                </div>
-
-                <div>
-                  <h2 class="font-display font-bold text-3xl mb-1">{s.brand}</h2>
-                  <p class="label-editorial text-muted-light">{s.models}</p>
-                </div>
-
-                <p class="text-sm leading-relaxed text-muted-light">{s.description}</p>
-
-                <div class="flex flex-wrap gap-2 mt-auto pt-5 border-t border-border">
-                  {s.tags.map((tag) => (
-                    <span class="label-editorial px-3 py-1 bg-surface-2 text-muted-light">+ {tag}</span>
-                  ))}
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- PRECOMPRA BMW / MINI -->
-    <section id="precompra" class="px-6 py-24 bg-surface-1">
-      <div class="max-w-5xl mx-auto">
-        <SectionLabel label="Inspección precompra · BMW y MINI" class="fade-up mb-8" />
-
-        <div class="grid md:grid-cols-2 gap-12 mb-14">
-          <div class="fade-up">
-            <h2 class="display-section font-display font-bold leading-tight tracking-tight mb-6">
-              Antes de comprarlo,<br />
-              <span class="text-brand">escanéalo como agencia.</span>
-            </h2>
-            <p class="text-sm leading-relaxed text-muted-light">
-              Un BMW o MINI usado cuesta entre $300,000 y $1,500,000. La inspección es menos del 1–2% de eso
-              y puede evitarte comprar un motor, una transmisión o un tablero alterado.
-            </p>
-          </div>
-
-          <div class="fade-up border border-border self-start" data-delay="1">
-            <div class="px-6 py-4 bg-surface-2 border-b border-border">
-              <span class="label-editorial text-muted-light">Precio fijo · cerrado · sin extras</span>
-            </div>
-            {
-              PRICING_PRECOMPRA.map((item) => (
-                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
-                  <span class="text-sm text-muted-light">{item.service}</span>
-                  <div class="flex flex-col items-end gap-1 shrink-0">
-                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
-                    <a
-                      href={waUrl(item.wa, 'precompra')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
-                    >
-                      Agendar →
-                    </a>
-                  </div>
-                </div>
-              ))
-            }
-            <div class="px-6 py-4">
-              <p class="label-editorial text-muted">Veredicto claro: comprar · comprar negociando · no comprar</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
-          {
-            PRECOMPRA_INCLUDES.map(([title, desc], i) => (
-              <div class="fade-up px-6 py-6 bg-surface-1" data-delay={String((i % 4) + 1)}>
-                <span class="code-tag block mb-3">PC·{String(i + 1).padStart(2, '0')}</span>
-                <p class="text-sm font-medium mb-1">{title}</p>
-                <p class="text-sm leading-relaxed text-muted-light">{desc}</p>
-              </div>
-            ))
-          }
-        </div>
-
-        <p class="fade-up label-editorial text-muted-light mt-8">
-          Caso reciente: BMW X5 xDrive45e 2023 (G05) · híbrido enchufable · CDMX.
-        </p>
+        <ServiceCards />
       </div>
     </section>
 
@@ -340,68 +176,17 @@ import '../styles/global.css';
             <div class="px-8 py-3 bg-surface-2 border-b border-border">
               <span class="label-editorial text-muted-light">Tier 1 · Coding &amp; funciones ocultas</span>
             </div>
-            {
-              BMW_T1.map((item) => (
-                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
-                  <span class="text-sm text-muted-light">{item.service}</span>
-                  <div class="flex flex-col items-end gap-1 shrink-0">
-                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
-                    <a
-                      href={waUrl(item.wa, 'tabla')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
-                    >
-                      Agendar →
-                    </a>
-                  </div>
-                </div>
-              ))
-            }
+            <PriceRows items={BMW_T1} src="tabla" />
 
             <div class="px-8 py-3 bg-surface-2 border-b border-border">
               <span class="label-editorial text-muted-light">Diagnóstico</span>
             </div>
-            {
-              BMW_DX.map((item) => (
-                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
-                  <span class="text-sm text-muted-light">{item.service}</span>
-                  <div class="flex flex-col items-end gap-1 shrink-0">
-                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
-                    <a
-                      href={waUrl(item.wa, 'tabla')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
-                    >
-                      Agendar →
-                    </a>
-                  </div>
-                </div>
-              ))
-            }
+            <PriceRows items={BMW_DX} src="tabla" />
 
             <div class="px-8 py-3 bg-surface-2 border-b border-border">
               <span class="label-editorial text-muted-light">Tier 2 · Activaciones con licencia</span>
             </div>
-            {
-              BMW_T2.map((item) => (
-                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border last:border-b-0">
-                  <span class="text-sm text-muted-light">{item.service}</span>
-                  <div class="flex flex-col items-end gap-1 shrink-0">
-                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
-                    <a
-                      href={waUrl(item.wa, 'tabla')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
-                    >
-                      Agendar →
-                    </a>
-                  </div>
-                </div>
-              ))
-            }
+            <PriceRows items={BMW_T2} src="tabla" />
           </div>
 
           <!-- VAG -->
@@ -414,68 +199,17 @@ import '../styles/global.css';
             <div class="px-8 py-3 bg-surface-2 border-b border-border">
               <span class="label-editorial text-muted-light">Tier 1 · Coding &amp; funciones ocultas</span>
             </div>
-            {
-              VAG_T1.map((item) => (
-                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
-                  <span class="text-sm text-muted-light">{item.service}</span>
-                  <div class="flex flex-col items-end gap-1 shrink-0">
-                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
-                    <a
-                      href={waUrl(item.wa, 'tabla')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
-                    >
-                      Agendar →
-                    </a>
-                  </div>
-                </div>
-              ))
-            }
+            <PriceRows items={VAG_T1} src="tabla" />
 
             <div class="px-8 py-3 bg-surface-2 border-b border-border">
               <span class="label-editorial text-muted-light">Diagnóstico</span>
             </div>
-            {
-              VAG_DX.map((item) => (
-                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border">
-                  <span class="text-sm text-muted-light">{item.service}</span>
-                  <div class="flex flex-col items-end gap-1 shrink-0">
-                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
-                    <a
-                      href={waUrl(item.wa, 'tabla')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
-                    >
-                      Agendar →
-                    </a>
-                  </div>
-                </div>
-              ))
-            }
+            <PriceRows items={VAG_DX} src="tabla" />
 
             <div class="px-8 py-3 bg-surface-2 border-b border-border">
               <span class="label-editorial text-muted-light">Tier 2 · Activaciones con licencia</span>
             </div>
-            {
-              VAG_T2.map((item) => (
-                <div class="flex items-start justify-between gap-4 px-6 py-4 border-b border-border last:border-b-0">
-                  <span class="text-sm text-muted-light">{item.service}</span>
-                  <div class="flex flex-col items-end gap-1 shrink-0">
-                    <span class="text-sm font-mono text-brand whitespace-nowrap">{item.range}</span>
-                    <a
-                      href={waUrl(item.wa, 'tabla')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="label-editorial border border-border-light px-2.5 py-1 hover:border-white/60 hover:text-white transition-colors duration-150"
-                    >
-                      Agendar →
-                    </a>
-                  </div>
-                </div>
-              ))
-            }
+            <PriceRows items={VAG_T2} src="tabla" />
           </div>
         </div>
 
@@ -726,131 +460,17 @@ import '../styles/global.css';
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" class="px-6 py-24 bg-surface-1">
-      <div class="max-w-3xl mx-auto">
-        <SectionLabel label="Preguntas frecuentes" class="fade-up mb-14" />
-
-        <div class="border-t border-border">
-          {
-            FAQ_ITEMS.map((item, i) => (
-              <details class="faq-item fade-up group border-b border-border" data-delay={String(Math.min(i + 1, 4))}>
-                <summary class="flex items-start gap-5 py-6 cursor-pointer">
-                  <span class="code-tag shrink-0 mt-2">006-{String.fromCharCode(65 + i)}</span>
-                  <span class="flex-1 font-display font-bold text-lg leading-snug">{item.q}</span>
-                  <span class="faq-marker text-brand text-2xl leading-none shrink-0 mt-0.5" aria-hidden="true">+</span>
-                </summary>
-                <p class="text-sm leading-relaxed text-muted-light pb-6 pr-8 sm:pl-16 max-w-2xl">{item.a}</p>
-              </details>
-            ))
-          }
-        </div>
-      </div>
-    </section>
+    <FaqList items={FAQ} />
 
     <SlashDivider direction="desc" class="bg-surface" />
 
     <!-- CONTACTO -->
-    <section id="contacto" class="px-6 py-32 relative overflow-hidden bg-surface">
-      <div class="v-line absolute left-1/2 top-0 bottom-0 w-px hidden lg:block"></div>
-
-      <div class="max-w-2xl mx-auto text-center relative z-10">
-        <SectionLabel label="Contacto" centered class="fade-up mb-10" />
-
-        <h2 class="display-cta font-display font-bold leading-none tracking-tighter mb-4">
-          ¿Tu auto necesita<br />
-          <span class="text-brand">programación?</span>
-        </h2>
-
-        <p class="text-sm mb-10 text-muted-light">
-          Escríbenos directamente.<br />Respondemos en menos de 1 hora.
-        </p>
-
-        <WhatsAppCta src="contacto"
-          class="inline-flex items-center gap-3 font-semibold text-sm px-8 py-4 bg-brand text-black transition-opacity duration-200 hover:opacity-80"
-          iconSize={18}
-        >
-          Escribir por WhatsApp
-        </WhatsAppCta>
-      </div>
-    </section>
+    <ContactCta line1="¿Tu auto necesita" line2="programación?" src="contacto" />
   </main>
 
-  <!-- FOOTER -->
-  <footer class="px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-border">
-    <span class="font-display font-bold text-sm inline-flex items-center gap-2">
-      <img src="/favicon.svg" alt="" width="20" height="20" class="w-5 h-5" />
-      <span>Dani<span class="text-brand">Coding</span></span>
-    </span>
-    <div class="flex flex-col sm:flex-row gap-2 sm:gap-6 items-start sm:items-center">
-      <span class="label-editorial">Texcoco, Estado de México</span>
-      <span class="label-editorial text-border-light hidden sm:inline">/</span>
-      <span class="label-editorial">Lunes – Domingo · Con cita previa</span>
-    </div>
-  </footer>
-
-  <!-- WhatsApp flotante -->
-  <WhatsAppCta src="flotante"
-    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 shadow-lg transition-transform duration-200 hover:scale-110 bg-[#25d366] text-white"
-    iconSize={26}
-    ariaLabel="Contactar por WhatsApp"
-  />
 </Layout>
 
 <script>
-  // Marca JS activo: las animaciones fade-up solo se aplican con esta clase,
-  // así el contenido queda visible si el script no carga
-  document.documentElement.classList.add('js');
-
-  const header = document.querySelector<HTMLElement>('header');
-  const overlay = document.getElementById('nav-overlay');
-  const openBtn = document.getElementById('menu-open');
-  const closeBtn = document.getElementById('menu-close');
-
-  // Fondo del header al hacer scroll
-  if (header) {
-    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
-
-  // Menú overlay
-  if (header && overlay && openBtn && closeBtn) {
-    const setMenu = (open: boolean) => {
-      overlay.classList.toggle('is-open', open);
-      overlay.setAttribute('aria-hidden', String(!open));
-      openBtn.setAttribute('aria-expanded', String(open));
-      header.classList.toggle('is-hidden', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    };
-
-    openBtn.addEventListener('click', () => setMenu(true));
-    closeBtn.addEventListener('click', () => setMenu(false));
-    overlay.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => setMenu(false));
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setMenu(false);
-    });
-  }
-
-  // Animaciones de entrada
-  const fadeEls = document.querySelectorAll<HTMLElement>('.fade-up');
-  if (fadeEls.length > 0) {
-    const fadeObserver = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            fadeObserver.unobserve(entry.target);
-          }
-        }
-      },
-      { threshold: 0.15 }
-    );
-    fadeEls.forEach((el) => fadeObserver.observe(el));
-  }
-
   // Índice lateral: sección activa derivada del DOM
   const indexLinks = document.querySelectorAll<HTMLElement>('.index-item');
   if (indexLinks.length > 0) {

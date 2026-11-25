@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactCta from '../components/ContactCta.astro';
+import FaqList from '../components/FaqList.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceTable from '../components/PriceTable.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import {
+  FAQ_CARPLAY,
+  FAQ_GENERAL,
+  FAQ_REMOTE,
+  PRICING_CARPLAY,
+  PROCESS_REMOTO,
+  REMOTE_LIMITS,
+  REMOTE_REQUIREMENTS,
+  breadcrumbLd,
+  COMPAT_NOTE,
+  serviceLd,
+} from '../lib/site';
+
+const PATH = '/carplay-bmw/';
+const MSG = 'Hola, quiero activar Apple CarPlay en mi BMW. Te mando VIN corto y versión de firmware: ';
+const FAQ = [...FAQ_CARPLAY, ...FAQ_REMOTE, FAQ_GENERAL[1]];
+
+const CASES: readonly [string, string, string][] = [
+  ['NBT Evo con firmware en rango', 'Activación de CarPlay con fullscreen incluido. Se puede hacer remoto.', 'Desde $6,500'],
+  ['NBT Evo con firmware fuera de rango N–Y', 'Actualización con PSdZ Lite y activación. Se evalúa; puede requerir taller.', 'Se cotiza con tu VIN'],
+  ['Ya tiene CarPlay, pero en ventana', 'Lo pasamos a pantalla completa (fullscreen).', 'Desde $1,500'],
+];
+---
+
+<Layout
+  title="Activar Apple CarPlay en BMW NBT Evo · Fullscreen | Dani Coding"
+  description="Activamos Apple CarPlay a pantalla completa en BMW y MINI con NBT Evo, incluso con firmware fuera de rango N–Y. Desde $6,500 MXN. Taller en Texcoco, CDMX y remoto en todo México."
+  faq={FAQ}
+  ld={[breadcrumbLd('Apple CarPlay BMW', PATH), serviceLd('Activación de Apple CarPlay en BMW NBT Evo', PATH, PRICING_CARPLAY)]}
+>
+  <main>
+    <PageHero
+      kicker="Apple CarPlay BMW"
+      lead="Activamos Apple CarPlay en BMW y MINI con head unit NBT Evo, con pantalla completa (fullscreen) incluida, desde $6,500 MXN. También en firmware fuera de rango N–Y mediante actualización con PSdZ Lite, un caso que la mayoría de talleres rechaza. En nuestro taller de Texcoco, a domicilio en CDMX y Edomex, o remoto en todo México con un cable ENET."
+      message={MSG}
+      src="carplay-hero"
+      note={COMPAT_NOTE}
+      cta="Revisar compatibilidad"
+    >
+      Apple CarPlay en BMW, <span class="text-brand">a pantalla completa.</span>
+    </PageHero>
+
+    <!-- PRECIOS + COMPATIBILIDAD -->
+    <section id="precios" class="px-6 py-24 bg-surface-1">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+        <div class="fade-up">
+          <SectionLabel label="Compatibilidad" class="mb-8" />
+          <h2 class="font-display font-bold text-3xl leading-tight mb-6">
+            Antes de cobrarte, <span class="text-brand">confirmamos con tu VIN.</span>
+          </h2>
+          <p class="text-sm leading-relaxed text-muted-light mb-8">
+            Mándanos los últimos 7 caracteres del VIN y una foto de la versión de software del head unit. Con eso sabemos qué
+            caso es el tuyo:
+          </p>
+          <div class="border border-border">
+            {
+              CASES.map(([title, desc, price]) => (
+                <div class="px-6 py-5 border-b border-border last:border-b-0">
+                  <div class="flex items-start justify-between gap-4 mb-1">
+                    <h3 class="text-sm font-medium">{title}</h3>
+                    <span class="text-sm font-mono text-brand whitespace-nowrap">{price}</span>
+                  </div>
+                  <p class="text-sm text-muted-light">{desc}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div class="fade-up" data-delay="1">
+          <PriceTable
+            groups={[{ label: 'CarPlay y video · BMW / MINI', items: PRICING_CARPLAY }]}
+            src="carplay"
+            note="Precios en MXN. Se confirman con VIN y firmware antes de agendar."
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- REMOTO -->
+    <section id="remoto" class="px-6 py-24 bg-surface">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="CarPlay remoto · todo México" class="fade-up mb-6" />
+        <h2 class="fade-up font-display font-bold text-3xl leading-tight mb-12 max-w-3xl">
+          No importa en qué ciudad estés: <span class="text-brand">nos conectamos a tu laptop.</span>
+        </h2>
+        <div class="grid md:grid-cols-3 gap-px bg-border mb-px">
+          {
+            PROCESS_REMOTO.map(([title, desc], i) => (
+              <div class="fade-up p-8 bg-surface" data-delay={String(i + 1)}>
+                <span class="code-tag block mb-4">0{i + 1}</span>
+                <h3 class="font-display font-bold text-lg mb-2">{title}</h3>
+                <p class="text-sm leading-relaxed text-muted-light">{desc}</p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="grid md:grid-cols-2 gap-px bg-border">
+          <div class="fade-up p-8 bg-surface">
+            <p class="code-tag mb-6">REQUISITOS</p>
+            <ul class="space-y-3 list-none m-0 p-0">
+              {
+                REMOTE_REQUIREMENTS.map((r) => (
+                  <li class="flex items-start gap-3">
+                    <span class="text-brand font-mono text-xs shrink-0 mt-0.5">✓</span>
+                    <span class="text-sm text-muted-light">{r}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="fade-up p-8 bg-surface" data-delay="1">
+            <p class="code-tag mb-6">REQUIERE VISITA AL TALLER</p>
+            <ul class="space-y-3 list-none m-0 p-0">
+              {
+                REMOTE_LIMITS.map((l) => (
+                  <li class="flex items-start gap-3">
+                    <span class="text-muted font-mono text-xs shrink-0 mt-0.5">—</span>
+                    <span class="text-sm text-muted-light">{l}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FaqList items={FAQ} />
+
+    <section class="px-6 py-24 bg-surface">
+      <div class="max-w-5xl mx-auto">
+        <SectionLabel label="Otros servicios" class="fade-up mb-12" />
+        <ServiceCards exclude={PATH} />
+      </div>
+    </section>
+
+    <ContactCta line1="¿Tu BMW es compatible?" line2="Lo confirmamos hoy." message={MSG} src="carplay-contacto" />
+  </main>
+</Layout>

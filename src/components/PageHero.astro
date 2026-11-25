@@ -1,0 +1,35 @@
+---
+// Hero de página de servicio: kicker, H1 (slot), párrafo de respuesta directa y CTA.
+import WhatsAppCta from './WhatsAppCta.astro';
+
+interface Props {
+  kicker: string;
+  lead: string; // primer párrafo: responde qué es, cuánto cuesta y dónde
+  message: string;
+  src: string;
+  cta?: string;
+  note?: string; // texto junto al CTA (ej. compatibilidad gratis)
+}
+
+const { kicker, lead, message, src, cta = 'Cotizar por WhatsApp', note } = Astro.props;
+---
+
+<section id="hero" class="px-6 pt-36 pb-20 relative overflow-hidden bg-surface">
+  <div class="max-w-5xl mx-auto w-full relative z-10">
+    <nav class="label-editorial mb-8 flex items-center gap-3" aria-label="Ruta">
+      <a href="/" class="hover:text-white transition-colors duration-150">Inicio</a>
+      <span class="text-border-light">/</span>
+      <span class="text-muted-light">{kicker}</span>
+    </nav>
+    <h1 class="display-section font-display font-bold leading-tight tracking-tight mb-8 max-w-4xl">
+      <slot />
+    </h1>
+    <p class="text-base leading-relaxed text-muted-light mb-10 max-w-2xl">{lead}</p>
+    <div class="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
+      <WhatsAppCta src={src} message={message} class="inline-flex items-center gap-3 font-semibold text-sm px-6 py-3 bg-brand text-black transition-opacity duration-200 hover:opacity-80">
+        {cta}
+      </WhatsAppCta>
+      {note && <span class="label-editorial text-white!">✓ {note}</span>}
+    </div>
+  </div>
+</section>

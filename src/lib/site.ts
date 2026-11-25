@@ -3,9 +3,9 @@
 export const SITE = {
   name: 'Dani Coding',
   url: 'https://www.dani-coding.com',
-  title: 'Dani Coding — Inspección Precompra BMW y MINI · Codificación BMW y VAG | CDMX',
+  title: 'Dani Coding — Inspección Precompra, CarPlay y Codificación BMW, MINI y VAG | CDMX',
   description:
-    'Inspección precompra especializada en BMW y MINI con software de agencia (ISTA): todos los módulos, kilometraje cruzado, equipamiento de fábrica y veredicto claro. Además codificación y funciones ocultas BMW y VAG, remoto en todo México.',
+    'Especialistas BMW y MINI con software de agencia: inspección precompra, Apple CarPlay en NBT Evo y codificación de funciones ocultas. También Grupo VAG. CDMX, Edomex y remoto en todo México.',
   phone: '+525542868902',
 } as const;
 
@@ -18,33 +18,52 @@ export const waUrl = (message: string, src: string) =>
 
 Ref: web-${src}`)}`;
 
-export interface Service {
+export interface ServicePage {
   code: string;
-  brand: string;
-  models: string;
-  software: string;
+  href: string;
+  title: string;
+  kicker: string;
   description: string;
   tags: readonly string[];
 }
 
-export const SERVICES: readonly Service[] = [
+// Una página por intención de búsqueda. La home las enlaza todas.
+export const SERVICE_PAGES: readonly ServicePage[] = [
   {
-    code: 'BMW·001',
-    brand: 'BMW',
-    models: 'F-series · NBT Evo',
-    software: 'ISTA-D · E-SYS',
+    code: 'PC·001',
+    href: '/inspeccion-precompra-bmw-mini/',
+    title: 'Inspección precompra BMW y MINI',
+    kicker: 'ISTA · todos los módulos',
     description:
-      'Coding y diagnóstico para BMW F-series y Mini. CarPlay en NBT Evo — incluyendo firmware fuera de rango N–Y vía PSdZ Lite (servicio que la mayoría de talleres rechaza). Funciones ocultas, FDL coding y retrofits.',
-    tags: ['CarPlay NBT Evo', 'FDL Coding', 'ISTA Diagnóstico', 'Funciones ocultas'],
+      'Antes de comprar un BMW o MINI usado: escaneo de agencia de todos los módulos, cruce de kilometraje, equipamiento de fábrica por VIN y veredicto claro.',
+    tags: ['Kilometraje alterado', 'Historial de choques', 'Batería alto voltaje', 'Desde $3,500'],
   },
   {
-    code: 'VAG·002',
-    brand: 'Grupo VAG',
-    models: 'Volkswagen · Audi · Seat · Skoda',
-    software: 'ODIS Engineering',
+    code: 'CP·002',
+    href: '/carplay-bmw/',
+    title: 'Apple CarPlay BMW',
+    kicker: 'NBT Evo · fullscreen',
     description:
-      'Diagnóstico, codificación, adaptaciones y programación de módulos con el mismo software que usa la red oficial de concesionarios VAG.',
-    tags: ['Codificación', 'Adaptaciones', 'Flash ECU', 'Activación de funciones'],
+      'CarPlay a pantalla completa en BMW y MINI con NBT Evo — incluso con firmware fuera de rango N–Y vía PSdZ Lite, el caso que la mayoría de talleres rechaza.',
+    tags: ['Fullscreen', 'Video in Motion', 'Firmware fuera de rango', 'Remoto'],
+  },
+  {
+    code: 'BMW·003',
+    href: '/codificacion-bmw/',
+    title: 'Codificación BMW y MINI',
+    kicker: 'ISTA-D · E-Sys',
+    description:
+      'Funciones ocultas, paquete FDL, retrofits y diagnóstico ISTA para BMW F-series y MINI. En taller, a domicilio o remoto.',
+    tags: ['FDL coding', 'Retrofits', 'Diagnóstico ISTA', 'Funciones ocultas'],
+  },
+  {
+    code: 'VAG·004',
+    href: '/codificacion-vag/',
+    title: 'Codificación VW, Audi, Seat y Skoda',
+    kicker: 'ODIS · VCDS',
+    description:
+      'Funciones ocultas, CarPlay / Android Auto en MIB2+, Virtual Cockpit y adaptaciones con el software de la red oficial de concesionarios VAG.',
+    tags: ['Funciones ocultas', 'CarPlay MIB2', 'Virtual Cockpit', 'Adaptaciones'],
   },
 ] as const;
 
@@ -56,13 +75,13 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: readonly NavItem[] = [
-  { code: '000-00', label: 'INICIO', href: '#hero' },
-  { code: '001-00', label: 'SERVICIOS', href: '#servicios' },
-  { code: '001B-00', label: 'PRECOMPRA BMW / MINI', href: '#precompra' },
-  { code: '002-00', label: 'PRECIOS', href: '#precios' },
-  { code: '003-00', label: 'PROCESO', href: '#proceso' },
-  { code: '004-00', label: 'PREGUNTAS FRECUENTES', href: '#faq' },
-  { code: '005-00', label: 'CONTACTO', href: '#contacto' },
+  { code: '000-00', label: 'INICIO', href: '/' },
+  { code: '001-00', label: 'PRECOMPRA BMW / MINI', href: '/inspeccion-precompra-bmw-mini/' },
+  { code: '002-00', label: 'CARPLAY BMW', href: '/carplay-bmw/' },
+  { code: '003-00', label: 'CODIFICACIÓN BMW', href: '/codificacion-bmw/' },
+  { code: '004-00', label: 'CODIFICACIÓN VAG', href: '/codificacion-vag/' },
+  { code: '005-00', label: 'PRECIOS', href: '/#precios' },
+  { code: '006-00', label: 'CONTACTO', href: '#contacto' },
 ] as const;
 
 export interface IndexItem {
@@ -74,7 +93,6 @@ export interface IndexItem {
 export const INDEX_ITEMS: readonly IndexItem[] = [
   { code: '000-00', label: 'INICIO', section: 'hero' },
   { code: '001-00', label: 'SERVICIOS', section: 'servicios' },
-  { code: '001B-00', label: 'PRECOMPRA', section: 'precompra' },
   { code: '001C-00', label: 'PRECIOS', section: 'precios' },
   { code: '002-00', label: 'GALERÍA', section: 'galeria' },
   { code: '003-00', label: 'PROCESO', section: 'proceso' },
@@ -188,6 +206,11 @@ export const PRICING_BMW: readonly PricingItem[] = [
   { service: 'Retrofit / integración (módulos no reconocidos o multi-módulo · diagnóstico incluido)', range: 'Desde $4,500', tier: 2, wa: 'Hola, tengo un retrofit en mi BMW que no quedó funcionando (módulo no reconocido o varios módulos). Quiero cotizar la integración.' },
 ] as const;
 
+// Filas de BMW que van en /carplay-bmw/ (el resto va en /codificacion-bmw/)
+const isCarplay = (i: PricingItem) => /CarPlay|Video in Motion/.test(i.service);
+export const PRICING_CARPLAY = PRICING_BMW.filter(isCarplay);
+export const PRICING_BMW_CODING = PRICING_BMW.filter((i) => !isCarplay(i));
+
 export const PRICING_VAG: readonly PricingItem[] = [
   { service: 'Toggle / adaptación individual',          range: '$400',       tier: 1,    wa: 'Hola, quiero cotizar una adaptación/toggle en mi VAG.' },
   { service: 'Video in Motion / menús ocultos',         range: '$450',       tier: 1,    wa: 'Hola, quiero activar Video in Motion o menús ocultos en mi VAG.' },
@@ -222,8 +245,68 @@ export interface FaqItem {
   a: string;
 }
 
-// Objeciones reales de coding BMW/VAG. Edítalas con tu voz — son un punto de partida honesto.
-export const FAQ_ITEMS: readonly FaqItem[] = [
+// Objeciones reales. Cada página arma su lista (y su schema FAQPage) con estos bloques.
+export const FAQ_GENERAL: readonly FaqItem[] = [
+  {
+    q: '¿La codificación puede dañar mi auto o dejarlo inservible?',
+    a: 'No. Trabajamos con el software oficial de fábrica (ISTA, E-Sys, ODIS, VCDS) y todo cambio es reversible. Leemos y verificamos los fault codes antes y después de cada sesión. Llevamos 50+ vehículos sin un solo incidente.',
+  },
+  {
+    q: '¿Pierdo la garantía de agencia?',
+    a: 'La activación de funciones ocultas usa parámetros que el propio vehículo ya soporta de fábrica; no se modifica hardware. Como todo es reversible, puedes dejar el auto en configuración original antes de una visita a la agencia si lo necesitas.',
+  },
+  {
+    q: '¿Cómo cotizo y cuánto tarda?',
+    a: 'Escríbenos por WhatsApp con el modelo, año y lo que buscas activar; confirmamos precio y compatibilidad. La mayoría de los trabajos de coding se resuelven en una sola sesión.',
+  },
+] as const;
+
+export const FAQ_REMOTE: readonly FaqItem[] = [
+  {
+    q: '¿El servicio remoto funciona de verdad?',
+    a: 'Sí. Con un cable ENET conectado al puerto OBD y acceso por AnyDesk/TeamViewer, tomamos el control y codificamos en vivo mientras tú observas — terminado en la misma sesión. El flasheo completo de módulos y algunos casos fuera de rango sí requieren visita al taller.',
+  },
+  {
+    q: '¿Qué necesito para una sesión remota?',
+    a: 'Cable ENET (te lo recomendamos o facilitamos), una laptop con Windows e internet estable, un cargador/mantenedor de batería conectado durante la sesión, y el vehículo cerca de la laptop con acceso al puerto OBD.',
+  },
+] as const;
+
+export const FAQ_CARPLAY: readonly FaqItem[] = [
+  {
+    q: '¿Cuánto cuesta activar CarPlay en un BMW?',
+    a: 'Apple CarPlay en NBT Evo cuesta desde $6,500 MXN con pantalla completa (fullscreen) incluida. Si tu BMW ya tiene CarPlay y solo quieres fullscreen, desde $1,500 MXN. El precio final depende del firmware y de si hace falta licencia o actualización; lo confirmamos con tu VIN antes de agendar.',
+  },
+  {
+    q: '¿Pueden activar CarPlay en mi BMW aunque el firmware esté fuera de rango?',
+    a: 'Sí. En NBT Evo hacemos CarPlay incluso con firmware fuera de rango N–Y vía actualización con PSdZ Lite — un servicio que la mayoría de talleres rechaza. Nos envías el VIN corto y la versión de firmware del head unit y confirmamos compatibilidad antes de agendar.',
+  },
+  {
+    q: '¿Cómo sé si mi BMW es compatible con CarPlay?',
+    a: 'Envíanos por WhatsApp los últimos 7 caracteres del VIN y una foto de la versión de software del head unit. Con eso confirmamos si tiene NBT Evo, qué firmware trae y qué hace falta, antes de cobrarte nada.',
+  },
+] as const;
+
+export const FAQ_VAG: readonly FaqItem[] = [
+  {
+    q: '¿Qué marcas y modelos del Grupo VAG codifican?',
+    a: 'Volkswagen, Audi, Seat y Skoda. Usamos ODIS Engineering (el software de la red oficial de concesionarios) y VCDS. Para CarPlay / Android Auto, el auto debe tener head unit MIB2 o posterior.',
+  },
+  {
+    q: '¿Cuánto cuesta activar funciones ocultas en un VW o Audi?',
+    a: 'Una adaptación individual cuesta $400 MXN y el paquete de funciones ocultas (Sport display, ambient, coming/leaving home y más) $700 MXN. CarPlay / Android Auto en MIB2+ desde $2,000 MXN.',
+  },
+] as const;
+
+export const FAQ_PRECOMPRA: readonly FaqItem[] = [
+  {
+    q: '¿Cuánto cuesta una inspección precompra de BMW o MINI?',
+    a: 'Precio fijo, sin extras: $3,500 MXN en nuestro taller de Texcoco, $4,500 MXN en el lote o agencia (CDMX y Edomex, traslado incluido) y $6,000 MXN para híbridos y eléctricos (PHEV / EV) en sitio. Para lotes y agencias con varios autos hay precio especial.',
+  },
+  {
+    q: '¿Qué detecta que no detecte una revisión mecánica normal?',
+    a: 'Un escáner genérico lee sobre todo el motor. Con ISTA, el software de agencia BMW, leemos todos los módulos y el kilometraje en que ocurrió cada falla, cruzamos el kilometraje guardado en varios módulos contra el tablero, comparamos el equipamiento real contra el de fábrica por VIN y revisamos el historial de choques del módulo de airbag. Además hacemos la revisión física.',
+  },
   {
     q: '¿La inspección precompra modifica algo del coche?',
     a: 'No. Es solo lectura: no se borra ni se modifica nada en ningún módulo. El coche queda exactamente como lo encontramos.',
@@ -237,34 +320,48 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
     a: 'Se cobra el traslado y se entrega una inspección incompleta: revisión visual, fotos y equipamiento de fábrica por VIN. Si un vendedor no deja escanear el coche, eso ya es información.',
   },
   {
+    q: '¿En qué zonas dan el servicio?',
+    a: 'En nuestro taller en Texcoco, Estado de México, o en el lote, agencia o domicilio del vendedor en CDMX y Estado de México, con el traslado incluido en el precio.',
+  },
+  {
     q: '¿Hacen precompra de otras marcas?',
     a: 'No. Solo BMW y MINI — es donde tenemos el software de agencia y el criterio para leer lo que el coche no dice a simple vista.',
   },
-  {
-    q: '¿La codificación puede dañar mi auto o dejarlo inservible?',
-    a: 'No. Trabajamos con el software oficial de fábrica (ISTA, E-Sys, ODIS, VCDS) y todo cambio es reversible. Leemos y verificamos los fault codes antes y después de cada sesión. Llevamos 50+ vehículos sin un solo incidente.',
-  },
-  {
-    q: '¿Pierdo la garantía de agencia?',
-    a: 'La activación de funciones ocultas usa parámetros que el propio vehículo ya soporta de fábrica; no se modifica hardware. Como todo es reversible, puedes dejar el auto en configuración original antes de una visita a la agencia si lo necesitas.',
-  },
-  {
-    q: '¿El servicio remoto funciona de verdad?',
-    a: 'Sí. Con un cable ENET conectado al puerto OBD y acceso por AnyDesk/TeamViewer, tomamos el control y codificamos en vivo mientras tú observas — terminado en la misma sesión. El flasheo completo de módulos y algunos casos fuera de rango sí requieren visita al taller.',
-  },
-  {
-    q: '¿Qué necesito para una sesión remota?',
-    a: 'Cable ENET (te lo recomendamos o facilitamos), una laptop con Windows e internet estable, un cargador/mantenedor de batería conectado durante la sesión, y el vehículo cerca de la laptop con acceso al puerto OBD.',
-  },
-  {
-    q: '¿Pueden activar CarPlay en mi BMW aunque el firmware esté fuera de rango?',
-    a: 'Sí. En NBT Evo hacemos CarPlay incluso con firmware fuera de rango N–Y vía actualización con PSdZ Lite — un servicio que la mayoría de talleres rechaza. Nos envías el VIN corto y la versión de firmware del head unit y confirmamos compatibilidad antes de agendar.',
-  },
-  {
-    q: '¿Cómo cotizo y cuánto tarda?',
-    a: 'Escríbenos por WhatsApp con el modelo, año y lo que buscas activar; confirmamos precio y compatibilidad. La mayoría de los trabajos de coding se resuelven en una sola sesión.',
-  },
 ] as const;
+
+export const COMPAT_NOTE = 'Revisión de compatibilidad gratis antes de pagar';
+
+// Schema.org BreadcrumbList: Google muestra "dani-coding.com › <página>" en vez de la URL
+export const breadcrumbLd = (name: string, path: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${SITE.url}/` },
+    { '@type': 'ListItem', position: 2, name, item: new URL(path, SITE.url).href },
+  ],
+});
+
+// Schema.org Service + Offer por página (precio numérico solo si la fila lo tiene)
+export const serviceLd = (name: string, path: string, items: readonly PricingItem[]) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name,
+  url: new URL(path, SITE.url).href,
+  provider: { '@id': `${SITE.url}/#business` },
+  areaServed: ['Ciudad de México', 'Estado de México', 'México'],
+  offers: items.map((i) => {
+    const n = i.range.replace(/[^\d]/g, '');
+    const offer: Record<string, unknown> = { '@type': 'Offer', name: i.service, priceCurrency: 'MXN' };
+    if (n) {
+      offer.priceSpecification = {
+        '@type': 'PriceSpecification',
+        priceCurrency: 'MXN',
+        [i.range.startsWith('Desde') ? 'minPrice' : 'price']: Number(n),
+      };
+    }
+    return offer;
+  }),
+});
 
 export interface FeaturedService {
   title: string;
